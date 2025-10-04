@@ -1,4 +1,4 @@
-name: Java CI (plain javac)
+name: Java CI (Maven)
 
 on:
   push:
@@ -8,47 +8,49 @@ on:
 
 jobs:
   build:
+    name: Build, Test, and Package
     runs-on: ubuntu-latest
-    env:
-      MAIN_CLASS: com.zetcode.Minesweeper
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      # ───────────────────────────────
+      # 1️⃣ ดึงซอร์สโค้ดจาก repo
+      # ───────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ───────────────────────────────
+      # 2️⃣ ติดตั้ง JDK
+      # ───────────────────────────────
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
+          cache: maven
 
-      - name: Compile -> out/
-        run: |
-          mkdir -p out
-          javac -encoding UTF-8 -d out $(find src -name "*.java")
+      # ───────────────────────────────
+      # 3️⃣ Build + Run Tests
+      # ───────────────────────────────
+      - name: Build and run tests
+        run: mvn -B clean verify
 
-      - name: Bundle resources (optional)
-        run: |
-          if [ -d "src/resources" ]; then
-            cp -R src/resources/* out/
-          fi
-          if [ -f "minesweeper.png" ]; then
-            cp minesweeper.png out/
-          fi
+      # ───────────────────────────────
+      # 4️⃣ แพ็กเป็น JAR พร้อม Manifest
+      # ───────────────────────────────
+      - name: Package application
+        run: mvn -B package
 
-      - name: Create manifest
-        run: |
-          echo "Main-Class: $MAIN_CLASS" > manifest.mf
-          echo "" >> manifest.mf
+      # ───────────────────────────────
+      # 5️⃣ แสดงผล jar ที่สร้างขึ้น
+      # ───────────────────────────────
+      - name: Show built artifacts
+        run: ls -R target
 
-      - name: Package JAR
-        run: |
-          mkdir -p dist
-          jar cfm dist/minesweeper.jar manifest.mf -C out .
-
-      - name: Smoke run (ignore GUI fail)
-        run: |
-          java -jar dist/minesweeper.jar || true
-
-      - name: Upload artifact
+      # ───────────────────────────────
+      # 6️⃣ Upload JAR เป็น artifact
+      # ───────────────────────────────
+      - name: Upload packaged JAR
         uses: actions/upload-artifact@v4
         with:
-          name: minesweeper-jar
-          path: dist/minesweeper.jar
+          name: java-minesweeper
+          path: target/*.jar

@@ -1,0 +1,54 @@
+name: Java CI (plain javac)
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MAIN_CLASS: com.zetcode.Minesweeper
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Compile -> out/
+        run: |
+          mkdir -p out
+          javac -encoding UTF-8 -d out $(find src -name "*.java")
+
+      - name: Bundle resources (optional)
+        run: |
+          if [ -d "src/resources" ]; then
+            cp -R src/resources/* out/
+          fi
+          if [ -f "minesweeper.png" ]; then
+            cp minesweeper.png out/
+          fi
+
+      - name: Create manifest
+        run: |
+          echo "Main-Class: $MAIN_CLASS" > manifest.mf
+          echo "" >> manifest.mf
+
+      - name: Package JAR
+        run: |
+          mkdir -p dist
+          jar cfm dist/minesweeper.jar manifest.mf -C out .
+
+      - name: Smoke run (ignore GUI fail)
+        run: |
+          java -jar dist/minesweeper.jar || true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: minesweeper-jar
+          path: dist/minesweeper.jar

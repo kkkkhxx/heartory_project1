@@ -8,11 +8,15 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static javax.swing.SwingUtilities.invokeAndWait;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 public class MinesweeperInitUITest {
 
     @Test
     void initUI_buildsCompleteUI_and_packedByEffect() throws Exception {
+        // วิธี test: ข้ามถ้าเป็นสภาพแวดล้อม headless (เช่น CI ที่ไม่มีจอแสดงผล)
+        assumeFalse(GraphicsEnvironment.isHeadless(), "Headless environment – skip UI test");
+
         invokeAndWait(() -> {
             // วิธี test: สร้างกรอบเกม (เรียก initUI ในคอนสตรัคเตอร์)
             Minesweeper frame = new Minesweeper();
@@ -39,7 +43,6 @@ public class MinesweeperInitUITest {
             // หลัง pack แล้ว ขนาด contentPane ควรเท่ากับ preferredSize ของมัน
             Dimension pref = frame.getContentPane().getPreferredSize();
             Dimension actual = frame.getContentPane().getSize();
-            // บาง LAF อาจดีเลย์เล็กน้อย จึงขอ validate อีกรอบ
             frame.validate();
             actual = frame.getContentPane().getSize();
 

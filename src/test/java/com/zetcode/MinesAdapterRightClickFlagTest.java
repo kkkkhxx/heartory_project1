@@ -226,7 +226,7 @@ public class MinesAdapterRightClickFlagTest {
                 "คลิกซ้ายบนช่องปิด (10) ต้องถูกเปิด ลดด้วย COVER_FOR_CELL กลายเป็น EMPTY_CELL (0)");
     }
 
-    // ----- 8) คลิกซ้ายหลังรีสตาร์ตเกมแล้ว ยังต้องทำงานปกติ -----
+    // ----- 8) คลิกซ้ายหลังรีสตาร์ตเกมแล้ว ยังคงทำงานปกติ -----
     @Test
     void leftClick_afterRestart_shouldStillWorkNormally() throws Exception {
         setField(board, "inGame", false);

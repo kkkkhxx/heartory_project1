@@ -1,3 +1,7 @@
+/* Copyright (C) 2025 Lipika Kanlayarit - All Rights Reserved
+ * You may use, distribute and modify this code under the terms of the MIT license.
+ */
+
 package com.zetcode;
 
 import org.junit.jupiter.api.BeforeEach;

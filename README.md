@@ -9,7 +9,7 @@ https://zetcode.com/javagames/minesweeper/
 
 
 
-### Test Suite 1: BoardConstructorTest
+### Test Suite : BoardConstructorTest
 
 **จุดประสงค์:**  
 เพื่อทดสอบการทำงานของ constructor ของคลาส Board ซึ่งทำหน้าที่กำหนดค่าเริ่มต้นของเกม Minesweeper
@@ -95,7 +95,7 @@ https://zetcode.com/javagames/minesweeper/
 
 ---
 
-### Test Suite 6: PaintComponentTest
+### Test Suite : PaintComponentTest
 **จุดประสงค์:**  
 เพื่อทดสอบการทำงานของ **`paintComponent(Graphics g)`**  
 ซึ่งรับผิดชอบในการวาด cell, ตรวจการชนะ/แพ้ของเกม และอัปเดตข้อความใน `statusbar`  
@@ -171,4 +171,4 @@ https://zetcode.com/javagames/minesweeper/
 ใช้ Graphics จำลอง (interface) ตรวจข้อความใน statusbar (functionality) 
 เซ็ตค่า field[] ด้วย reflection เพื่อกระตุ้น logic ภายใน (functionality) 
 
----
+---gi

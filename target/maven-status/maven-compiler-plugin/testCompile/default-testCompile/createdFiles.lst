@@ -1,0 +1,11 @@
+com\zetcode\AllTestsSuite.class
+com\zetcode\MinesAdapterWinPathTest.class
+com\zetcode\MinesAdapterLosePathTest.class
+com\zetcode\PaintComponentTest.class
+com\zetcode\BoardInitTest.class
+com\zetcode\ComputeAdjacencyTest.class
+com\zetcode\BoardConstructorTest.class
+com\zetcode\BoardNewGameTest.class
+com\zetcode\FindEmptyCellsTest.class
+com\zetcode\MinesweeperInitUITest.class
+com\zetcode\MinesAdapterRightClickFlagTest.class

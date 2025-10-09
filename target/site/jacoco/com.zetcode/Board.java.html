@@ -312,63 +312,63 @@ public class Board extends JPanel {
 
 <span class="fc" id="L313">            boolean doRepaint = false;</span>
 
-<span class="pc bpc" id="L315" title="1 of 2 branches missed.">            if (!inGame) {</span>
+<span class="fc bfc" id="L315" title="All 2 branches covered.">            if (!inGame) {</span>
 
-<span class="nc" id="L317">                newGame();</span>
-<span class="nc" id="L318">                repaint();</span>
+<span class="fc" id="L317">                newGame();</span>
+<span class="fc" id="L318">                repaint();</span>
             }
 
-<span class="pc bpc" id="L321" title="2 of 4 branches missed.">            if ((x &lt; N_COLS * CELL_SIZE) &amp;&amp; (y &lt; N_ROWS * CELL_SIZE)) {</span>
+<span class="pc bpc" id="L321" title="1 of 4 branches missed.">            if ((x &lt; N_COLS * CELL_SIZE) &amp;&amp; (y &lt; N_ROWS * CELL_SIZE)) {</span>
 
-<span class="pc bpc" id="L323" title="1 of 2 branches missed.">                if (e.getButton() == MouseEvent.BUTTON3) {</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">                if (e.getButton() == MouseEvent.BUTTON3) {</span>
 
-<span class="nc bnc" id="L325" title="All 2 branches missed.">                    if (field[(cRow * N_COLS) + cCol] &gt; MINE_CELL) {</span>
+<span class="fc bfc" id="L325" title="All 2 branches covered.">                    if (field[(cRow * N_COLS) + cCol] &gt; MINE_CELL) {</span>
 
-<span class="nc" id="L327">                        doRepaint = true;</span>
+<span class="fc" id="L327">                        doRepaint = true;</span>
 
-<span class="nc bnc" id="L329" title="All 2 branches missed.">                        if (field[(cRow * N_COLS) + cCol] &lt;= COVERED_MINE_CELL) {</span>
+<span class="fc bfc" id="L329" title="All 2 branches covered.">                        if (field[(cRow * N_COLS) + cCol] &lt;= COVERED_MINE_CELL) {</span>
 
-<span class="nc bnc" id="L331" title="All 2 branches missed.">                            if (minesLeft &gt; 0) {</span>
-<span class="nc" id="L332">                                field[(cRow * N_COLS) + cCol] += MARK_FOR_CELL;</span>
-<span class="nc" id="L333">                                minesLeft--;</span>
-<span class="nc" id="L334">                                String msg = Integer.toString(minesLeft);</span>
-<span class="nc" id="L335">                                statusbar.setText(msg);</span>
-<span class="nc" id="L336">                            } else {</span>
-<span class="nc" id="L337">                                statusbar.setText(&quot;No marks left&quot;);</span>
+<span class="fc bfc" id="L331" title="All 2 branches covered.">                            if (minesLeft &gt; 0) {</span>
+<span class="fc" id="L332">                                field[(cRow * N_COLS) + cCol] += MARK_FOR_CELL;</span>
+<span class="fc" id="L333">                                minesLeft--;</span>
+<span class="fc" id="L334">                                String msg = Integer.toString(minesLeft);</span>
+<span class="fc" id="L335">                                statusbar.setText(msg);</span>
+<span class="fc" id="L336">                            } else {</span>
+<span class="fc" id="L337">                                statusbar.setText(&quot;No marks left&quot;);</span>
                             }
                         } else {
 
-<span class="nc" id="L341">                            field[(cRow * N_COLS) + cCol] -= MARK_FOR_CELL;</span>
-<span class="nc" id="L342">                            minesLeft++;</span>
-<span class="nc" id="L343">                            String msg = Integer.toString(minesLeft);</span>
-<span class="nc" id="L344">                            statusbar.setText(msg);</span>
-<span class="nc" id="L345">                        }</span>
+<span class="fc" id="L341">                            field[(cRow * N_COLS) + cCol] -= MARK_FOR_CELL;</span>
+<span class="fc" id="L342">                            minesLeft++;</span>
+<span class="fc" id="L343">                            String msg = Integer.toString(minesLeft);</span>
+<span class="fc" id="L344">                            statusbar.setText(msg);</span>
+<span class="fc" id="L345">                        }</span>
                     }
 
                 } else {
 
-<span class="pc bpc" id="L350" title="1 of 2 branches missed.">                    if (field[(cRow * N_COLS) + cCol] &gt; COVERED_MINE_CELL) {</span>
+<span class="fc bfc" id="L350" title="All 2 branches covered.">                    if (field[(cRow * N_COLS) + cCol] &gt; COVERED_MINE_CELL) {</span>
 
-<span class="nc" id="L352">                        return;</span>
+<span class="fc" id="L352">                        return;</span>
                     }
 
-<span class="pc bpc" id="L355" title="2 of 4 branches missed.">                    if ((field[(cRow * N_COLS) + cCol] &gt; MINE_CELL)</span>
+<span class="pc bpc" id="L355" title="1 of 4 branches missed.">                    if ((field[(cRow * N_COLS) + cCol] &gt; MINE_CELL)</span>
                             &amp;&amp; (field[(cRow * N_COLS) + cCol] &lt; MARKED_MINE_CELL)) {
 
 <span class="fc" id="L358">                        field[(cRow * N_COLS) + cCol] -= COVER_FOR_CELL;</span>
 <span class="fc" id="L359">                        doRepaint = true;</span>
 
-<span class="pc bpc" id="L361" title="1 of 2 branches missed.">                        if (field[(cRow * N_COLS) + cCol] == MINE_CELL) {</span>
+<span class="fc bfc" id="L361" title="All 2 branches covered.">                        if (field[(cRow * N_COLS) + cCol] == MINE_CELL) {</span>
 <span class="fc" id="L362">                            inGame = false;</span>
                         }
 
-<span class="pc bpc" id="L365" title="1 of 2 branches missed.">                        if (field[(cRow * N_COLS) + cCol] == EMPTY_CELL) {</span>
-<span class="nc" id="L366">                            find_empty_cells((cRow * N_COLS) + cCol);</span>
+<span class="fc bfc" id="L365" title="All 2 branches covered.">                        if (field[(cRow * N_COLS) + cCol] == EMPTY_CELL) {</span>
+<span class="fc" id="L366">                            find_empty_cells((cRow * N_COLS) + cCol);</span>
                         }
                     }
                 }
 
-<span class="pc bpc" id="L371" title="1 of 2 branches missed.">                if (doRepaint) {</span>
+<span class="fc bfc" id="L371" title="All 2 branches covered.">                if (doRepaint) {</span>
 <span class="fc" id="L372">                    repaint();</span>
                 }
             }

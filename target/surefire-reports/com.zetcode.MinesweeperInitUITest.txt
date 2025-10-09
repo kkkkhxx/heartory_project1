@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: com.zetcode.BoardInitTest
+Test set: com.zetcode.MinesweeperInitUITest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s -- in com.zetcode.BoardInitTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.639 s -- in com.zetcode.MinesweeperInitUITest

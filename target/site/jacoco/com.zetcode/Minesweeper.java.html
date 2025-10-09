@@ -16,25 +16,25 @@ public class Minesweeper extends JFrame {
 
     private JLabel statusbar;
 
-<span class="nc" id="L19">    public Minesweeper() {</span>
+<span class="fc" id="L19">    public Minesweeper() {</span>
 
-<span class="nc" id="L21">        initUI();</span>
-<span class="nc" id="L22">    }</span>
+<span class="fc" id="L21">        initUI();</span>
+<span class="fc" id="L22">    }</span>
 
     private void initUI() {
 
-<span class="nc" id="L26">        statusbar = new JLabel(&quot;&quot;);</span>
-<span class="nc" id="L27">        add(statusbar, BorderLayout.SOUTH);</span>
+<span class="fc" id="L26">        statusbar = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L27">        add(statusbar, BorderLayout.SOUTH);</span>
 
-<span class="nc" id="L29">        add(new com.zetcode.Board(statusbar));</span>
+<span class="fc" id="L29">        add(new com.zetcode.Board(statusbar));</span>
 
-<span class="nc" id="L31">        setResizable(false);</span>
-<span class="nc" id="L32">        pack();</span>
+<span class="fc" id="L31">        setResizable(false);</span>
+<span class="fc" id="L32">        pack();</span>
 
-<span class="nc" id="L34">        setTitle(&quot;Minesweeper&quot;);</span>
-<span class="nc" id="L35">        setLocationRelativeTo(null);</span>
-<span class="nc" id="L36">        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
-<span class="nc" id="L37">    }</span>
+<span class="fc" id="L34">        setTitle(&quot;Minesweeper&quot;);</span>
+<span class="fc" id="L35">        setLocationRelativeTo(null);</span>
+<span class="fc" id="L36">        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L37">    }</span>
 
     public static void main(String[] args) {
 

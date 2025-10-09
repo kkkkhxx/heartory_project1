@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.zetcode.FindEmptyCellsTest" time="0.01" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.zetcode.MinesAdapterRightClickFlagTest" time="0.007" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="24"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -59,10 +59,12 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="68.0"/>
   </properties>
-  <testcase name="top_boundary_false_up_center" classname="com.zetcode.FindEmptyCellsTest" time="0.004"/>
-  <testcase name="center_mixed_neighbors_cover_all_inner_paths" classname="com.zetcode.FindEmptyCellsTest" time="0.001"/>
-  <testcase name="corners_boundaries_false_compact" classname="com.zetcode.FindEmptyCellsTest" time="0.0"/>
-  <testcase name="rightmost_disables_right_group" classname="com.zetcode.FindEmptyCellsTest" time="0.001"/>
-  <testcase name="leftmost_disables_left_group" classname="com.zetcode.FindEmptyCellsTest" time="0.0"/>
-  <testcase name="bottom_boundary_false_down_center" classname="com.zetcode.FindEmptyCellsTest" time="0.0"/>
+  <testcase name="rightClick_onOpenedCell_shouldDoNothing" classname="com.zetcode.MinesAdapterRightClickFlagTest" time="0.001"/>
+  <testcase name="leftClick_onCoveredCell_shouldUncoverToEmpty" classname="com.zetcode.MinesAdapterRightClickFlagTest" time="0.001"/>
+  <testcase name="leftClick_onMarkedCell_shouldReturnEarly" classname="com.zetcode.MinesAdapterRightClickFlagTest" time="0.001"/>
+  <testcase name="rightClick_withNoMarksLeft_shouldShowMessage" classname="com.zetcode.MinesAdapterRightClickFlagTest" time="0.001"/>
+  <testcase name="leftClick_whenGameOver_shouldRestartNewGame" classname="com.zetcode.MinesAdapterRightClickFlagTest" time="0.0"/>
+  <testcase name="rightClick_toggleFlag_shouldUpdateCellAndMinesLeftAndStatusbar" classname="com.zetcode.MinesAdapterRightClickFlagTest" time="0.0"/>
+  <testcase name="leftClick_afterRestart_shouldStillWorkNormally" classname="com.zetcode.MinesAdapterRightClickFlagTest" time="0.001"/>
+  <testcase name="click_outsideBoard_shouldDoNothing" classname="com.zetcode.MinesAdapterRightClickFlagTest" time="0.001"/>
 </testsuite>

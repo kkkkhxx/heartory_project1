@@ -171,4 +171,3 @@ https://zetcode.com/javagames/minesweeper/
 ใช้ Graphics จำลอง (interface) ตรวจข้อความใน statusbar (functionality) 
 เซ็ตค่า field[] ด้วย reflection เพื่อกระตุ้น logic ภายใน (functionality) 
 
----gi

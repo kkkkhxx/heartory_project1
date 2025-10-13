@@ -402,11 +402,12 @@ https://zetcode.com/javagames/minesweeper/
 | P6        | 3×3; `mines.length=7`          | โยน `IllegalArgumentException`              |
 | P7        | 3×3; all mines=true            | ทุกค่าเป็น −1                               |
 
-**การตรวจสอบการใช้ค่าทั้งหมดในโค้ด JUnit**
+**การตรวจสอบการใช้ค่าทั้งหมดในโค้ด JUnit**  
 ชุด P1–P7 ครอบคลุมทุก partition ทั้งค่าปกติและค่าผิดพลาด
 
-**การผสม Interface-based และ Functionality-based**
+**การผสม Interface-based และ Functionality-based**  
 ผสาน “ขนาดและความยาวอาร์เรย์” (interface) กับ “ตำแหน่ง/รูปแบบเหมือง” (functionality) เพื่อเห็นผลกระทบร่วมกันแบบคู่ ๆ
+
 
 ---
 
@@ -476,11 +477,12 @@ https://zetcode.com/javagames/minesweeper/
 | B4        | เฟรมจำลองไม่เรียก `pack()`                                                                       | size ไม่เท่ากับ `preferredSize` |
 | B5        | เรียกจาก non-EDT หรือ headless                                                                   | skip/fail                       |
 
-**การตรวจสอบการใช้ค่าทั้งหมดในโค้ด JUnit**
+**การตรวจสอบการใช้ค่าทั้งหมดในโค้ด JUnit**  
 B0 ตรวจครบองค์ประกอบ; B1–B5 ปรับทีละจุดเพื่อยืนยันข้อกำหนดของ `initUI()` ตาม BCC
 
-**การผสม Interface-based และ Functionality-based**
+**การผสม Interface-based และ Functionality-based**  
 ตรวจโครงสร้างคอมโพเนนต์ (interface) ร่วมกับคุณสมบัติและพฤติกรรมของเฟรม (`isResizable`, `pack`, เธรด) ที่เป็น functionality
+
 
 ---
 

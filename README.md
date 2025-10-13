@@ -335,7 +335,155 @@ https://zetcode.com/javagames/minesweeper/
 **การผสม Interface-based และ Functionality-based Characteristics**  
 การทดสอบชุดนี้ผสมทั้งมุมมองผู้ใช้ (ปุ่มคลิก, ตำแหน่งที่คลิก, ชนิดช่อง) กับพฤติกรรมภายใน (สถานะเกม, การเปลี่ยนค่า `field[]`) เพื่อยืนยันเส้นทางแพ้และกรณีไม่แพ้ตามกติกา Minesweeper
 
+---
+
+### Test Suite : ComputeAdjacencyTest
+
+**จุดประสงค์:**
+ยืนยันว่า `computeAdjacency()` คำนวณตัวเลขรอบเหมือง 8 ทิศได้ถูกต้อง (เหมือง = −1, อื่น = 0..8) ครอบคลุมกรณีมุม/ขอบ/กึ่งกลาง และเช็กพารามิเตอร์ผิดพลาด
+
+**Characteristics (Input Space Partitioning)**
+
+| ประเภท Characteristic   | รายละเอียด        | ค่าหรือพารามิเตอร์ที่ทดสอบ         | จุดประสงค์/ผลลัพธ์ที่คาดหวัง                 |
+| ----------------------- | ----------------- | ---------------------------------- | -------------------------------------------- |
+| **Interface-based**     | ขนาดกระดาน        | `rows ∈ {1, >1}`, `cols ∈ {1, >1}` | ครอบคลุม 1×1, 1×N, M×1, M×N                  |
+| **Interface-based**     | ความยาว `mines[]` | {เท่ากับ `rows*cols`, ไม่เท่า}     | ถ้าไม่เท่า → ต้อง `IllegalArgumentException` |
+| **Functionality-based** | ตำแหน่งเหมือง     | {มุม, ขอบ, กึ่งกลาง, ไม่มี, เต็ม}  | ตรวจการนับรอบข้างและไม่หลุดขอบ               |
+| **Functionality-based** | รูปแบบกระจาย      | {เดี่ยว, ทแยงติดกัน, หนาแน่น}      | ตรวจผลรวมเพื่อนบ้านเมื่อเหมืองอยู่ใกล้กัน    |
+
+**Input Domain Modelling — Identify Testable Function(s)**
+
+| ฟังก์ชัน                                                | บทบาท                                             |
+| ------------------------------------------------------- | ------------------------------------------------- |
+| `computeAdjacency(int rows, int cols, boolean[] mines)` | คืน `int[]` ขนาด `rows*cols` ตามกติกา Minesweeper |
+
+**Identify Parameters, Return Types, Return Values, and Exceptional Behavior**
+
+| รายการ               | รายละเอียด                                                                        |
+| -------------------- | --------------------------------------------------------------------------------- |
+| Parameters           | `rows`, `cols`, `mines[]`                                                         |
+| Return type          | `int[]`                                                                           |
+| Return values        | −1 (เหมือง) หรือ 0..8 (จำนวนรอบข้าง)                                              |
+| Exceptional Behavior | `rows<=0`/`cols<=0` หรือ `mines.length != rows*cols` → `IllegalArgumentException` |
+
+**Model the Input Domain**
+
+| ชื่อ Characteristic | Partition                         |
+| ------------------- | --------------------------------- |
+| Rows                | {1, >1}                           |
+| Cols                | {1, >1}                           |
+| Mines length        | {ถูกต้อง, ไม่ถูกต้อง}             |
+| Mine position       | {มุม, ขอบ, กึ่งกลาง, ไม่มี, เต็ม} |
+| Pattern             | {เดี่ยว, ทแยงติดกัน, หนาแน่น}     |
+
+**การรวม partitions เพื่อสร้าง test requirements**
+
+> **เทคนิคที่ใช้:** **PWC (Pair-Wise Coverage)** — ให้ทุก “คู่” ของลักษณะเกิดขึ้นอย่างน้อย 1 ครั้ง
+
+| Test Case | Partition ที่ใช้รวมกัน                                        | คำอธิบาย                           |
+| --------- | ------------------------------------------------------------- | ---------------------------------- |
+| P1        | Rows>1, Cols>1, Len=ถูกต้อง, Pos=กึ่งกลาง, Pattern=ทแยงติดกัน | ตาราง 4×4 วางเหมืองแนวทแยง 2 จุด   |
+| P2        | Rows>1, Cols>1, Len=ถูกต้อง, Pos=มุม+กึ่งกลาง, Pattern=เดี่ยว | ตาราง 3×3 มุมซ้ายบน + กลาง         |
+| P3        | Rows=1, Cols=1, Len=ถูกต้อง, Pos=ไม่มี                        | 1×1 ไม่มีเหมือง → ต้องได้ 0        |
+| P4        | Rows=1, Cols>1, Len=ถูกต้อง, Pos=มุม                          | 1×N เหมืองที่ขอบซ้าย/ขวา           |
+| P5        | Rows>1, Cols=1, Len=ถูกต้อง, Pos=ขอบ                          | M×1 เหมืองที่ขอบบน/ล่าง            |
+| P6        | Rows>1, Cols>1, **Len=ไม่ถูกต้อง**                            | ต้องโยน `IllegalArgumentException` |
+| P7        | Rows>1, Cols>1, Len=ถูกต้อง, **Pos=เต็ม**                     | ทุกช่องเป็นเหมือง → ทั้งแผง −1     |
+
+**Test Values และ Expected Values**
+
+| Test Case | Test Values                    | Expected Values                             |
+| --------- | ------------------------------ | ------------------------------------------- |
+| P1        | 4×4; mines ที่ (1,1) และ (2,2) | ผลลัพธ์ตรงกับ `custom4x4_twoMines_diagonal` |
+| P2        | 3×3; mines ที่ (0,0) และ (1,1) | ผลลัพธ์ตรงกับ `custom3x3_centerAndCorner`   |
+| P3        | 1×1; mines=false               | `[0]`                                       |
+| P4        | 1×4; mine @0                   | มีเพื่อนบ้านเฉพาะด้านขวา                    |
+| P5        | 4×1; mine @1                   | มีเพื่อนบ้านเฉพาะบน/ล่าง                    |
+| P6        | 3×3; `mines.length=7`          | โยน `IllegalArgumentException`              |
+| P7        | 3×3; all mines=true            | ทุกค่าเป็น −1                               |
+
+**การตรวจสอบการใช้ค่าทั้งหมดในโค้ด JUnit**  
+ชุด P1–P7 ครอบคลุมทุก partition ทั้งค่าปกติและค่าผิดพลาด
+
+**การผสม Interface-based และ Functionality-based**  
+ผสาน “ขนาดและความยาวอาร์เรย์” (interface) กับ “ตำแหน่ง/รูปแบบเหมือง” (functionality) เพื่อเห็นผลกระทบร่วมกันแบบคู่ ๆ
 
 
+---
+
+### Test Suite : MinesweeperInitUITest
+
+**จุดประสงค์:**
+ยืนยันว่า `initUI()` ประกอบหน้าจอครบ: มี `statusbar` (JLabel) ที่ SOUTH, มี `Board(statusbar)` ที่ CENTER, ตั้ง `setResizable(false)`, เรียก `pack()` และทำงานบน EDT
+
+**Characteristics (Input Space Partitioning)**
+
+| ประเภท Characteristic   | รายละเอียด               | ค่าหรือพารามิเตอร์ที่ทดสอบ          | จุดประสงค์/ผลลัพธ์ที่คาดหวัง             |
+| ----------------------- | ------------------------ | ----------------------------------- | ---------------------------------------- |
+| **Interface-based**     | Layout ของ `contentPane` | {**BorderLayout**(base), อื่น}      | ต้องเป็น BorderLayout                    |
+| **Interface-based**     | องค์ประกอบ SOUTH         | {**มี JLabel**(base), ไม่มี}        | SOUTH ต้องเจอ `JLabel`                   |
+| **Interface-based**     | องค์ประกอบ CENTER        | {**มี Board**(base), ไม่มี/ผิดชนิด} | CENTER ต้องเป็น `Board`                  |
+| **Functionality-based** | Resizable                | {**false**(base), true}             | ต้อง `false`                             |
+| **Functionality-based** | pack()                   | {**ถูกเรียก**(base), ไม่เรียก}      | หลัง `validate()` ขนาด = `preferredSize` |
+| **Functionality-based** | Thread                   | {**EDT**(base), non-EDT}            | ควรทำงานบน EDT                           |
+
+**Input Domain Modelling — Identify Testable Function(s)**
+
+| ฟังก์ชัน   | บทบาท                                                                                     |
+| ---------- | ----------------------------------------------------------------------------------------- |
+| `initUI()` | ประกอบ UI: ใส่ statusbar/Board, setResizable(false), pack(), ตั้ง title/location/close op |
+
+**Identify Parameters, Return Types, Return Values, Exceptional Behavior**
+
+| รายการ               | รายละเอียด                              |
+| -------------------- | --------------------------------------- |
+| Parameters           | ไม่มี                                   |
+| Return type          | `void`                                  |
+| Return values        | ตรวจได้จากคอมโพเนนต์และคุณสมบัติของเฟรม |
+| Exceptional Behavior | รันใน headless → ควร **skip** เทสต์     |
+
+**Model the Input Domain**
+
+| ชื่อ Characteristic | Partition                        |
+| ------------------- | -------------------------------- |
+| Layout              | {**BorderLayout**(base), อื่น}   |
+| SOUTH component     | {**JLabel**(base), ไม่มี}        |
+| CENTER component    | {**Board**(base), ไม่มี/ผิดชนิด} |
+| Resizable           | {**false**(base), true}          |
+| pack                | {**เรียก**(base), ไม่เรียก}      |
+| Thread              | {**EDT**(base), non-EDT}         |
+
+**การรวม partitions เพื่อสร้าง test requirements**
+
+> **เทคนิคที่ใช้:** **BCC (Base-Choice Coverage)** — มีเคสฐาน แล้ว “เปลี่ยนทีละอย่าง” เพื่อพิสูจน์ข้อกำหนด
+
+| Test Case | Partition รวม                                                                            | คำอธิบาย                           |
+| --------- | ---------------------------------------------------------------------------------------- | ---------------------------------- |
+| B0 (Base) | Layout=BorderLayout, SOUTH=JLabel, CENTER=Board, Resizable=false, pack=เรียก, Thread=EDT | เคสฐานที่ต้องผ่าน (เทสต์ที่มีอยู่) |
+| B1        | SOUTH=ไม่มี                                                                              | SOUTH ไม่เจอ `JLabel`              |
+| B2        | CENTER=ไม่มี/ผิดชนิด                                                                     | CENTER ไม่ใช่ `Board`              |
+| B3        | Resizable=true                                                                           | `isResizable()` เป็น true          |
+| B4        | pack=ไม่เรียก                                                                            | ขนาดจริง ≠ `preferredSize`         |
+| B5        | Thread=non-EDT                                                                           | บังคับให้ fail/skip ตาม policy     |
+
+**Test Values และ Expected Values**
+
+| Test Case | Test Values                                                                                      | Expected Values                 |
+| --------- | ------------------------------------------------------------------------------------------------ | ------------------------------- |
+| B0        | สร้าง `Minesweeper` บน EDT; ตรวจ SOUTH/CENTER; ตรวจ `isResizable=false`; ตรวจ size=preferredSize | ผ่านทั้งหมด                     |
+| B1        | เฟรมจำลองไม่เพิ่ม SOUTH                                                                          | ไม่พบ `JLabel` SOUTH            |
+| B2        | เฟรมจำลองไม่เพิ่ม CENTER หรือใส่ชนิดอื่น                                                         | ไม่ใช่ `Board`                  |
+| B3        | เฟรมจำลองตั้ง `setResizable(true)`                                                               | Assertion ว่าต้อง false ล้ม     |
+| B4        | เฟรมจำลองไม่เรียก `pack()`                                                                       | size ไม่เท่ากับ `preferredSize` |
+| B5        | เรียกจาก non-EDT หรือ headless                                                                   | skip/fail                       |
+
+**การตรวจสอบการใช้ค่าทั้งหมดในโค้ด JUnit**  
+B0 ตรวจครบองค์ประกอบ; B1–B5 ปรับทีละจุดเพื่อยืนยันข้อกำหนดของ `initUI()` ตาม BCC
+
+**การผสม Interface-based และ Functionality-based**  
+ตรวจโครงสร้างคอมโพเนนต์ (interface) ร่วมกับคุณสมบัติและพฤติกรรมของเฟรม (`isResizable`, `pack`, เธรด) ที่เป็น functionality
+
+
+---
 
 

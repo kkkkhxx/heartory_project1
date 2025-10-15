@@ -295,6 +295,8 @@ https://zetcode.com/javagames/minesweeper/
 **Input Domain Modelling:**  
 **Identify Testable Function(s)**  
 ฟังก์ชันที่ถูกทดสอบในชุดนี้คือ **`MinesAdapter.mousePressed(MouseEvent)`** ผ่าน MouseListener ของ `Board`  
+
+| รายการ               | รายละเอียด                                                                        |
 |------------------------|------------------------------------------|
 | `mousePressed(MouseEvent)` | แปลงพิกัดพิกเซล → ดัชนีเซลล์ และประมวลผลคลิกซ้าย/ขวาตามกติกา |
 | การคำนวณตำแหน่งเซลล์ | ใช้ `CELL_SIZE` จาก `getPreferredSize()` เพื่อคำนวณ `(r,c)` จาก `(x,y)` |
@@ -303,6 +305,8 @@ https://zetcode.com/javagames/minesweeper/
 ---
 
 **Identify Parameters, Return Types, Return Values, and Exceptional Behavior**  
+
+| รายการ               | รายละเอียด                                                                        |
 |------------------------|------------------------------------------|
 | **Parameter** | `MouseEvent e` (ตำแหน่งพิกเซล, ปุ่มเมาส์, click count) |
 | **Return Type** | ไม่มี (void) |
@@ -844,6 +848,7 @@ Identify Parameters, Return Types, Return Values, and Exceptional Behavior
 | **Interface-based**     | ตรวจสอบการอัปเดตของ `statusbar` ซึ่งเป็นส่วนติดต่อผู้ใช้                                                            |
 | **Functionality-based** | ตรวจสอบพฤติกรรมของ `field[]`, `minesLeft`, และ `inGame` เพื่อให้แน่ใจว่าฟังก์ชัน `newGame()` รีเซ็ตระบบอย่างถูกต้อง |
 ---
+
 
 
 

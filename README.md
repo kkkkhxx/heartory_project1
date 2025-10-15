@@ -32,6 +32,7 @@ https://zetcode.com/javagames/minesweeper/
 **Identify Testable Function(s)**
 ฟังก์ชันที่ถูกทดสอบในชุดนี้คือ **Constructor ของคลาส `Board(JLabel statusbar)`**  
 ซึ่งภายในจะเรียกใช้เมธอด `initBoard()` และ `newGame()` เพื่อกำหนดค่าพื้นฐานของเกม
+|------------------------|------------------------------------------|
 | `Board(JLabel)` | สร้างอ็อบเจ็กต์กระดานเกมและเชื่อมกับ status bar |
 | `initBoard()` | โหลดภาพ, ตั้งค่า UI, เพิ่ม MouseListener |
 | `newGame()` | รีเซ็ตค่าเกม เช่น `field[]`, `inGame`, `minesLeft` |
@@ -39,6 +40,7 @@ https://zetcode.com/javagames/minesweeper/
 ---
 
 **Identify Parameters, Return Types, Return Values, and Exceptional Behavior**
+|------------------------|------------------------------------------|
 | **Parameter** | `JLabel statusbar` (องค์ประกอบ GUI สำหรับแสดงข้อความสถานะ) |
 | **Return Type** | -|
 | **Return Values** | ตัวแปรภายใน `Board` ถูกตั้งค่า เช่น `inGame=true`, `minesLeft=40`, `field[]` ถูกสร้าง, โหลดภาพครบ, และ `statusbar` แสดงข้อความ |
@@ -115,10 +117,12 @@ https://zetcode.com/javagames/minesweeper/
 
 **Input Domain Modelling:**  
 **Identify Testable Function(s)**
+|------------------------|------------------------------------------|
 | `paintComponent(Graphics g)` | วาด cell, ตรวจสถานะ, เปลี่ยนข้อความ “Game won/lost” |
 
 --- 
 **Identify Parameters, Return Types, Return Values, Exceptional Behavior**
+|------------------------|------------------------------------------|
 | **Parameter** | Graphics g |
 | **Return Type** | void |
 | **Return Values** | ไม่มี แต่มีผลต่อข้อความใน `statusbar` |
@@ -193,7 +197,8 @@ https://zetcode.com/javagames/minesweeper/
 
 **Input Domain Modelling:**  
 **Identify Testable Function(s)**  
-ฟังก์ชันที่ถูกทดสอบในชุดนี้คือ **`find_empty_cells(int start)`** (เรียกผ่าน reflection) ภายใน `Board`  
+ฟังก์ชันที่ถูกทดสอบในชุดนี้คือ **`find_empty_cells(int start)`** (เรียกผ่าน reflection) ภายใน `Board` 
+|------------------------|------------------------------------------|
 | `find_empty_cells(int)` | เปิดเซลล์เริ่ม และทำ flood‑fill ไปยังศูนย์ที่ติดกัน พร้อมเปิดเลขขอบเขตที่ติดศูนย์ |
 
 ---
@@ -828,5 +833,6 @@ Identify Parameters, Return Types, Return Values, and Exceptional Behavior
 | **Interface-based**     | ตรวจสอบการอัปเดตของ `statusbar` ซึ่งเป็นส่วนติดต่อผู้ใช้                                                            |
 | **Functionality-based** | ตรวจสอบพฤติกรรมของ `field[]`, `minesLeft`, และ `inGame` เพื่อให้แน่ใจว่าฟังก์ชัน `newGame()` รีเซ็ตระบบอย่างถูกต้อง |
 ---
+
 
 

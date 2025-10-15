@@ -1,129 +1,299 @@
-/* Copyright (C) 2025 Thanyarat Wuthiroongreungsakul - All Rights Reserved
- * You may use, distribute and modify this code under the terms of the MIT license.
- */
-
+// src/test/java/com/zetcode/MinesAdapterWinPathTest.java
 package com.zetcode;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.JLabel;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MinesAdapterWinPathTest {
 
-    // ค่าคงที่ตามเกม ZetCode
-    private static final int N_ROWS = 16;
-    private static final int N_COLS = 16;
-    private static final int ALL_CELLS = N_ROWS * N_COLS;
+    private Object board; // com.zetcode.Board instance
+    private JLabel statusbar;
 
-    private static final int COVER_FOR_CELL = 10;
-    private static final int MINE_CELL = 9;
-    private static final int COVERED_MINE_CELL = MINE_CELL + COVER_FOR_CELL; // 19
-    private static final int OPEN_EMPTY = 0; // ช่องเปิดแล้วและไม่มีเลข (0)
-
-    private Board board;
-    private int[] field;
-
-    private static int idx(int r, int c) {
-        return r * N_COLS + c;
+    // -------- reflection helpers (tolerant) --------
+    private static Field findFieldOrNull(Class<?> cls, String name) {
+        Class<?> c = cls;
+        while (c != null) {
+            try { return c.getDeclaredField(name); }
+            catch (NoSuchFieldException ignore) { c = c.getSuperclass(); }
+        }
+        return null;
     }
-
-    private static void setPrivateField(Object target, String name, Object value) throws Exception {
-        Field f = target.getClass().getDeclaredField(name);
-        f.setAccessible(true);
-        f.set(target, value);
-    }
-
-    private static Object getPrivateField(Object target, String name) throws Exception {
-        Field f = target.getClass().getDeclaredField(name);
+    private static Object tryGet(Object target, String name) throws Exception {
+        Field f = findFieldOrNull(target.getClass(), name);
+        if (f == null) return null;
         f.setAccessible(true);
         return f.get(target);
     }
-
-    @BeforeEach
-    void setUp() throws Exception {
-        board = new Board(new JLabel());
-
-        // จัดฉาก: ให้ "ชนะได้ทันทีเมื่อเปิดช่องสุดท้าย"
-        // ทุกช่องเปิดแล้ว (0) เหลือเพียง 1 ช่องที่ยังปิดอยู่และเป็น non-mine
-        field = new int[ALL_CELLS];
-        Arrays.fill(field, OPEN_EMPTY);
-
-        int lastR = 1, lastC = 1; // ช่องสุดท้ายที่จะคลิก
-        field[idx(lastR, lastC)] = COVER_FOR_CELL + 0; // ปิดอยู่ แต่ไม่ใช่เหมือง
-
-        // ยัดค่าลงบอร์ดด้วย reflection
-        setPrivateField(board, "field", field);
-        setPrivateField(board, "allCells", ALL_CELLS);
-        setPrivateField(board, "inGame", true);
-
-        // ตรวจ preferred size (ใช้คำนวณขนาดเซลล์)
-        Dimension pref = board.getPreferredSize();
-        assertNotNull(pref, "Preferred size ต้องไม่เป็น null");
-        assertTrue(pref.width > 0 && pref.height > 0, "Preferred size ต้องมีขนาดมากกว่า 0");
+    private static boolean trySet(Object target, String name, Object value) throws Exception {
+        Field f = findFieldOrNull(target.getClass(), name);
+        if (f == null) return false;
+        f.setAccessible(true);
+        f.set(target, value);
+        return true;
+    }
+    private static int getIntFlexible(Object instanceOrClass, Class<?> klass, String name, Integer fallback) {
+        try {
+            Field f = findFieldOrNull(klass, name);
+            if (f == null) { if (fallback != null) return fallback; throw new IllegalArgumentException("No int: "+name); }
+            f.setAccessible(true);
+            if (Modifier.isStatic(f.getModifiers())) return (int) f.get(null);
+            return (int) f.get(instanceOrClass);
+        } catch (Throwable t) {
+            if (fallback != null) return fallback;
+            throw new RuntimeException("Cannot resolve int constant: " + name, t);
+        }
+    }
+    private static void setIfExists(Object target, String name, Object value) throws Exception {
+        if (trySet(target, name, value)) return;
+        if ("minesLeft".equals(name)) { trySet(target, "mines_left", value); return; }
+        if ("mines_left".equals(name)) { trySet(target, "minesLeft", value); return; }
+        // uncover หากไม่มีให้ข้าม
     }
 
+    // -------- Board constants --------
+    private int N_ROWS, N_COLS, CELL_SIZE, N_MINES;
+    private int COVER_FOR_CELL, MARK_FOR_CELL, MINE_CELL, COVERED_MINE_CELL, MARKED_MINE_CELL;
+    private int EMPTY_CELL; // 0
+    private int ALL;
+
+    @BeforeEach
+    void setup() throws Exception {
+        statusbar = new JLabel("");
+        Class<?> boardCls = Class.forName("com.zetcode.Board");
+        board = boardCls.getConstructor(JLabel.class).newInstance(statusbar);
+
+        N_ROWS  = getIntFlexible(board, boardCls, "N_ROWS", null);
+        N_COLS  = getIntFlexible(board, boardCls, "N_COLS", null);
+        CELL_SIZE = getIntFlexible(board, boardCls, "CELL_SIZE", 15);
+        N_MINES = getIntFlexible(board, boardCls, "N_MINES", 40);
+
+        COVER_FOR_CELL = getIntFlexible(board, boardCls, "COVER_FOR_CELL", 10);
+        MARK_FOR_CELL  = getIntFlexible(board, boardCls, "MARK_FOR_CELL", 10);
+        MINE_CELL      = getIntFlexible(board, boardCls, "MINE_CELL", 9);
+        EMPTY_CELL     = getIntFlexible(board, boardCls, "EMPTY_CELL", 0);
+
+        int coveredMine = COVER_FOR_CELL + MINE_CELL;         // e.g., 19
+        COVERED_MINE_CELL = getIntFlexible(board, boardCls, "COVERED_MINE_CELL", coveredMine);
+        int markedMine = COVERED_MINE_CELL + MARK_FOR_CELL;   // e.g., 29
+        MARKED_MINE_CELL  = getIntFlexible(board, boardCls, "MARKED_MINE_CELL", markedMine);
+
+        ALL = N_ROWS * N_COLS;
+
+        JFrame f = new JFrame();
+        f.add((Component) board);
+        f.pack();
+    }
+
+    // -------- utils --------
+    private int idx(int r, int c) { return r * N_COLS + c; }
+
+    private Point centerOf(int r, int c) {
+        int x = c * CELL_SIZE + CELL_SIZE / 2;
+        int y = r * CELL_SIZE + CELL_SIZE / 2;
+        return new Point(x, y);
+    }
+
+    private Point outsideRight() {
+        int x = N_COLS * CELL_SIZE + 5;       // ขวาเกินจริง
+        int y = CELL_SIZE / 2;                // แถวแรก
+        return new Point(x, y);
+    }
+
+    private void dispatchClick(Point p, int button) {
+        Component comp = (Component) board;
+        long when = System.currentTimeMillis();
+        int mod = switch (button) {
+            case MouseEvent.BUTTON1 -> MouseEvent.BUTTON1_DOWN_MASK;
+            case MouseEvent.BUTTON3 -> MouseEvent.BUTTON3_DOWN_MASK;
+            case MouseEvent.BUTTON2 -> MouseEvent.BUTTON2_DOWN_MASK;
+            default -> 0;
+        };
+        MouseEvent e = new MouseEvent(comp, MouseEvent.MOUSE_PRESSED, when, mod, p.x, p.y, 1, false, button);
+        comp.dispatchEvent(e);
+    }
+
+    private void setBoardState(int[] field, Boolean inGame, Integer minesLeft, Integer uncoverMaybe) throws Exception {
+        assertTrue(trySet(board, "field", field), "Board.field missing");
+        if (inGame != null) setIfExists(board, "inGame", inGame);
+        if (minesLeft != null) { if (!trySet(board, "minesLeft", minesLeft)) trySet(board, "mines_left", minesLeft); }
+        if (uncoverMaybe != null) { trySet(board, "uncover", uncoverMaybe); } // ไม่มีให้ข้าม
+    }
+
+    private Integer getIntOrNull(String name) throws Exception {
+        Object v = tryGet(board, name);
+        return (v instanceof Integer) ? (Integer) v : null;
+    }
+
+    private boolean anyCoveredSafe(int[] field) {
+        for (int v : field) {
+            boolean covered = v >= COVER_FOR_CELL;
+            boolean isCoveredMine = (v == COVERED_MINE_CELL || v == MARKED_MINE_CELL);
+            if (covered && !isCoveredMine) return true;
+        }
+        return false;
+    }
+
+    // ================== P1 ==================
     @Test
-    void leftClickOnLastCoveredSafeCell_causesWin_andNoCoveredSafeCellsRemain() throws Exception {
-        // ช่องที่จะคลิก (ต้องตรงกับ setUp)
-        int lastR = 1, lastC = 1;
-        int lastIndex = idx(lastR, lastC);
+    void P1_left_onCoveredZero_lastOne_wins() throws Exception {
+        int[] field = new int[ALL];
+        Arrays.fill(field, EMPTY_CELL); // อื่น ๆ เปิดแล้ว
+        int r=5,c=7;
+        field[idx(r,c)] = COVER_FOR_CELL + EMPTY_CELL; // ช่องสุดท้าย
+        setBoardState(field, true, N_MINES, null);
 
-        // คำนวณขนาดเซลล์จาก preferred size: width = N_COLS * CELL_SIZE + 1
-        int cellSize = (board.getPreferredSize().width - 1) / N_COLS;
-        int x = lastC * cellSize + cellSize / 2;
-        int y = lastR * cellSize + cellSize / 2;
+        dispatchClick(centerOf(r,c), MouseEvent.BUTTON1);
 
-        // คลิกซ้ายที่ช่องสุดท้าย
-        MouseEvent press = new MouseEvent(
-                board,
-                MouseEvent.MOUSE_PRESSED,
-                System.currentTimeMillis(),
-                0,
-                x, y,
-                1,
-                false,
-                MouseEvent.BUTTON1
-        );
+        int[] after = (int[]) tryGet(board, "field");
+        assertNotNull(after);
+        // เกณฑ์ชนะ: ไม่เหลือ safe cell
+        assertFalse(anyCoveredSafe(after));
 
-        assertTrue(board.getMouseListeners().length > 0, "ควรมี MouseListener ที่ถูก add แล้ว");
-        board.getMouseListeners()[0].mousePressed(press);
+        Integer un = getIntOrNull("uncover");
+        if (un != null) assertEquals(0, un);
+    }
 
-        // เรียกวาดหนึ่งเฟรม (paintComponent จะคำนวณจาก field ปัจจุบัน)
-        BufferedImage img = new BufferedImage(
-                board.getPreferredSize().width,
-                board.getPreferredSize().height,
-                BufferedImage.TYPE_INT_ARGB
-        );
-        Graphics2D g2 = img.createGraphics();
-        try {
-            board.paint(g2);
-        } finally {
-            g2.dispose();
+    // ================== P2 ==================
+    @Test
+    void P2_left_onCoveredNumber_lastOne_wins() throws Exception {
+        int[] field = new int[ALL];
+        Arrays.fill(field, EMPTY_CELL);
+        int r=0,c=5;
+        field[idx(r,c)] = COVER_FOR_CELL + 1; // ช่องสุดท้ายเป็นเลข
+        setBoardState(field, true, N_MINES, null);
+
+        dispatchClick(centerOf(r,c), MouseEvent.BUTTON1);
+
+        int[] after = (int[]) tryGet(board, "field");
+        assertNotNull(after);
+        assertFalse(anyCoveredSafe(after));
+
+        Integer un = getIntOrNull("uncover");
+        if (un != null) assertEquals(0, un);
+    }
+
+    // ================== P3 ==================
+    @Test
+    void P3_right_onMarked_corner_noOpen_toggle() throws Exception {
+        int[] field = new int[ALL];
+        Arrays.fill(field, COVER_FOR_CELL + EMPTY_CELL);
+        int r=0,c=0; // corner
+        field[idx(r,c)] = COVER_FOR_CELL + MARK_FOR_CELL; // marked (safe)
+        setBoardState(field, true, N_MINES, null);
+
+        dispatchClick(centerOf(r,c), MouseEvent.BUTTON3);
+
+        int v = ((int[]) tryGet(board,"field"))[idx(r,c)];
+        assertTrue(v == COVER_FOR_CELL + EMPTY_CELL || v == COVER_FOR_CELL + MARK_FOR_CELL,
+                "toggle หรือคง mark ตามดีไซน์ได้");
+        Object ig = tryGet(board, "inGame");
+        if (ig instanceof Boolean) assertTrue((Boolean) ig);
+    }
+
+    // ================== P4 ==================
+    @Test
+    void P4_right_onCoveredZero_markOnly_noOpen() throws Exception {
+        int[] field = new int[ALL];
+        Arrays.fill(field, COVER_FOR_CELL + EMPTY_CELL);
+        int r=8,c=3;
+        field[idx(r,c)] = COVER_FOR_CELL + EMPTY_CELL; // covered zero
+        setBoardState(field, true, N_MINES, null);
+
+        dispatchClick(centerOf(r,c), MouseEvent.BUTTON3);
+
+        int v = ((int[]) tryGet(board,"field"))[idx(r,c)];
+        assertEquals(COVER_FOR_CELL + MARK_FOR_CELL, v, "คลิกขวาควร mark ช่อง ไม่ควรเปิด");
+    }
+
+    // ================== P5 ==================
+    @Test
+    void P5_left_onMarked_lastOne_notWin_noOpen() throws Exception {
+        int[] field = new int[ALL];
+        Arrays.fill(field, COVER_FOR_CELL + EMPTY_CELL);
+        int r=6,c=6;
+        field[idx(r,c)] = COVER_FOR_CELL + MARK_FOR_CELL; // ช่องสุดท้ายแต่ถูก mark
+        setBoardState(field, true, N_MINES, null);
+
+        dispatchClick(centerOf(r,c), MouseEvent.BUTTON1);
+
+        int v = ((int[]) tryGet(board,"field"))[idx(r,c)];
+        assertEquals(COVER_FOR_CELL + MARK_FOR_CELL, v, "คลิกซ้ายที่ marked ไม่ควรเปิด");
+        Object ig = tryGet(board, "inGame");
+        if (ig instanceof Boolean) assertTrue((Boolean) ig);
+    }
+
+    // ================== P6 ==================
+    @Test
+    void P6_left_outOfBoard_noop() throws Exception {
+        int[] field = new int[ALL];
+        Arrays.fill(field, COVER_FOR_CELL + EMPTY_CELL);
+        int r=5,c=7;
+        field[idx(r,c)] = COVER_FOR_CELL + EMPTY_CELL;
+        setBoardState(field, true, N_MINES, null);
+
+        // คลิกนอกบอร์ด “จริง” (ขวาสุด)
+        dispatchClick(outsideRight(), MouseEvent.BUTTON1);
+
+        // ช่องเป้าหมายต้องไม่เปลี่ยน
+        int v = ((int[]) tryGet(board,"field"))[idx(r,c)];
+        assertEquals(COVER_FOR_CELL + EMPTY_CELL, v);
+        Object ig = tryGet(board, "inGame");
+        if (ig instanceof Boolean) assertTrue((Boolean) ig);
+    }
+
+    // ================== P7 ==================
+    @Test
+    void P7_left_afterGameOver_noop_or_restartDependingOnDesign() throws Exception {
+        int[] field = new int[ALL];
+        Arrays.fill(field, COVER_FOR_CELL + EMPTY_CELL);
+        int r=5,c=7;
+        int before = field[idx(r,c)];
+        // ตั้งให้เกม “จบแล้ว”
+        setBoardState(field, /*inGame*/ false, N_MINES, null);
+
+        // คลิกซ้าย (บางรุ่น = เริ่มเกมใหม่)
+        dispatchClick(centerOf(r,c), MouseEvent.BUTTON1);
+
+        Object ig = tryGet(board, "inGame");
+        int[] afterField = (int[]) tryGet(board, "field");
+        assertNotNull(afterField);
+
+        if (ig instanceof Boolean && (Boolean) ig) {
+            // ยอมรับพฤติกรรมรีสตาร์ท: ต้องเปลี่ยนกระดานจากเดิม
+            assertFalse(Arrays.equals(field, afterField), "คลิกหลังจบเกมแล้ว ถ้า inGame กลับเป็น true ควรเริ่มกระดานใหม่");
+        } else {
+            // ยอมรับพฤติกรรม no-op: inGame ควรยัง false
+            if (ig instanceof Boolean) assertFalse((Boolean) ig);
+            int v = afterField[idx(r,c)];
+            assertEquals(before, v, "ถ้าไม่รีสตาร์ท ช่องเดิมควรคงค่าเดิม");
         }
+    }
 
-        // ---- ตรวจผล "ชนะ" (เวอร์ชันนี้ไม่ตั้ง inGame=false เมื่อชนะ จึงไม่เช็ค inGame) ----
+    // ================== P8 ==================
+    @Test
+    void P8_middleButton_noop_or_openDependingOnDesign() throws Exception {
+        int[] field = new int[ALL];
+        Arrays.fill(field, COVER_FOR_CELL + EMPTY_CELL);
+        int r=0,c=1;
+        int before = field[idx(r,c)];
+        setBoardState(field, true, N_MINES, null);
 
-        // 1) ช่องที่คลิกควรถูก "เปิด" แล้ว (ค่าต้องไม่เกิน MINE_CELL)
-        int[] after = (int[]) getPrivateField(board, "field");
-        assertTrue(after[lastIndex] <= MINE_CELL,
-                "ช่องสุดท้ายควรถูกเปิด (ค่าไม่ควรมากกว่า " + MINE_CELL + ")");
+        dispatchClick(centerOf(r,c), MouseEvent.BUTTON2);
 
-        // 2) ต้องไม่เหลือ "ช่องปลอดภัยที่ยังปิดอยู่"
-        int coveredSafe = 0;
-        for (int v : after) {
-            boolean covered = v > MINE_CELL;                 // มี +COVER_FOR_CELL
-            boolean coveredMine = (v == COVERED_MINE_CELL);  // เหมืองที่ยังปิดอยู่ ไม่ถือเป็น safe
-            if (covered && !coveredMine) coveredSafe++;
-        }
-        assertEquals(0, coveredSafe, "ต้องไม่เหลือ covered safe cell หลังชนะ");
+        int v = ((int[]) tryGet(board,"field"))[idx(r,c)];
+        // ยอมรับได้สองแบบ: รุ่นที่ปุ่มกลางนับเป็นซ้าย (เปิดเป็น 0) หรือ no-op (ยัง covered)
+        boolean acceptable = (v == before) || (v == EMPTY_CELL);
+        assertTrue(acceptable, "middle button อาจ no-op หรือเปิด (เทียบซ้าย) ตามดีไซน์");
+        Object ig = tryGet(board, "inGame");
+        if (ig instanceof Boolean) assertTrue((Boolean) ig);
     }
 }

@@ -8,49 +8,49 @@ on:
 
 jobs:
   build:
-    name: Build, Test, and Package
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        java: [ '17', '21' ]  # ทดสอบหลาย JDK
     steps:
-      # ───────────────────────────────
-      # 1️⃣ ดึงซอร์สโค้ดจาก repo
-      # ───────────────────────────────
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # ───────────────────────────────
-      # 2️⃣ ติดตั้ง JDK
-      # ───────────────────────────────
-      - name: Set up JDK 21
+      - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: ${{ matrix.java }}
           cache: maven
 
-      # ───────────────────────────────
-      # 3️⃣ Build + Run Tests
-      # ───────────────────────────────
-      - name: Build and run tests
-        run: mvn -B clean verify
+      - name: Build & Test (clean verify)
+        run: mvn -B -ntp clean verify
 
-      # ───────────────────────────────
-      # 4️⃣ แพ็กเป็น JAR พร้อม Manifest
-      # ───────────────────────────────
-      - name: Package application
-        run: mvn -B package
+      - name: Show target/
+        run: ls -R target || true
 
-      # ───────────────────────────────
-      # 5️⃣ แสดงผล jar ที่สร้างขึ้น
-      # ───────────────────────────────
-      - name: Show built artifacts
-        run: ls -R target
-
-      # ───────────────────────────────
-      # 6️⃣ Upload JAR เป็น artifact
-      # ───────────────────────────────
-      - name: Upload packaged JAR
+      - name: Upload JAR
+        if: matrix.java == '21'  # อัปโหลดเฉพาะ 21 เพื่อลดซ้ำ
         uses: actions/upload-artifact@v4
         with:
           name: java-minesweeper
           path: target/*.jar
+          retention-days: 14
+
+      - name: Upload test reports (Surefire)
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports-${{ matrix.java }}
+          path: target/surefire-reports/**
+          retention-days: 14
+
+      - name: Upload JaCoCo coverage (if exists)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.java }}
+          path: |
+            target/site/jacoco/**
+            target/jacoco.exec
+          if-no-files-found: ignore
+          retention-days: 14

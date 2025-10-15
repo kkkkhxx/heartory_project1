@@ -60,7 +60,7 @@ https://zetcode.com/javagames/minesweeper/
 ---
 
 **การรวม partitions เพื่อสร้าง test requirements**
-> **เทคนิคที่ใช้:** ACoC (Each Choice of Combination)
+> **เทคนิคที่ใช้:** ACoC (ALL Combination Coverage)
 
 | Test Case | Partition รวม                                                   | คำอธิบาย                                          |
 |-----------|-----------------------------------------------------------------|---------------------------------------------------|
@@ -703,7 +703,7 @@ Identify Parameters, Return Types, Return Values, and Exceptional Behavior
 ---
 
 ## การรวม partitions เพื่อสร้าง test requirements
-**เทคนิคที่ใช้: ECC (Each Choice Coverage)**  
+**เทคนิคที่ใช้: MBCC (Multiple Base Choice Coverage)**  
 ครอบคลุม “แต่ละตัวเลือก” ของแต่ละ Characteristic อย่างน้อยหนึ่งครั้ง
 
 | Test Case | Partition รวม                                                       | คำอธิบาย                                         |

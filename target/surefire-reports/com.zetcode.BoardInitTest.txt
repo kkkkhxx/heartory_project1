@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.zetcode.BoardInitTest
--------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 4, Time elapsed: 0.014 s -- in com.zetcode.BoardInitTest

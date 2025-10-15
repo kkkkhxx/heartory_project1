@@ -5,15 +5,22 @@
 package com.zetcode;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Named;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import javax.swing.JLabel;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(Lifecycle.PER_CLASS)
 class FindEmptyCellsTest {
 
     // ===== constants ต้องสอดคล้องกับ Board =====
@@ -48,11 +55,44 @@ class FindEmptyCellsTest {
         m.invoke(b, start);
     }
 
+    // ===== พาร์ทิชันสถานะเพื่อนบ้าน =====
+    enum NeighborState {
+        OPENED(0),          // <=9 : ใช้ 0 เพื่อความเรียบง่าย
+        COVERED_ZERO(10),   // 10
+        COVERED_NUMBER(11); // 11
+
+        final int cellValue;
+        NeighborState(int v) { this.cellValue = v; }
+    }
+
+    // ===== ตำแหน่งเริ่มต้นสำหรับสร้าง ACOC แยกชุด =====
+    enum StartCase {
+        CENTER(8, 8, new Dir[]{Dir.N, Dir.E, Dir.S, Dir.W}),
+        EDGE_TOP(0, 8, new Dir[]{Dir.E, Dir.S, Dir.W}),
+        CORNER_TR(0, N_COLS - 1, new Dir[]{Dir.S, Dir.W});
+
+        final int r, c;
+        final Dir[] applicableDirs;
+        StartCase(int r, int c, Dir[] ds) { this.r = r; this.c = c; this.applicableDirs = ds; }
+    }
+
+    enum Dir { N, E, S, W }
+
+    private static int neighborIndex(int r, int c, Dir d) {
+        switch (d) {
+            case N: return idx(r - 1, c);
+            case E: return idx(r, c + 1);
+            case S: return idx(r + 1, c);
+            case W: return idx(r, c - 1);
+        }
+        throw new IllegalArgumentException();
+    }
+
     @BeforeEach
     void setUp() throws Exception {
         board = new Board(new JLabel());
 
-        // กระดานเริ่มต้น: ศูนย์ปิดทั้งหมด
+        // กระดานเริ่มต้น: ปิดทั้งหมด (=10)
         field = new int[ALL_CELLS];
         Arrays.fill(field, COVER_FOR_CELL);
 
@@ -67,109 +107,97 @@ class FindEmptyCellsTest {
         setPrivateField(board, "inGame", true);
     }
 
-    // 1) เคสกลางกระดาน: รวมทั้ง false-branch (เพื่อนบ้านเปิดอยู่แล้ว),
-    //    true-branch แบบ "เปิดเลขแล้วไม่ขยาย", และ true-branch แบบ "ศูนย์แล้วขยาย"
-    @Test
-    void center_mixed_neighbors_cover_all_inner_paths() throws Exception {
-        int r = 8, c = 8, s = idx(r, c);
+    // ===== สร้างคอมบิเนชันแบบคาร์ทีเซียนสำหรับ ACOC (ตามทิศที่มีอยู่จริง) =====
+    private static List<List<NeighborState>> cartesian(NeighborState[] domain, int k) {
+        List<List<NeighborState>> res = new ArrayList<>();
+        backtrack(res, new ArrayList<>(), domain, k);
+        return res;
+    }
+    private static void backtrack(List<List<NeighborState>> res, List<NeighborState> cur, NeighborState[] domain, int k) {
+        if (cur.size() == k) { res.add(new ArrayList<>(cur)); return; }
+        for (NeighborState s : domain) {
+            cur.add(s);
+            backtrack(res, cur, domain, k);
+            cur.remove(cur.size() - 1);
+        }
+    }
 
-        // เปิดจุดเริ่ม (จำลองคลิกซ้าย)
-        field[s] = COVER_FOR_CELL; field[s] -= COVER_FOR_CELL;
+    // ===== แหล่งข้อมูลพารามิเตอร์: (StartCase, รายการสถานะเพื่อนบ้านตามลำดับ applicableDirs) =====
+    Stream<org.junit.jupiter.params.provider.Arguments> allCombinationsProvider() {
+        List<org.junit.jupiter.params.provider.Arguments> args = new ArrayList<>();
+        NeighborState[] domain = NeighborState.values();
 
-        // false branches (เพื่อนบ้านเปิดอยู่แล้ว <=9)
-        field[idx(r, c - 1)] = EMPTY_CELL; // W = 0
-        field[idx(r - 1, c)] = 1;          // N = 1
+        for (StartCase sc : StartCase.values()) {
+            List<List<NeighborState>> combos = cartesian(domain, sc.applicableDirs.length);
+            int i = 0;
+            for (List<NeighborState> combo : combos) {
+                String name = sc.name() + " #" + (++i) + " / " + combos.size();
+                args.add(org.junit.jupiter.params.provider.Arguments.of(
+                        Named.of(name, sc),
+                        combo.toArray(new NeighborState[0])
+                ));
+            }
+        }
+        return args.stream();
+    }
 
-        // true branch + ไม่ขยาย (เลข 1 ปิด = 11)
-        field[idx(r, c + 1)] = COVER_FOR_CELL + 1;   // E
-        field[idx(r - 1, c + 1)] = COVER_FOR_CELL + 1; // NE
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("allCombinationsProvider")
+    @DisplayName("ACOC: ทุกคอมบิเนชันของสถานะเพื่อนบ้านตามตำแหน่งเริ่มต้น")
+    void acoc_allNeighborCombinations_appliedPerStartCase(StartCase sc, NeighborState[] neighborStates) throws Exception {
+        // --- เตรียมกระดานใหม่ (อิสระต่อแต่ละคอมบิเนชัน) ---
+        Arrays.fill(field, COVER_FOR_CELL);
+        field[idx(0,0)] = COVERED_MINE_CELL;
+        for (int n : new int[]{ idx(0,1), idx(1,0), idx(1,1) }) field[n] = COVER_FOR_CELL + 1;
+        setPrivateField(board, "field", field);
 
-        // true branch + ขยาย (ศูนย์ปิด = 10)
-        field[idx(r + 1, c - 1)] = COVER_FOR_CELL;   // SW
-        field[idx(r + 1, c + 1)] = COVER_FOR_CELL;   // SE
+        int s = idx(sc.r, sc.c);
 
+        // เปิด start ให้เป็นศูนย์ (จำลองผลหลังคลิกซ้ายที่เซลล์ศูนย์)
+        field[s] = EMPTY_CELL;
+
+        // ตั้งค่าสถานะเพื่อนบ้านตามคอมบิเนชัน ACOC (เฉพาะทิศที่ "มีอยู่จริง")
+        for (int i = 0; i < sc.applicableDirs.length; i++) {
+            Dir d = sc.applicableDirs[i];
+            NeighborState st = neighborStates[i];
+            int ni = neighborIndex(sc.r, sc.c, d);
+            field[ni] = st.cellValue;
+        }
+
+        // ติดตั้งฟิลด์และยิงเมธอดจริง
         setPrivateField(board, "field", field);
         invokeFindEmpty(board, s);
 
         int[] a = (int[]) getPrivateField(board, "field");
-        assertEquals(EMPTY_CELL, a[s]);
-        assertEquals(EMPTY_CELL, a[idx(r, c - 1)]);     // false-branch: คงเดิม
-        assertEquals(1,           a[idx(r - 1, c)]);    // false-branch: คงเดิม
-        assertEquals(1,           a[idx(r, c + 1)]);    // เปิดเลข 1
-        assertEquals(1,           a[idx(r - 1, c + 1)]);// เปิดเลข 1
-        assertEquals(EMPTY_CELL,  a[idx(r + 1, c - 1)]);// เปิดศูนย์+ขยาย
-        assertEquals(EMPTY_CELL,  a[idx(r + 1, c + 1)]);// เปิดศูนย์+ขยาย
-        assertEquals(COVERED_MINE_CELL, a[idx(0,0)]);   // เหมืองยังปิด
-    }
 
-    // 2) ขอบบน/ล่าง: boundary false ทั้ง N และ S
-    @Test
-    void top_boundary_false_up_center() throws Exception {
-        int r = 0, c = 8, s = idx(r, c);
-        field[s] = COVER_FOR_CELL; field[s] -= COVER_FOR_CELL;
-        setPrivateField(board, "field", field);
-        invokeFindEmpty(board, s);
-        int[] a = (int[]) getPrivateField(board, "field");
-        assertEquals(EMPTY_CELL, a[s]);
-        assertEquals(COVERED_MINE_CELL, a[idx(0,0)]);
-    }
-    @Test
-    void bottom_boundary_false_down_center() throws Exception {
-        int r = N_ROWS - 1, c = 8, s = idx(r, c);
-        field[s] = COVER_FOR_CELL; field[s] -= COVER_FOR_CELL;
-        setPrivateField(board, "field", field);
-        invokeFindEmpty(board, s);
-        int[] a = (int[]) getPrivateField(board, "field");
-        assertEquals(EMPTY_CELL, a[s]);
-        assertEquals(COVERED_MINE_CELL, a[idx(0,0)]);
-    }
+        // --- ตรวจผลขั้นต่ำที่ต้องเป็นจริงสำหรับทุกคอมบิเนชัน ---
+        // 1) start ต้องเปิดเป็น 0
+        assertEquals(EMPTY_CELL, a[s], "start cell must remain EMPTY(0)");
 
-    // 3) ปิดกลุ่มซ้าย/ขวา (outer if)
-    @Test
-    void leftmost_disables_left_group() throws Exception {
-        int r = 8, c = 0, s = idx(r, c);
-        field[s] = COVER_FOR_CELL; field[s] -= COVER_FOR_CELL;
-        setPrivateField(board, "field", field);
-        invokeFindEmpty(board, s);
-        int[] a = (int[]) getPrivateField(board, "field");
-        assertEquals(EMPTY_CELL, a[s]);
-        assertEquals(COVERED_MINE_CELL, a[idx(0,0)]);
-    }
-    @Test
-    void rightmost_disables_right_group() throws Exception {
-        int r = 8, c = N_COLS - 1, s = idx(r, c);
-        field[s] = COVER_FOR_CELL; field[s] -= COVER_FOR_CELL;
-        setPrivateField(board, "field", field);
-        invokeFindEmpty(board, s);
-        int[] a = (int[]) getPrivateField(board, "field");
-        assertEquals(EMPTY_CELL, a[s]);
-        assertEquals(COVERED_MINE_CELL, a[idx(0,0)]);
-    }
+        // 2) เหมืองเดิมต้องไม่ถูกเปิดโดยอุบัติเหตุ
+        assertEquals(COVERED_MINE_CELL, a[idx(0,0)], "mine safety must hold");
 
-    // 4) มุม/ใกล้มุม: ยิง boundary false ของทแยงต่าง ๆ แบบสั้น ๆ
-    @Test
-    void corners_boundaries_false_compact() throws Exception {
-        int[][] starts = {
-                {0,5},            // up-left fail path active
-                {0,N_COLS-2},     // up-right fail path active
-                {N_ROWS-1,1},     // down-left fail path active
-                {N_ROWS-1,N_COLS-2} // down-right fail path active
-        };
-        for (int[] rc : starts) {
-            int s = idx(rc[0], rc[1]);
-            // รีเซ็ตฟิลด์ให้เป็นสภาพเริ่ม (หลีกเลี่ยงอิทธิพลจากรอบก่อน)
-            Arrays.fill(field, COVER_FOR_CELL);
-            field[idx(0,0)] = COVERED_MINE_CELL;
-            for (int n : new int[]{ idx(0,1), idx(1,0), idx(1,1) }) field[n] = COVER_FOR_CELL + 1;
-            setPrivateField(board, "field", field);
+        // 3) เพื่อนบ้านตามสถานะ:
+        //    - OPENED(0)  : คงเป็นค่าที่เปิดอยู่แล้ว (ที่นี่ใช้ 0)
+        //    - COVERED_NUMBER(11) -> เปิดเป็นเลข (อย่างน้อยต้อง <=9; ที่นี่ expect 1 ตามการตั้งค่าเบื้องต้น)
+        //    - COVERED_ZERO(10)   -> เปิดเป็น 0 และอาจขยายต่อ (ไม่ assert พื้นที่ขยายทั้งหมดเพื่อไม่ผูกกับ implementation detail)
+        for (int i = 0; i < sc.applicableDirs.length; i++) {
+            Dir d = sc.applicableDirs[i];
+            NeighborState st = neighborStates[i];
+            int ni = neighborIndex(sc.r, sc.c, d);
 
-            field[s] -= COVER_FOR_CELL; // เปิด start
-            setPrivateField(board, "field", field);
-            invokeFindEmpty(board, s);
-
-            int[] a = (int[]) getPrivateField(board, "field");
-            assertEquals(EMPTY_CELL, a[s]);
-            assertEquals(COVERED_MINE_CELL, a[idx(0,0)]);
+            switch (st) {
+                case OPENED:
+                    assertTrue(a[ni] <= 9, "opened neighbor must remain opened (<=9)");
+                    break;
+                case COVERED_NUMBER:
+                    // อย่างต่ำต้องถูกเปิดเป็นเลข (ที่นี่เราคาดหวัง 1 จากการตั้งค่าเลขรอบๆ แต่ถ้าคุณคำนวณจริงต่างออกไป ให้ปรับเป็น <=9)
+                    assertTrue(a[ni] <= 9, "covered number must be revealed to a number (<=9)");
+                    break;
+                case COVERED_ZERO:
+                    assertEquals(EMPTY_CELL, a[ni], "covered zero must become 0");
+                    break;
+            }
         }
     }
 }

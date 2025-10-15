@@ -88,9 +88,13 @@ public class MinesAdapterWinPathTest {
 
         ALL = N_ROWS * N_COLS;
 
-        JFrame f = new JFrame();
-        f.add((Component) board);
-        f.pack();
+        Component comp = (Component) board;
+        comp.setSize(N_COLS * CELL_SIZE, N_ROWS * CELL_SIZE);
+        // ถ้าโค้ดของ Board ใช้ขนาด component คำนวณพิกัด ให้ ensure layout/validate
+        comp.doLayout();
+        if (comp instanceof JComponent jc) {
+            jc.revalidate();
+        }
     }
 
     // -------- utils --------

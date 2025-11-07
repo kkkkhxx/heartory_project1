@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.10.11 on win32)" generated="2025-11-07T11:01:16.909810" rpa="false" schemaversion="5">
+<suite id="s1" name="TC4 1 happy update to shipped" source="c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow4_order_fulfillment_tracking\TC4_1_happy_update_to_shipped.robot">
+<kw name="Open Admin Browser" owner="AdminLogin" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:17.626713" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<arg>alias=ADMIN</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-11-07T11:01:17.626713" elapsed="1.836040"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>${VIEWPORT_W}</arg>
+<arg>${VIEWPORT_H}</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2025-11-07T11:01:19.462753" elapsed="0.360637"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:19.823390" level="INFO">Opening url 'http://10.34.112.158:9000/app/'</msg>
+<arg>${ADMIN_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-07T11:01:19.823390" elapsed="3.045109"/>
+</kw>
+<doc>เปิดเบราว์เซอร์ด้วย alias=ADMIN และเข้า http://10.34.112.158:9000/app/</doc>
+<status status="PASS" start="2025-11-07T11:01:17.621327" elapsed="5.247172"/>
+</kw>
+<test id="s1-t1" name="TC4_1_Happy_Update_To_Shipped" line="187">
+<kw name="Admin Create Fulfillment For First Unfulfilled Order">
+<kw name="Admin Login" owner="AdminLogin">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:22.871550" level="INFO">Opening url 'http://10.34.112.158:9000/app/'</msg>
+<arg>${ADMIN_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-07T11:01:22.871550" elapsed="0.303743"/>
+</kw>
+<kw name="Admin Page Should Be Visible" owner="AdminLogin">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOC_USERNAME}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-07T11:01:23.177489" elapsed="1.548270"/>
+</kw>
+<status status="PASS" start="2025-11-07T11:01:23.175293" elapsed="1.550466"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:24.725759" level="INFO">Typing text 'group4@mu-store.local' into text field 'css=input[name="email"]'.</msg>
+<arg>${LOC_USERNAME}</arg>
+<arg>${user}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:24.725759" elapsed="0.157614"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:24.886537" level="INFO">Typing text 'Mp6!dzT3' into text field 'css=input[name="password"]'.</msg>
+<arg>${LOC_PASSWORD}</arg>
+<arg>${pass}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:24.883373" elapsed="0.096784"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:24.980157" level="INFO">Clicking button 'css=button[type="submit"]'.</msg>
+<arg>${LOC_SUBMIT}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:24.980157" elapsed="0.101389"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${LOC_DASHBOARD_TAG}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:25.081546" elapsed="0.653503"/>
+</kw>
+<arg>${ADMIN_USER}</arg>
+<arg>${ADMIN_PASS}</arg>
+<status status="PASS" start="2025-11-07T11:01:22.871550" elapsed="2.863499"/>
+</kw>
+<kw name="Admin Open Orders Page">
+<kw name="Switch Browser" owner="SeleniumLibrary">
+<arg>ADMIN</arg>
+<doc>Switches between active browsers using ``index_or_alias``.</doc>
+<status status="PASS" start="2025-11-07T11:01:25.735049" elapsed="0.000000"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:25.735049" level="INFO">Clicking element 'xpath=//a[contains(normalize-space(.),"Orders")]'.</msg>
+<arg>${ADMIN_MENU_ORDERS}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:25.735049" elapsed="0.101770"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${ORDERS_TABLE}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-07T11:01:25.836819" elapsed="1.329917"/>
+</kw>
+<doc>เข้าเมนู Orders</doc>
+<status status="PASS" start="2025-11-07T11:01:25.735049" elapsed="1.431687"/>
+</kw>
+<kw name="Admin Open First Not Fulfilled Order">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${ROW_FIRST_NOT_FULFILLED}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-07T11:01:27.166736" elapsed="0.023779"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:27.190515" level="INFO">Clicking element 'xpath=(//table[.//th[normalize-space(.)='Fulfillment'] and .//th[normalize-space(.)='Order Total']]//tbody/tr[contains(normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space(.)='Fulfillment']/preceding-sibling::th)]),'Not fulfilled') and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space(.)='Order Total']/preceding-sibling::th)])!='-'])[1]'.</msg>
+<arg>${ROW_FIRST_NOT_FULFILLED}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:27.190515" elapsed="0.126611"/>
+</kw>
+<doc>เปิดออเดอร์แรกที่คอลัมน์ Fulfillment เป็น "Not fulfilled"</doc>
+<status status="PASS" start="2025-11-07T11:01:27.166736" elapsed="0.150390"/>
+</kw>
+<kw name="Scroll Section Unfulfilled Into View">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${SECTION_UNFULFILLED}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:27.317126" elapsed="1.056221"/>
+</kw>
+<kw name="Scroll Element Into View" owner="SeleniumLibrary">
+<arg>${SECTION_UNFULFILLED}</arg>
+<doc>Scrolls the element identified by ``locator`` into view.</doc>
+<status status="PASS" start="2025-11-07T11:01:28.373347" elapsed="0.290083"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-11-07T11:01:28.872281" level="INFO">Slept 200 milliseconds.</msg>
+<arg>200ms</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-11-07T11:01:28.663430" elapsed="0.208851"/>
+</kw>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:28.872281" level="INFO">Executing JavaScript:
+window.scrollBy(0, -80);
+Without any arguments.</msg>
+<arg>window.scrollBy(0, -80);</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2025-11-07T11:01:28.872281" elapsed="0.017308"/>
+</kw>
+<doc>เลื่อนให้ส่วน Unfulfilled Items อยู่กลางจอ + กัน sticky header</doc>
+<status status="PASS" start="2025-11-07T11:01:27.317126" elapsed="1.572463"/>
+</kw>
+<kw name="Open Unfulfilled Action Trigger">
+<kw name="Scroll Section Unfulfilled Into View">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${SECTION_UNFULFILLED}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:28.889589" elapsed="0.014731"/>
+</kw>
+<kw name="Scroll Element Into View" owner="SeleniumLibrary">
+<arg>${SECTION_UNFULFILLED}</arg>
+<doc>Scrolls the element identified by ``locator`` into view.</doc>
+<status status="PASS" start="2025-11-07T11:01:28.904320" elapsed="0.301924"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-11-07T11:01:29.413030" level="INFO">Slept 200 milliseconds.</msg>
+<arg>200ms</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-11-07T11:01:29.206244" elapsed="0.206786"/>
+</kw>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:29.415059" level="INFO">Executing JavaScript:
+window.scrollBy(0, -80);
+Without any arguments.</msg>
+<arg>window.scrollBy(0, -80);</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2025-11-07T11:01:29.415059" elapsed="0.012408"/>
+</kw>
+<doc>เลื่อนให้ส่วน Unfulfilled Items อยู่กลางจอ + กัน sticky header</doc>
+<status status="PASS" start="2025-11-07T11:01:28.889589" elapsed="0.541459"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BTN_UNFULFILLED_ICON}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-07T11:01:29.431048" elapsed="0.028241"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:29.459289" level="INFO">Clicking element 'xpath=(//*[self::section or self::div][ .//h2[normalize-space(.)='Unfulfilled Items'] ][ not(ancestor::aside) ])//*[normalize-space(.)='Awaiting fulfillment']/ancestor::*[self::div or self::section][1]//button[.//*[name()='svg']][not(ancestor::aside)][last()]'.</msg>
+<arg>${BTN_UNFULFILLED_ICON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:29.459289" elapsed="0.132947"/>
+</kw>
+<msg time="2025-11-07T11:01:29.592236" level="INFO">${ok} = True</msg>
+<var>${ok}</var>
+<arg>Click Element</arg>
+<arg>${BTN_UNFULFILLED_ICON}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-07T11:01:29.459289" elapsed="0.134958"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${ok}</arg>
+<arg>Click Via JS</arg>
+<arg>${BTN_UNFULFILLED_ICON}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:29.594247" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:29.594247" elapsed="0.013222"/>
+</kw>
+<doc>คลิกปุ่ม (มี svg) ภายในโซน Unfulfilled Items เพื่อเปิดเมนู/ตัวเลือก</doc>
+<status status="PASS" start="2025-11-07T11:01:28.889589" elapsed="0.717880"/>
+</kw>
+<kw name="Open Fulfill Modal If Needed">
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:30.067713" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-07T11:01:30.067713" level="FAIL">Page should have contained element 'xpath=//*[@role="dialog"]' but did not.</msg>
+<arg>${MODAL_FULFILLMENT}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2025-11-07T11:01:29.607469" elapsed="0.523608">Page should have contained element 'xpath=//*[@role="dialog"]' but did not.</status>
+</kw>
+<msg time="2025-11-07T11:01:30.131077" level="INFO">${modal_ready} = False</msg>
+<var>${modal_ready}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${MODAL_FULFILLMENT}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-07T11:01:29.607469" elapsed="0.523608"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${modal_ready}</arg>
+<arg>Return From Keyword</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.131077" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:30.142827" level="INFO">Current page contains element 'xpath=(//*[@role='menu' or @role='listbox']//*[normalize-space(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'))='fulfill items'])[1]'.</msg>
+<arg>${MENU_FULFILL_ITEMS}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.131077" elapsed="0.011750"/>
+</kw>
+<msg time="2025-11-07T11:01:30.142827" level="INFO">${has_menu} = True</msg>
+<var>${has_menu}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${MENU_FULFILL_ITEMS}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.131077" elapsed="0.011750"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:30.142827" level="INFO">Clicking element 'xpath=(//*[@role='menu' or @role='listbox']//*[normalize-space(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'))='fulfill items'])[1]'.</msg>
+<arg>${MENU_FULFILL_ITEMS}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.142827" elapsed="0.149639"/>
+</kw>
+<arg>${has_menu}</arg>
+<arg>Click Element</arg>
+<arg>${MENU_FULFILL_ITEMS}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.142827" elapsed="0.149639"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${has_menu}</arg>
+<arg>Click Element</arg>
+<arg>${OPT_FIRST_IN_LIST}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.292466" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${MODAL_FULFILLMENT}</arg>
+<arg>7s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.294477" elapsed="0.327631"/>
+</kw>
+<doc>คลิก "Fulfill items" หรือออปชันแรก เพื่อเปิดโมดัลถ้ายังไม่เปิด</doc>
+<status status="PASS" start="2025-11-07T11:01:29.607469" elapsed="1.014639"/>
+</kw>
+<kw name="Open Location Dropdown (In Fulfillment Modal)">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${MODAL_FULFILLMENT}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.622108" elapsed="0.009875"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.631983" elapsed="0.214446"/>
+</kw>
+<msg time="2025-11-07T11:01:30.846429" level="INFO">${has_btn} = True</msg>
+<var>${has_btn}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>2s</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.631983" elapsed="0.214446"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Run Keywords" owner="BuiltIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:30.849701" level="INFO">Clicking element 'xpath=(//*[@role="dialog"]//div[.//*[normalize-space(.)="Location"]])//*[@role="combobox"][1]'.</msg>
+<arg>${DROP_LOCATION_INPUT}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.846429" elapsed="0.103879"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.950308" elapsed="0.027516"/>
+</kw>
+<arg>Click Element</arg>
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>AND</arg>
+<arg>Wait Until Page Contains Element</arg>
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Executes all the given keywords in a sequence.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.846429" elapsed="0.131395"/>
+</kw>
+<arg>${has_btn}</arg>
+<arg>Run Keywords</arg>
+<arg>Click Element</arg>
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>AND</arg>
+<arg>Wait Until Page Contains Element</arg>
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.846429" elapsed="0.131395"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2025-11-07T11:01:30.977824" level="INFO">Returning from the enclosing user keyword.</msg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.977824" elapsed="0.000000"/>
+</kw>
+<arg>${has_btn}</arg>
+<arg>Return From Keyword</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.977824" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" start="2025-11-07T11:01:30.977824" elapsed="0.000000"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>${DROP_LOCATION_INPUT}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2025-11-07T11:01:30.977824" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="NOT RUN" start="2025-11-07T11:01:30.977824" elapsed="0.000000"/>
+</kw>
+<doc>เปิด dropdown ของฟิลด์ Location ภายในโมดัล Fulfillment (ลองปุ่มก่อน แล้วค่อย fallback combobox)</doc>
+<status status="PASS" start="2025-11-07T11:01:30.622108" elapsed="0.355716"/>
+</kw>
+<kw name="Admin Fill Fulfillment Form And Submit">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${MODAL_FULFILLMENT}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:30.981949" elapsed="0.043669"/>
+</kw>
+<kw name="Open Location Dropdown (In Fulfillment Modal)">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${MODAL_FULFILLMENT}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.026095" elapsed="0.007986"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.034081" elapsed="0.040286"/>
+</kw>
+<msg time="2025-11-07T11:01:31.074367" level="INFO">${has_btn} = True</msg>
+<var>${has_btn}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>2s</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.034081" elapsed="0.040286"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Run Keywords" owner="BuiltIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:31.080070" level="INFO">Clicking element 'xpath=(//*[@role="dialog"]//div[.//*[normalize-space(.)="Location"]])//*[@role="combobox"][1]'.</msg>
+<arg>${DROP_LOCATION_INPUT}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.074367" elapsed="0.117897"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.192264" elapsed="0.015968"/>
+</kw>
+<arg>Click Element</arg>
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>AND</arg>
+<arg>Wait Until Page Contains Element</arg>
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Executes all the given keywords in a sequence.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.074367" elapsed="0.133865"/>
+</kw>
+<arg>${has_btn}</arg>
+<arg>Run Keywords</arg>
+<arg>Click Element</arg>
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>AND</arg>
+<arg>Wait Until Page Contains Element</arg>
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.074367" elapsed="0.133865"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2025-11-07T11:01:31.208232" level="INFO">Returning from the enclosing user keyword.</msg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.208232" elapsed="0.000000"/>
+</kw>
+<arg>${has_btn}</arg>
+<arg>Return From Keyword</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.208232" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${DROP_LOCATION_INPUT}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" start="2025-11-07T11:01:31.208232" elapsed="0.000000"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>${DROP_LOCATION_INPUT}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2025-11-07T11:01:31.208232" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${PANEL_ANY}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="NOT RUN" start="2025-11-07T11:01:31.208232" elapsed="0.000000"/>
+</kw>
+<doc>เปิด dropdown ของฟิลด์ Location ภายในโมดัล Fulfillment (ลองปุ่มก่อน แล้วค่อย fallback combobox)</doc>
+<status status="PASS" start="2025-11-07T11:01:31.026095" elapsed="0.182137"/>
+</kw>
+<kw name="Select Location In Dropdown">
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-11-07T11:01:31.208232" level="INFO">${target} = xpath=//*[contains(@role,'option') and normalize-space(.)='European Warehouse']</msg>
+<var>${target}</var>
+<arg>'${name}'!=''</arg>
+<arg>xpath=//*[contains(@role,'option') and normalize-space(.)='${name}']</arg>
+<arg>${OPT_FIRST_IN_LIST}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.208232" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${target}</arg>
+<arg>2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.208232" elapsed="0.025499"/>
+</kw>
+<msg time="2025-11-07T11:01:31.233731" level="INFO">${has_named} = True</msg>
+<var>${has_named}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>${target}</arg>
+<arg>2s</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.208232" elapsed="0.025499"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:31.233731" level="INFO">Clicking element 'xpath=//*[contains(@role,'option') and normalize-space(.)='European Warehouse']'.</msg>
+<arg>${target}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.233731" elapsed="0.070803"/>
+</kw>
+<arg>${has_named}</arg>
+<arg>Click Element</arg>
+<arg>${target}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.233731" elapsed="0.070803"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${has_named}</arg>
+<arg>Click Element</arg>
+<arg>${OPT_FIRST_IN_LIST}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.304534" elapsed="0.000000"/>
+</kw>
+<arg>European Warehouse</arg>
+<status status="PASS" start="2025-11-07T11:01:31.208232" elapsed="0.096302"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${DROP_SHIPPING_METHOD}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.304534" elapsed="0.024471"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:31.329005" level="INFO">Clicking element 'xpath=(//*[@role="combobox" or @data-testid="shipping-method-select"])[1]'.</msg>
+<arg>${DROP_SHIPPING_METHOD}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.329005" elapsed="0.121666"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:34.840687" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-07T11:01:34.840687" level="FAIL">Element 'xpath=//*[contains(@role,"option") and normalize-space(.)="Express Shipping"]' not visible after 3 seconds.</msg>
+<arg>${OPT_EXPRESS_SHIPPING}</arg>
+<arg>3s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="FAIL" start="2025-11-07T11:01:31.451274" elapsed="3.413064">Element 'xpath=//*[contains(@role,"option") and normalize-space(.)="Express Shipping"]' not visible after 3 seconds.</status>
+</kw>
+<msg time="2025-11-07T11:01:34.864338" level="INFO">${has_named} = False</msg>
+<var>${has_named}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>${OPT_EXPRESS_SHIPPING}</arg>
+<arg>3s</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-07T11:01:31.451274" elapsed="3.413064"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${has_named}</arg>
+<arg>Click Element</arg>
+<arg>${OPT_EXPRESS_SHIPPING}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:34.864338" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:34.866753" level="INFO">Clicking element 'xpath=(//*[@role="option" or @data-radix-collection-item])[1]'.</msg>
+<arg>${OPT_FIRST_IN_LIST}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:34.866753" elapsed="0.087142"/>
+</kw>
+<arg>not ${has_named}</arg>
+<arg>Click Element</arg>
+<arg>${OPT_FIRST_IN_LIST}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-07T11:01:34.866753" elapsed="0.087142"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:34.953895" level="INFO">Clicking button 'xpath=//button[normalize-space(.)="Create Fulfillment"]'.</msg>
+<arg>${BTN_CREATE_FULFILLMENT}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-07T11:01:34.953895" elapsed="0.157629"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:35.692172" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-07T11:01:35.703990" level="FAIL">Page should have contained element 'css=.toast.toast-success, [data-testid="toast-success"]' but did not.</msg>
+<arg>${ADMIN_TOAST_SUCCESS}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2025-11-07T11:01:35.116297" elapsed="0.587693">Page should have contained element 'css=.toast.toast-success, [data-testid="toast-success"]' but did not.</status>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:37.158520" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-07T11:01:37.158520" level="FAIL">Page should have contained element 'css=.toast.toast-success, [data-testid="toast-success"]' but did not.</msg>
+<arg>${ADMIN_TOAST_SUCCESS}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2025-11-07T11:01:36.713504" elapsed="0.445016">Page should have contained element 'css=.toast.toast-success, [data-testid="toast-success"]' but did not.</status>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:38.601053" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-07T11:01:38.601053" level="FAIL">Page should have contained element 'css=.toast.toast-success, [data-testid="toast-success"]' but did not.</msg>
+<arg>${ADMIN_TOAST_SUCCESS}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2025-11-07T11:01:38.172478" elapsed="0.428575">Page should have contained element 'css=.toast.toast-success, [data-testid="toast-success"]' but did not.</status>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:40.061695" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-07T11:01:40.061695" level="FAIL">Page should have contained element 'css=.toast.toast-success, [data-testid="toast-success"]' but did not.</msg>
+<arg>${ADMIN_TOAST_SUCCESS}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2025-11-07T11:01:39.607745" elapsed="0.453950">Page should have contained element 'css=.toast.toast-success, [data-testid="toast-success"]' but did not.</status>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-07T11:01:41.249638" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: invalid session id; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb14b5
+	0x7ff792bfa141
+	0x7ff792c32882
+	0x7ff792c2d0ef
+	0x7ff792c2c2ea
+	0x7ff792b7acb5
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792b7977b
+	0x7ff79322b818
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</msg>
+<msg time="2025-11-07T11:01:41.249638" level="FAIL">InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=142.0.7444.61); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb16ad
+	0x7ff792b9d1c5
+	0x7ff792bc2a5a
+	0x7ff792c3a306
+	0x7ff792c5b222
+	0x7ff792bfb068
+	0x7ff792bfbe93
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792e40be4
+	0x7ff792e40d9f
+	0x7ff792e267f8
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</msg>
+<arg>${ADMIN_TOAST_SUCCESS}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2025-11-07T11:01:41.069127" elapsed="0.277885">InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=142.0.7444.61); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb16ad
+	0x7ff792b9d1c5
+	0x7ff792bc2a5a
+	0x7ff792c3a306
+	0x7ff792c5b222
+	0x7ff792bfb068
+	0x7ff792bfbe93
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792e40be4
+	0x7ff792e40d9f
+	0x7ff792e267f8
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</status>
+</kw>
+<msg time="2025-11-07T11:01:41.347012" level="FAIL">Keyword 'Page Should Contain Element' failed after retrying 5 times. The last error was: InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=142.0.7444.61); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb16ad
+	0x7ff792b9d1c5
+	0x7ff792bc2a5a
+	0x7ff792c3a306
+	0x7ff792c5b222
+	0x7ff792bfb068
+	0x7ff792bfbe93
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792e40be4
+	0x7ff792e40d9f
+	0x7ff792e267f8
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</msg>
+<arg>5x</arg>
+<arg>1s</arg>
+<arg>Page Should Contain Element</arg>
+<arg>${ADMIN_TOAST_SUCCESS}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="FAIL" start="2025-11-07T11:01:35.111524" elapsed="6.240392">Keyword 'Page Should Contain Element' failed after retrying 5 times. The last error was: InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=142.0.7444.61); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb16ad
+	0x7ff792b9d1c5
+	0x7ff792bc2a5a
+	0x7ff792c3a306
+	0x7ff792c5b222
+	0x7ff792bfb068
+	0x7ff792bfbe93
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792e40be4
+	0x7ff792e40d9f
+	0x7ff792e267f8
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</status>
+</kw>
+<kw name="Verify Fulfillment Succeeded">
+<doc>แพสเมื่อพบ "อย่างน้อยหนึ่ง" จาก: toast success / โมดัลปิด / badge Awaiting หาย / มีคำว่า Shipped/Fulfilled</doc>
+<status status="NOT RUN" start="2025-11-07T11:01:41.352598" elapsed="0.000000"/>
+</kw>
+<doc>เลือก Location + Shipping method -&gt; Create Fulfillment</doc>
+<status status="FAIL" start="2025-11-07T11:01:30.977824" elapsed="10.375242">Keyword 'Page Should Contain Element' failed after retrying 5 times. The last error was: InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=142.0.7444.61); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb16ad
+	0x7ff792b9d1c5
+	0x7ff792bc2a5a
+	0x7ff792c3a306
+	0x7ff792c5b222
+	0x7ff792bfb068
+	0x7ff792bfbe93
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792e40be4
+	0x7ff792e40d9f
+	0x7ff792e267f8
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</status>
+</kw>
+<doc>Flow ครบ: Login -&gt; Orders -&gt; เปิดออเดอร์ Not fulfilled แรก -&gt; เปิดเมนู/โมดัล -&gt; เลือก Location/Shipping -&gt; Create</doc>
+<status status="FAIL" start="2025-11-07T11:01:22.871550" elapsed="18.481516">Keyword 'Page Should Contain Element' failed after retrying 5 times. The last error was: InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=142.0.7444.61); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb16ad
+	0x7ff792b9d1c5
+	0x7ff792bc2a5a
+	0x7ff792c3a306
+	0x7ff792c5b222
+	0x7ff792bfb068
+	0x7ff792bfbe93
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792e40be4
+	0x7ff792e40d9f
+	0x7ff792e267f8
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</status>
+</kw>
+<tag>admin</tag>
+<tag>fulfillment</tag>
+<tag>happy</tag>
+<status status="FAIL" start="2025-11-07T11:01:22.869780" elapsed="18.483286">Keyword 'Page Should Contain Element' failed after retrying 5 times. The last error was: InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=142.0.7444.61); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb16ad
+	0x7ff792b9d1c5
+	0x7ff792bc2a5a
+	0x7ff792c3a306
+	0x7ff792c5b222
+	0x7ff792bfb068
+	0x7ff792bfbe93
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792e40be4
+	0x7ff792e40d9f
+	0x7ff792e267f8
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</status>
+</test>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2025-11-07T11:01:41.353066" elapsed="2.019010"/>
+</kw>
+<status status="FAIL" start="2025-11-07T11:01:16.916826" elapsed="26.455250"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">admin</stat>
+<stat pass="0" fail="1" skip="0">fulfillment</stat>
+<stat pass="0" fail="1" skip="0">happy</stat>
+</tag>
+<suite>
+<stat name="TC4 1 happy update to shipped" id="s1" pass="0" fail="1" skip="0">TC4 1 happy update to shipped</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-11-07T11:01:41.249638" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: invalid session id; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff792e37a05
+	0x7ff792e37a60
+	0x7ff792bb14b5
+	0x7ff792bfa141
+	0x7ff792c32882
+	0x7ff792c2d0ef
+	0x7ff792c2c2ea
+	0x7ff792b7acb5
+	0x7ff7930f29a0
+	0x7ff7930ece20
+	0x7ff79310cc15
+	0x7ff792e5309e
+	0x7ff792e5ad8f
+	0x7ff792b7977b
+	0x7ff79322b818
+	0x7ffa7bffe8d7
+	0x7ffa7dccc53c
+</msg>
+</errors>
+</robot>

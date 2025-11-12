@@ -7,32 +7,37 @@ Suite Teardown    Close All Browsers
 
 *** Variables ***
 # ===== TODO: ปรับให้ตรง DOM ของคุณ =====
-# Login (หน้า Admin)
-${ADMIN_LOGIN_USER}        css=input[name="email"]                         # ช่องยูสเซอร์
-${ADMIN_LOGIN_PASS}        css=input[name="password"]                      # ช่องรหัสผ่าน
-${ADMIN_LOGIN_BTN}         xpath=//button[normalize-space(.)="Continue with Email"]       # ปุ่มล็อกอิน
+${ADMIN_LOGIN_USER}        css=input[name="email"]
+${ADMIN_LOGIN_PASS}        css=input[name="password"]
+${ADMIN_LOGIN_BTN}         xpath=//button[normalize-space(.)="Continue with Email"]
 ${ADMIN_DASH_TAG}          xpath=//aside//*[contains(normalize-space(.),"Orders")]
 
 # เมนู Orders
 ${ADMIN_MENU_ORDERS}       xpath=//a[contains(normalize-space(.),"Orders")]
 
-# ตาราง Orders (ต้องมีคอลัมน์ Fulfillment)
-# แนะนำ: ใส่ data-testid ในหน้าเว็บจริง แล้วอ้างด้วย [data-testid="orders-table"]
+# ตาราง Orders
 ${ORDERS_TABLE}            xpath=//table[contains(@class,"text-ui-fg-subtle txt-compact-small relative w-full")]
 
-# แถวแรกที่ Not fulfilled
-${ROW_FIRST_NOT_FULFILLED}    xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total'] and .//th[normalize-space()='Customer']]//tbody/tr[normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Customer']/preceding-sibling::th)])='Ham Burger' and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Not fulfilled' and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='-' and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='0' and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='0.00'])[1]
+# แถวแรกที่ Not fulfilled และ Order Total > 0 (เลิกผูกชื่อ Ham Burger)
+${ROW_FIRST_NOT_FULFILLED}    xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total']]//tbody/tr
+...    [normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Not fulfilled'
+...    and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='-'
+...    and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='0'
+...    and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='0.00'])[1]
 
-# เซลล์ Order Total ของแถวนั้น
-${ORDER_TOTAL_TD}    xpath=${ROW_FIRST_NOT_FULFILLED}//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space(.)='Order Total']/preceding-sibling::th)]
+# แถวแรกที่ Fulfilled
+${ROW_FIRST_FULFILLED}    xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total']]//tbody/tr
+...    [normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Fulfilled'])[1]
 
-# หน้า Order detail – โซน "Unfulfilled Items" และปุ่ม/ทริกเกอร์ Radix (ตัวอย่าง)
+# หน้า Order detail – โซน
 ${SECTION_UNFULFILLED}      xpath=//*[self::section or self::div][.//h2[normalize-space(.)="Unfulfilled Items"]]
-# ใช้ [name()='svg'] เพื่อกันเคส SVG namespace
+${SECTION_FULFILLED}        xpath=(//*[self::section or self::div][ .//*[self::h2 or self::h3][contains(normalize-space(.),'Fulfillment #1')] ][ not(ancestor::aside) ])[1]
+
+# ปุ่ม/พาเนล
 ${BTN_UNFULFILLED_ICON}    xpath=(//*[self::section or self::div][ .//h2[normalize-space(.)='Unfulfilled Items'] ][ not(ancestor::aside) ])//*[normalize-space(.)='Awaiting fulfillment']/ancestor::*[self::div or self::section][1]//button[.//*[name()='svg']][not(ancestor::aside)][last()]
 ${PANEL_ANY}                xpath=//*[@role='menu' or @role='listbox' or @data-radix-popper-content or contains(@data-state,'open')]
 
-# ภายใน Modal "Create Fulfillment"
+# Fulfillment Modal
 ${MODAL_FULFILLMENT}       xpath=//*[@role="dialog"]
 ${DROP_LOCATION_INPUT}     xpath=(//*[@role="dialog"]//div[.//*[normalize-space(.)="Location"]])//*[@role="combobox"][1]
 ${OPT_FIRST_IN_LIST}       xpath=(//*[@role="option" or @data-radix-collection-item])[1]
@@ -40,46 +45,60 @@ ${DROP_SHIPPING_METHOD}    xpath=(//*[@role="combobox" or @data-testid="shipping
 ${OPT_EXPRESS_SHIPPING}    xpath=//*[contains(@role,"option") and normalize-space(.)="Express Shipping"]
 ${BTN_CREATE_FULFILLMENT}  xpath=//button[normalize-space(.)="Create Fulfillment"]
 
-# Toast / สถานะสำเร็จ
-# แนะนำ: ใช้ data-testid ให้เสถียรกว่า
+# Indicators / Toast
 ${ADMIN_TOAST_SUCCESS}     xpath=(//*[@role='status' or @role='alert' or @aria-live='polite' or @aria-live='assertive' or contains(@class,'toast')][contains(normalize-space(.),'Success') or contains(normalize-space(.),'Succeeded') or contains(normalize-space(.),'Fulfilled') or contains(normalize-space(.),'Shipped')])[1]
 ${ADMIN_TOAST_ERROR}       css=.toast.toast-error, [data-testid="toast-error"]
-# Indicators หลัง Create Fulfillment
 ${BADGE_AWAITING}          xpath=//*[self::section or self::div][.//h2[normalize-space(.)="Fulfilled"]]
 ${BADGE_FULFILLED}         xpath=//button[normalize-space(.)="Mark as shipped"]
 ${MODAL_ANY}               xpath=//*[@role='dialog']
 
-# ====== เพิ่มเติมสำหรับเมนู ======
+# เมนู
 ${MENU_FULFILL_ITEMS}      xpath=(//*[@role='menu' or @role='listbox']//*[normalize-space(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'))='fulfill items'])[1]
 
-# ===== Modal: Mark fulfillment shipped =====
-${MARK_SHIPPED_MODAL}    (//*[@role='dialog'][.//*[self::h1 or self::h2][normalize-space(.)='Mark fulfillment shipped']])[1]
-# ปุ่ม Add / input / ปุ่ม Save ที่อ้างจากโมดัลข้างบน (ใส่ xpath= ที่ตัวสุดท้ายเท่านั้น)
-${ADD_TRACKING_BTN}        xpath=${MARK_SHIPPED_MODAL}//button[normalize-space(.)='Add tracking number']
-${TRACKING_INPUT}          xpath=${MARK_SHIPPED_MODAL}//input[@type='text' or contains(translate(@placeholder,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'tracking')]
-${SAVE_SHIPPED_BTN}        xpath=${MARK_SHIPPED_MODAL}//button[normalize-space(.)='Save']
-${NOTIFY_TOGGLE_OPTIONAL}  xpath=${MARK_SHIPPED_MODAL}//*[@role='switch' or @aria-checked or contains(@class,'switch')]
+# Modal: Mark fulfillment shipped
+${MARK_SHIPPED_MODAL}    xpath=(//*[@role='dialog'][.//*[self::h1 or self::h2][normalize-space(.)='Mark fulfillment shipped']])[1]
+${ADD_TRACKING_BTN}      xpath=//button[normalize-space(.)='Add tracking number']
+${TRACKING_INPUT}        xpath=//input[@placeholder='123-456-789']
+${NOTIFY_TOGGLE_OPTIONAL}  xpath=//*[@role='switch' or @aria-checked or contains(@class,'switch')]
+${SAVE_SHIPPED_BTN}      xpath=//button[normalize-space(.)='Save']
 
-
+# anchor เผื่อหา section ไม่เจอ แต่มีปุ่ม Mark as shipped
+${SECTION_FROM_MARK_BTN}    xpath=(//button[normalize-space(.)='Mark as shipped']
+...    /ancestor::*[self::section or self::div][1])[1]
 
 *** Keywords ***
+# ---------- helpers ----------
 Admin Open Orders Page
-    [Documentation]    เข้าเมนู Orders
     Switch Browser    ADMIN
     Click Element     ${ADMIN_MENU_ORDERS}
     Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
 
 Admin Open First Not Fulfilled Order
-    [Documentation]    เปิดออเดอร์แรกที่คอลัมน์ Fulfillment เป็น "Not fulfilled"
     Wait Until Element Is Visible    ${ROW_FIRST_NOT_FULFILLED}    10s
     Click Element     ${ROW_FIRST_NOT_FULFILLED}
 
-# ====== ปรับ keyword นี้ให้สกรอลกลางจอ + กัน header ทับ ======
+Admin Open First Fulfilled Order
+    Wait Until Element Is Visible    ${ROW_FIRST_FULFILLED}    10s
+    Click Element     ${ROW_FIRST_FULFILLED}
+
+Back To Orders List
+    # เลือกวิธีใดวิธีหนึ่งที่หน้า UI คุณรองรับ
+    # 1) กดเมนู Orders
+    Click Element     ${ADMIN_MENU_ORDERS}
+    Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
+    # หรือ 2) Go Back:
+    # Go Back
+    # Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
+
 Scroll Section Unfulfilled Into View
-    [Documentation]    เลื่อนให้ส่วน Unfulfilled Items อยู่กลางจอ + กัน sticky header
     Wait Until Page Contains Element    ${SECTION_UNFULFILLED}    15s
-    # ใช้คีย์เวิร์ดที่รับ locator เป็นสตริง เพื่อตัดปัญหา WebElement
     Scroll Element Into View            ${SECTION_UNFULFILLED}
+    Sleep    200ms
+    Execute Javascript    window.scrollBy(0, -80);
+
+Scroll Section Fulfilled Into View
+    Wait Until Page Contains Element    ${SECTION_FULFILLED}    15s
+    Scroll Element Into View            ${SECTION_FULFILLED}
     Sleep    200ms
     Execute Javascript    window.scrollBy(0, -80);
 
@@ -91,46 +110,33 @@ Click Element Safely
 
 Click Via JS
     [Arguments]    ${locator}
-    # ใช้ driver.find_element ผ่าน SeleniumLibrary JS bridge เพื่อเลี่ยงส่ง WebElement จากฝั่ง Robot
     Execute Javascript    return window.robotReady = true;
     ${el}=    Get WebElement    ${locator}
-    # ถ้ายังชน ให้คลิกด้วย center point แทน (ทางเลือก)
     ${ok}=    Run Keyword And Return Status    Execute Javascript    arguments[0].click();    ${el}
     Run Keyword If    not ${ok}    Click Element    ${locator}
 
-# ====== คลิกปุ่มที่มี svg ภายในโซน Unfulfilled ======
 Open Unfulfilled Action Trigger
-    [Documentation]    คลิกปุ่ม (มี svg) ภายในโซน Unfulfilled Items เพื่อเปิดเมนู/ตัวเลือก
     Scroll Section Unfulfilled Into View
     Wait Until Element Is Visible    ${BTN_UNFULFILLED_ICON}    5s
     ${ok}=    Run Keyword And Return Status    Click Element    ${BTN_UNFULFILLED_ICON}
     Run Keyword If    not ${ok}    Click Via JS    ${BTN_UNFULFILLED_ICON}
     Wait Until Page Contains Element    ${PANEL_ANY}    5s
 
-# ====== ถ้าเปิดเป็นเมนูก่อน ให้เลือก Fulfill items เพื่อเปิดโมดัล ======
 Open Fulfill Modal If Needed
-    [Documentation]    คลิก "Fulfill items" หรือออปชันแรก เพื่อเปิดโมดัลถ้ายังไม่เปิด
     ${modal_ready}=    Run Keyword And Return Status    Page Should Contain Element    ${MODAL_FULFILLMENT}
     Run Keyword If    ${modal_ready}    Return From Keyword
-
     ${has_menu}=    Run Keyword And Return Status    Page Should Contain Element    ${MENU_FULFILL_ITEMS}
     Run Keyword If    ${has_menu}    Click Element    ${MENU_FULFILL_ITEMS}
     Run Keyword If    not ${has_menu}    Click Element    ${OPT_FIRST_IN_LIST}
-
     Wait Until Page Contains Element    ${MODAL_FULFILLMENT}    7s
 
 Open Location Dropdown (In Fulfillment Modal)
-    [Documentation]    เปิด dropdown ของฟิลด์ Location ภายในโมดัล Fulfillment (ลองปุ่มก่อน แล้วค่อย fallback combobox)
     Wait Until Page Contains Element    ${MODAL_FULFILLMENT}    10s
-
-    # ลองคลิกปุ่มก่อน (ตาม DOM ในรูป)
     ${has_btn}=    Run Keyword And Return Status    Wait Until Element Is Visible    ${DROP_LOCATION_INPUT}    2s
     Run Keyword If    ${has_btn}    Run Keywords
     ...    Click Element    ${DROP_LOCATION_INPUT}
     ...    AND    Wait Until Page Contains Element    ${PANEL_ANY}    5s
     Run Keyword If    ${has_btn}    Return From Keyword
-
-    # Fallback: ถ้าเป็น combobox จริง
     Wait Until Element Is Visible    ${DROP_LOCATION_INPUT}    5s
     Click Element    ${DROP_LOCATION_INPUT}
     Wait Until Page Contains Element    ${PANEL_ANY}    5s
@@ -143,36 +149,28 @@ Select Location In Dropdown
     Run Keyword If    not ${has_named}    Click Element    ${OPT_FIRST_IN_LIST}
 
 Verify Fulfillment Succeeded
-    [Documentation]    แพสเมื่อพบ "อย่างน้อยหนึ่ง" จาก: toast success / โมดัลปิด / badge Awaiting หาย / มีคำว่า Shipped/Fulfilled
-    # รอให้โมดัลปิดก่อน (ถ้าปิด)
     Run Keyword And Ignore Error    Wait Until Page Does Not Contain Element    ${MODAL_ANY}    10s
     Wait Until Keyword Succeeds    10x    1s    Check Any Success Indicator
 
 Check Any Success Indicator
     ${ok1}=    Run Keyword And Return Status    Page Should Contain Element         ${ADMIN_TOAST_SUCCESS}
-    ${ok2}=    Run Keyword And Return Status    Page Should Contain Element         ${BADGE_AWAITING}       # กล่อง Fulfillment (h2=Fulfilled) โผล่
-    ${ok3}=    Run Keyword And Return Status    Page Should Contain Element         ${BADGE_FULFILLED}      # ปุ่ม Mark as shipped โผล่
-    ${ok4}=    Run Keyword And Return Status    Page Should Not Contain Element     ${MODAL_ANY}            # โมดัลปิดแล้ว
+    ${ok2}=    Run Keyword And Return Status    Page Should Contain Element         ${BADGE_AWAITING}
+    ${ok3}=    Run Keyword And Return Status    Page Should Contain Element         ${BADGE_FULFILLED}
+    ${ok4}=    Run Keyword And Return Status    Page Should Not Contain Element     ${MODAL_ANY}
     Run Keyword If    ${ok1} or ${ok2} or ${ok3} or ${ok4}    Return From Keyword
     Fail    No success indicators found yet.
 
 Admin Fill Fulfillment Form And Submit
-    [Documentation]    เลือก Location + Shipping method -> Create Fulfillment
     Wait Until Page Contains Element    ${MODAL_FULFILLMENT}    10s
-    # ===== Location =====
     Open Location Dropdown (In Fulfillment Modal)
     Select Location In Dropdown    European Warehouse
-    # ===== Shipping method =====
     Wait Until Element Is Visible    ${DROP_SHIPPING_METHOD}   10s
     Click Element     ${DROP_SHIPPING_METHOD}
     ${has_named}=    Run Keyword And Return Status    Wait Until Element Is Visible    ${OPT_EXPRESS_SHIPPING}    3s
     Run Keyword If    ${has_named}         Click Element    ${OPT_EXPRESS_SHIPPING}
     Run Keyword If    not ${has_named}     Click Element    ${OPT_FIRST_IN_LIST}
-    # ===== Create Fulfillment =====
     Click Button      ${BTN_CREATE_FULFILLMENT}
     Wait Until Keyword Succeeds    12x    500ms    Check Any Success Indicator
-
-    # ✅ ยืนยันความสำเร็จแบบหลายสัญญาณ (ไม่ยึดติดกับ toast อย่างเดียว)
     Verify Fulfillment Succeeded
 
 Check Shipped Indicator
@@ -181,64 +179,102 @@ Check Shipped Indicator
     Run Keyword If    ${ok1} or ${ok2}    Return From Keyword
     Fail    Not shipped yet.
 
-Admin Mark As Shipped
-    [Documentation]    คลิกปุ่ม Mark as shipped -> ใส่ Tracking number -> Save -> ตรวจว่า shipped แล้ว
-    Wait Until Page Contains Element    ${BADGE_FULFILLED}    10s
-    Click Element    ${BADGE_FULFILLED}
-
-    # ⬇️ จัดการในโมดัล
-    Fill Mark Shipped Modal And Save    AUTO    ${True}
-    Sleep    200ms
-    Run Keyword And Ignore Error    Capture Page Screenshot
-
-    # รอผลลัพธ์หลัง Save (toast หรือข้อความ Shipped)
-    Wait Until Keyword Succeeds    12x    500ms    Check Shipped Indicator
-
-
 Generate Tracking Number
     ${ts}=    Get Time    epoch
     ${tracking}=    Set Variable    TRK-${ts}
     [Return]    ${tracking}
 
 Fill Mark Shipped Modal And Save
-    [Arguments]    ${tracking_number}=AUTO    ${send_notification}=true
+    [Arguments]    ${tracking_number}=EF582568151    ${send_notification}=true
     Wait Until Page Contains Element    ${MARK_SHIPPED_MODAL}    10s
-
-    # ✅ ขั้นตอนที่ 1: กด Add tracking number
     Wait Until Element Is Visible       ${ADD_TRACKING_BTN}      10s
     Click Element                       ${ADD_TRACKING_BTN}
-
-    # ✅ ขั้นตอนที่ 2: รอให้ input tracking โผล่ (มันเพิ่งถูกสร้างใน DOM)
     Wait Until Page Contains Element    ${TRACKING_INPUT}        10s
     Wait Until Element Is Visible       ${TRACKING_INPUT}        5s
     Wait Until Keyword Succeeds         5x    500ms    Element Should Be Enabled    ${TRACKING_INPUT}
-
-    # ✅ ขั้นตอนที่ 3: ใส่เลข tracking
-    Run Keyword If    '${tracking_number}'=='AUTO'    ${tracking_number}=    Generate Tracking Number
+    Run Keyword If    '${tracking_number}'=='EF582568151'    ${tracking_number}=    Generate Tracking Number
     Clear Element Text    ${TRACKING_INPUT}
     Input Text            ${TRACKING_INPUT}    ${tracking_number}
-
-    # ✅ ขั้นตอนที่ 4: toggle แจ้งเตือนลูกค้า (ถ้ามี)
     ${has_toggle}=    Run Keyword And Return Status    Page Should Contain Element    ${NOTIFY_TOGGLE_OPTIONAL}
     Run Keyword If    ${has_toggle} and not ${send_notification}    Click Element    ${NOTIFY_TOGGLE_OPTIONAL}
-
-    # ✅ ขั้นตอนที่ 5: กด Save แล้วรอ modal ปิด
     Click Button       ${SAVE_SHIPPED_BTN}
     Run Keyword And Ignore Error    Wait Until Page Does Not Contain Element    ${MARK_SHIPPED_MODAL}    10s
 
-Admin Create Fulfillment For First Unfulfilled Order
-    [Documentation]    Flow ครบ: Login -> Orders -> เปิดออเดอร์ Not fulfilled แรก -> เปิดโมดัล -> สร้าง Fulfillment -> Mark as shipped
-    Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
-    Admin Open Orders Page
-    Admin Open First Not Fulfilled Order
-    Scroll Section Unfulfilled Into View
-    Open Unfulfilled Action Trigger
-    Open Fulfill Modal If Needed
-    Open Location Dropdown (In Fulfillment Modal)
-    Admin Fill Fulfillment Form And Submit
-    Admin Mark As Shipped
+Scroll To Fulfillment Section (Robust)
+    [Documentation]    เลื่อนไปยังโซน Fulfillment อย่างถึกทน (รองรับ contains, sticky header, virtualized list)
+
+    # 0) ตั้งค่า default เพื่อกัน Variable not found
+    ${has_anchor}=    Set Variable    ${False}
+    ${has_btn}=       Set Variable    ${False}
+
+    # 1) รอ heading หรือปุ่มอยู่ใน DOM
+    Wait Until Keyword Succeeds    10x    500ms
+    ...    Run Keywords
+    ...    Run Keyword And Ignore Error    Page Should Contain Element    ${SECTION_FULFILLED}
+    ...    AND    Run Keyword And Ignore Error    Page Should Contain Element    ${BADGE_FULFILLED}
+
+    # 2) ถ้ามี section ให้ไปหา section ก่อน
+    ${has_section}=    Run Keyword And Return Status    Page Should Contain Element    ${SECTION_FULFILLED}
+    Run Keyword If    ${has_section}    Run Keywords
+    ...    Scroll Element Into View    ${SECTION_FULFILLED}
+    ...    AND    Sleep    200ms
+    ...    AND    Execute Javascript    window.scrollBy(0, -80);
+    Run Keyword If    ${has_section}    Return From Keyword
+
+    # 3) ไม่มี section? ลองหา ancestor ของปุ่ม Mark as shipped มาเป็น anchor
+    ${has_btn}=    Run Keyword And Return Status    Page Should Contain Element    ${BADGE_FULFILLED}
+    Run Keyword If    ${has_btn}    Set Test Variable    ${_try_anchor}    ${SECTION_FROM_MARK_BTN}
+    Run Keyword If    ${has_btn}    ${has_anchor}=    Run Keyword And Return Status    Page Should Contain Element    ${_try_anchor}
+    Run Keyword If    ${has_anchor}    Run Keywords
+    ...    Scroll Element Into View    ${_try_anchor}
+    ...    AND    Sleep    200ms
+    ...    AND    Execute Javascript    window.scrollBy(0, -80);
+    Run Keyword If    ${has_anchor}    Return From Keyword
+
+    # 4) ถ้าไม่มี anchor ก็เลื่อนไปที่ปุ่มโดยตรง
+    Run Keyword If    ${has_btn}    Run Keywords
+    ...    Scroll Element Into View    ${BADGE_FULFILLED}
+    ...    AND    Sleep    200ms
+    ...    AND    Execute Javascript    window.scrollBy(0, -80);
+    Run Keyword If    ${has_btn}    Return From Keyword
+
+    # 5) กัน virtualized UI: สไลด์ทั้งหน้าเพื่อให้ component render
+    FOR    ${i}    IN RANGE    12
+        Execute Javascript    window.scrollBy(0, Math.round(window.innerHeight*0.7));
+        Sleep    200ms
+        ${ok}=     Run Keyword And Return Status    Page Should Contain Element    ${SECTION_FULFILLED}
+        Run Keyword If    ${ok}    Run Keywords
+        ...    Scroll Element Into View    ${SECTION_FULFILLED}
+        ...    AND    Sleep    150ms
+        ...    AND    Execute Javascript    window.scrollBy(0, -80);
+        ...    AND    Exit For Loop
+        ${ok2}=    Run Keyword And Return Status    Page Should Contain Element    ${BADGE_FULFILLED}
+        Run Keyword If    ${ok2}    Run Keywords
+        ...    Scroll Element Into View    ${BADGE_FULFILLED}
+        ...    AND    Sleep    150ms
+        ...    AND    Execute Javascript    window.scrollBy(0, -80);
+        ...    AND    Exit For Loop
+    END
+
+    ${seen}=      Run Keyword And Return Status    Page Should Contain Element    ${SECTION_FULFILLED}
+    ${seen_btn}=  Run Keyword And Return Status    Page Should Contain Element    ${BADGE_FULFILLED}
+    Run Keyword If    not ${seen} and not ${seen_btn}    Fail    Could not locate Fulfillment section or Mark as shipped button. Check DOM/iframe/text.
+
 
 *** Test Cases ***
 TC4_1_Happy_Update_To_Shipped
-    [Tags]    admin    fulfillment    happy
-    Admin Create Fulfillment For First Unfulfilled Order
+    [Documentation]    Update shipping status
+    Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
+    Admin Open Orders Page
+    Admin Open First Not Fulfilled Order
+    Open Unfulfilled Action Trigger
+    Open Fulfill Modal If Needed
+    Admin Fill Fulfillment Form And Submit
+    Scroll To Fulfillment Section (Robust)
+    Wait Until Page Contains Element    ${BADGE_FULFILLED}    10s
+    Click Element    ${BADGE_FULFILLED}
+    Fill Mark Shipped Modal And Save    TH1234567890    ${False}
+    Wait Until Keyword Succeeds    12x    500ms    Check Shipped Indicator
+    Back To Orders List
+
+

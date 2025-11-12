@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.10.11 on win32)" generated="2025-11-12T11:19:04.678317" rpa="false" schemaversion="5">
+<suite id="s1" name="TC4 1b AddTracking" source="c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow4_order_fulfillment_tracking\TC4_Spilt\TC4_1b_AddTracking.robot">
+<kw name="Open Admin Browser" owner="AdminLogin" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:05.015943" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<arg>alias=ADMIN</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-11-12T11:19:05.015943" elapsed="1.274271"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>${VIEWPORT_W}</arg>
+<arg>${VIEWPORT_H}</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2025-11-12T11:19:06.290214" elapsed="0.363838"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:06.659539" level="INFO">Opening url 'http://10.34.112.158:9000/app/'</msg>
+<arg>${ADMIN_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-12T11:19:06.654052" elapsed="2.228767"/>
+</kw>
+<doc>เปิดเบราว์เซอร์ด้วย alias=ADMIN และเข้า http://10.34.112.158:9000/app/</doc>
+<status status="PASS" start="2025-11-12T11:19:05.015943" elapsed="3.866876"/>
+</kw>
+<test id="s1-t1" name="TC4_1B_Add_Tracking" line="7">
+<kw name="Part2_Add_Tracking_To_Fulfilled_Order" owner="FulfillmentFlowsResource">
+<kw name="Admin Login" owner="AdminLogin">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:08.882819" level="INFO">Opening url 'http://10.34.112.158:9000/app/'</msg>
+<arg>${ADMIN_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-12T11:19:08.882819" elapsed="0.281947"/>
+</kw>
+<kw name="Admin Page Should Be Visible" owner="AdminLogin">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOC_USERNAME}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-12T11:19:09.166531" elapsed="1.158765"/>
+</kw>
+<status status="PASS" start="2025-11-12T11:19:09.164766" elapsed="1.160530"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:10.325296" level="INFO">Typing text 'group4@mu-store.local' into text field 'css=input[name="email"]'.</msg>
+<arg>${LOC_USERNAME}</arg>
+<arg>${user}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-12T11:19:10.325296" elapsed="0.187750"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:10.513046" level="INFO">Typing text 'Mp6!dzT3' into text field 'css=input[name="password"]'.</msg>
+<arg>${LOC_PASSWORD}</arg>
+<arg>${pass}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-12T11:19:10.513046" elapsed="0.145517"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:10.658563" level="INFO">Clicking button 'css=button[type="submit"]'.</msg>
+<arg>${LOC_SUBMIT}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-12T11:19:10.658563" elapsed="0.164017"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${LOC_DASHBOARD_TAG}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-12T11:19:10.822580" elapsed="0.699572"/>
+</kw>
+<arg>${ADMIN_USER}</arg>
+<arg>${ADMIN_PASS}</arg>
+<status status="PASS" start="2025-11-12T11:19:08.882819" elapsed="2.639333"/>
+</kw>
+<kw name="Admin Open Orders Page" owner="FulfillmentFlowsResource">
+<kw name="Switch Browser" owner="SeleniumLibrary">
+<arg>ADMIN</arg>
+<doc>Switches between active browsers using ``index_or_alias``.</doc>
+<status status="PASS" start="2025-11-12T11:19:11.522152" elapsed="0.000000"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:11.524689" level="INFO">Clicking element 'xpath=//a[contains(normalize-space(.),"Orders")]'.</msg>
+<arg>${ADMIN_MENU_ORDERS}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-12T11:19:11.524159" elapsed="0.281261"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${ORDERS_TABLE}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-12T11:19:11.811350" elapsed="0.156758"/>
+</kw>
+<status status="PASS" start="2025-11-12T11:19:11.522152" elapsed="0.445956"/>
+</kw>
+<kw name="Admin Open First Fulfilled Order" owner="FulfillmentFlowsResource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${ROW_FIRST_FULFILLED}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-12T11:19:11.968108" elapsed="0.024861"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:11.992969" level="INFO">Clicking element 'xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total']]//tbody/tr [normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Fulfilled'])[1]'.</msg>
+<arg>${ROW_FIRST_FULFILLED}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-12T11:19:11.992969" elapsed="0.152790"/>
+</kw>
+<status status="PASS" start="2025-11-12T11:19:11.968108" elapsed="0.177651"/>
+</kw>
+<kw name="Scroll To Fulfillment Section (Robust)" owner="FulfillmentFlowsResource">
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Run Keywords" owner="BuiltIn">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:12.440015" level="INFO">Current page contains element 'xpath=(//*[self::section or self::div][ .//*[self::h2 or self::h3][contains(normalize-space(.),'Fulfillment #1')] ][ not(ancestor::aside) ])[1]'.</msg>
+<arg>${SECTION_FULFILLED}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.148722" elapsed="0.292115"/>
+</kw>
+<arg>Page Should Contain Element</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.148722" elapsed="0.292115"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:12.460272" level="INFO">Current page contains element 'xpath=//button[normalize-space(.)="Mark as shipped"]'.</msg>
+<arg>${BADGE_FULFILLED}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.440837" elapsed="0.019965"/>
+</kw>
+<arg>Page Should Contain Element</arg>
+<arg>${BADGE_FULFILLED}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.440837" elapsed="0.019965"/>
+</kw>
+<arg>Run Keyword And Ignore Error</arg>
+<arg>Page Should Contain Element</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<arg>AND</arg>
+<arg>Run Keyword And Ignore Error</arg>
+<arg>Page Should Contain Element</arg>
+<arg>${BADGE_FULFILLED}</arg>
+<doc>Executes all the given keywords in a sequence.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.148722" elapsed="0.312080"/>
+</kw>
+<arg>10x</arg>
+<arg>500ms</arg>
+<arg>Run Keywords</arg>
+<arg>Run Keyword And Ignore Error</arg>
+<arg>Page Should Contain Element</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<arg>AND</arg>
+<arg>Run Keyword And Ignore Error</arg>
+<arg>Page Should Contain Element</arg>
+<arg>${BADGE_FULFILLED}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.148722" elapsed="0.312080"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:12.483978" level="INFO">Current page contains element 'xpath=(//*[self::section or self::div][ .//*[self::h2 or self::h3][contains(normalize-space(.),'Fulfillment #1')] ][ not(ancestor::aside) ])[1]'.</msg>
+<arg>${SECTION_FULFILLED}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.461398" elapsed="0.022580"/>
+</kw>
+<msg time="2025-11-12T11:19:12.483978" level="INFO">${has_section} = True</msg>
+<var>${has_section}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.461398" elapsed="0.022580"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Run Keywords" owner="BuiltIn">
+<kw name="Scroll Element Into View" owner="SeleniumLibrary">
+<arg>${SECTION_FULFILLED}</arg>
+<doc>Scrolls the element identified by ``locator`` into view.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.489229" elapsed="0.282358"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-11-12T11:19:12.973309" level="INFO">Slept 200 milliseconds.</msg>
+<arg>200ms</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.771587" elapsed="0.202796"/>
+</kw>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:12.974383" level="INFO">Executing JavaScript:
+window.scrollBy(0, -80);
+Without any arguments.</msg>
+<arg>window.scrollBy(0, -80);</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.974383" elapsed="0.011542"/>
+</kw>
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2025-11-12T11:19:12.985925" level="INFO">Returning from the enclosing user keyword.</msg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.985925" elapsed="0.000000"/>
+</kw>
+<arg>Scroll Element Into View</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<arg>AND</arg>
+<arg>Sleep</arg>
+<arg>200ms</arg>
+<arg>AND</arg>
+<arg>Execute Javascript</arg>
+<arg>window.scrollBy(0, -80);</arg>
+<arg>AND</arg>
+<arg>Return From Keyword</arg>
+<doc>Executes all the given keywords in a sequence.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.489229" elapsed="0.496696"/>
+</kw>
+<arg>${has_section}</arg>
+<arg>Run Keywords</arg>
+<arg>Scroll Element Into View</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<arg>AND</arg>
+<arg>Sleep</arg>
+<arg>200ms</arg>
+<arg>AND</arg>
+<arg>Execute Javascript</arg>
+<arg>window.scrollBy(0, -80);</arg>
+<arg>AND</arg>
+<arg>Return From Keyword</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.488370" elapsed="0.497555"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${has_btn}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${BADGE_FULFILLED}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.985925" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${has_btn}</arg>
+<arg>Set Test Variable</arg>
+<arg>${_try_anchor}</arg>
+<arg>${SECTION_FROM_MARK_BTN}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.985925" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${has_btn}</arg>
+<arg>${has_anchor}=</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Page Should Contain Element</arg>
+<arg>${_try_anchor}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.985925" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${has_btn} and ${has_anchor}</arg>
+<arg>Run Keywords</arg>
+<arg>Scroll Element Into View</arg>
+<arg>${_try_anchor}</arg>
+<arg>AND</arg>
+<arg>Sleep</arg>
+<arg>200ms</arg>
+<arg>AND</arg>
+<arg>Execute Javascript</arg>
+<arg>window.scrollBy(0, -80);</arg>
+<arg>AND</arg>
+<arg>Return From Keyword</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.985925" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${has_btn}</arg>
+<arg>Run Keywords</arg>
+<arg>Scroll Element Into View</arg>
+<arg>${BADGE_FULFILLED}</arg>
+<arg>AND</arg>
+<arg>Sleep</arg>
+<arg>200ms</arg>
+<arg>AND</arg>
+<arg>Execute Javascript</arg>
+<arg>window.scrollBy(0, -80);</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.985925" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${has_btn}</arg>
+<arg>Return From Keyword</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.985925" elapsed="0.000000"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<arg>window.scrollBy(0, Math.round(window.innerHeight*0.7));</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.991654" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>200ms</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.992209" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${ok}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.992209" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${ok}</arg>
+<arg>Run Keywords</arg>
+<arg>Scroll Element Into View</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<arg>AND</arg>
+<arg>Sleep</arg>
+<arg>150ms</arg>
+<arg>AND</arg>
+<arg>Execute Javascript</arg>
+<arg>window.scrollBy(0, -80);</arg>
+<arg>AND</arg>
+<arg>Exit For Loop</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.992209" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${ok2}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${BADGE_FULFILLED}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.992209" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${ok2}</arg>
+<arg>Run Keywords</arg>
+<arg>Scroll Element Into View</arg>
+<arg>${BADGE_FULFILLED}</arg>
+<arg>AND</arg>
+<arg>Sleep</arg>
+<arg>150ms</arg>
+<arg>AND</arg>
+<arg>Execute Javascript</arg>
+<arg>window.scrollBy(0, -80);</arg>
+<arg>AND</arg>
+<arg>Exit For Loop</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.992209" elapsed="0.000000"/>
+</kw>
+<var name="${i}"/>
+<status status="NOT RUN" start="2025-11-12T11:19:12.991219" elapsed="0.000990"/>
+</iter>
+<var>${i}</var>
+<value>12</value>
+<status status="NOT RUN" start="2025-11-12T11:19:12.990820" elapsed="0.001389"/>
+</for>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${seen}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${SECTION_FULFILLED}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.992209" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${seen_btn}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${BADGE_FULFILLED}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.992209" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${seen} and not ${seen_btn}</arg>
+<arg>Fail</arg>
+<arg>Could not locate Fulfillment section or Mark as shipped button. Check DOM/iframe/text.</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:12.992209" elapsed="0.000000"/>
+</kw>
+<doc>เลื่อนไปยังโซน Fulfillment อย่างถึกทน (รองรับ contains, sticky header, virtualized list)</doc>
+<status status="PASS" start="2025-11-12T11:19:12.147777" elapsed="0.844432"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${BADGE_FULFILLED}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-12T11:19:12.992209" elapsed="0.017730"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:13.009939" level="INFO">Clicking element 'xpath=//button[normalize-space(.)="Mark as shipped"]'.</msg>
+<arg>${BADGE_FULFILLED}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-12T11:19:13.009939" elapsed="0.141728"/>
+</kw>
+<kw name="Fill Mark Shipped Modal And Save" owner="FulfillmentFlowsResource">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<msg time="2025-11-12T11:19:23.480998" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-12T11:19:23.482005" level="FAIL">Element '(//*[@role='dialog'][.//*[self::h1 or self::h2][normalize-space(.)='Mark as shipped']])[1]' did not appear in 10 seconds.</msg>
+<arg>${MARK_SHIPPED_MODAL}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="FAIL" start="2025-11-12T11:19:13.151667" elapsed="10.332095">Element '(//*[@role='dialog'][.//*[self::h1 or self::h2][normalize-space(.)='Mark as shipped']])[1]' did not appear in 10 seconds.</status>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${ADD_TRACKING_BTN}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.483762" elapsed="0.000000"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>${ADD_TRACKING_BTN}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.483762" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${TRACKING_INPUT}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.483762" elapsed="0.003346"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${TRACKING_INPUT}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.487108" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<arg>5x</arg>
+<arg>500ms</arg>
+<arg>Element Should Be Enabled</arg>
+<arg>${TRACKING_INPUT}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.487108" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${tracking_number}'=='EF582568151'</arg>
+<arg>${tracking_number}=</arg>
+<arg>Generate Tracking Number</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.488453" elapsed="0.000000"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${TRACKING_INPUT}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.488453" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${TRACKING_INPUT}</arg>
+<arg>${tracking_number}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.488453" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${has_toggle}</var>
+<arg>Page Should Contain Element</arg>
+<arg>${NOTIFY_TOGGLE_OPTIONAL}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.488453" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${has_toggle} and not ${send_notification}</arg>
+<arg>Click Element</arg>
+<arg>${NOTIFY_TOGGLE_OPTIONAL}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.488453" elapsed="0.000000"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${SAVE_SHIPPED_BTN}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.488453" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<arg>Wait Until Page Does Not Contain Element</arg>
+<arg>${MARK_SHIPPED_MODAL}</arg>
+<arg>10s</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.488453" elapsed="0.000000"/>
+</kw>
+<arg>AUTO</arg>
+<arg>${True}</arg>
+<status status="FAIL" start="2025-11-12T11:19:13.151667" elapsed="10.336786">Element '(//*[@role='dialog'][.//*[self::h1 or self::h2][normalize-space(.)='Mark as shipped']])[1]' did not appear in 10 seconds.</status>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<arg>12x</arg>
+<arg>500ms</arg>
+<arg>Check Shipped Indicator</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="NOT RUN" start="2025-11-12T11:19:23.488453" elapsed="0.000000"/>
+</kw>
+<doc>Login -&gt; Orders -&gt; เข้าออเดอร์ Fulfilled -&gt; Mark as shipped -&gt; ใส่ tracking -&gt; ตรวจผล</doc>
+<status status="FAIL" start="2025-11-12T11:19:08.882819" elapsed="14.605634">Element '(//*[@role='dialog'][.//*[self::h1 or self::h2][normalize-space(.)='Mark as shipped']])[1]' did not appear in 10 seconds.</status>
+</kw>
+<tag>admin</tag>
+<tag>fulfillment</tag>
+<tag>partB</tag>
+<status status="FAIL" start="2025-11-12T11:19:08.882819" elapsed="14.611471">Element '(//*[@role='dialog'][.//*[self::h1 or self::h2][normalize-space(.)='Mark as shipped']])[1]' did not appear in 10 seconds.</status>
+</test>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2025-11-12T11:19:23.496397" elapsed="2.233619"/>
+</kw>
+<status status="FAIL" start="2025-11-12T11:19:04.686696" elapsed="21.043320"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">admin</stat>
+<stat pass="0" fail="1" skip="0">fulfillment</stat>
+<stat pass="0" fail="1" skip="0">partB</stat>
+</tag>
+<suite>
+<stat name="TC4 1b AddTracking" id="s1" pass="0" fail="1" skip="0">TC4 1b AddTracking</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-11-12T11:19:04.719427" level="WARN">Error in file 'c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\pages\admin\FulfillmentFlowsResource.robot' on line 183: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>

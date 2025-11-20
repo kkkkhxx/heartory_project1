@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.5 on win32)" generated="2025-11-20T11:25:11.063420" rpa="false" schemaversion="5">
+<suite id="s1" name="TC7 1 Happy Updateprice" source="C:\Users\Asus\OneDrive\Documents\heartory_project1\project_phase_2\UI_testing\test\flow7_product_update_sync\TC7_1_Happy_Updateprice.robot">
+<kw name="Open Admin Browser" owner="AdminLogin" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-11-20T11:25:11.391389" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<arg>alias=ADMIN</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-11-20T11:25:11.391165" elapsed="1.415794"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>${VIEWPORT_W}</arg>
+<arg>${VIEWPORT_H}</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2025-11-20T11:25:12.807481" elapsed="0.391427"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-20T11:25:13.199644" level="INFO">Opening url 'http://10.34.112.158:9000/app/'</msg>
+<arg>${ADMIN_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-20T11:25:13.199308" elapsed="1.015303"/>
+</kw>
+<doc>เปิดเบราว์เซอร์ด้วย alias=ADMIN และเข้า http://10.34.112.158:9000/app/</doc>
+<status status="PASS" start="2025-11-20T11:25:11.390601" elapsed="2.824259"/>
+</kw>
+<test id="s1-t1" name="TC7.1 Admin Can Update Product Price" line="53">
+<kw name="Admin Login" owner="AdminLogin">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-20T11:25:14.216870" level="INFO">Opening url 'http://10.34.112.158:9000/app/'</msg>
+<arg>${ADMIN_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-20T11:25:14.216657" elapsed="0.216576"/>
+</kw>
+<kw name="Admin Page Should Be Visible" owner="AdminLogin">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOC_USERNAME}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-20T11:25:14.434283" elapsed="1.167063"/>
+</kw>
+<status status="PASS" start="2025-11-20T11:25:14.433669" elapsed="1.167937"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-20T11:25:15.602496" level="INFO">Typing text 'group4@mu-store.local' into text field 'css=input[name="email"]'.</msg>
+<arg>${LOC_USERNAME}</arg>
+<arg>${user}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-20T11:25:15.601980" elapsed="0.172296"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-20T11:25:15.775626" level="INFO">Typing text 'Mp6!dzT3' into text field 'css=input[name="password"]'.</msg>
+<arg>${LOC_PASSWORD}</arg>
+<arg>${pass}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-20T11:25:15.774882" elapsed="0.175297"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-20T11:25:15.951061" level="INFO">Clicking button 'css=button[type="submit"]'.</msg>
+<arg>${LOC_SUBMIT}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-20T11:25:15.950570" elapsed="0.174440"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${LOC_DASHBOARD_TAG}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-20T11:25:16.125366" elapsed="0.723135"/>
+</kw>
+<arg>${ADMIN_USER}</arg>
+<arg>${ADMIN_PASS}</arg>
+<status status="PASS" start="2025-11-20T11:25:14.216299" elapsed="2.632391"/>
+</kw>
+<kw name="Go To Products Page" owner="AdminProduct">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${MENU_PRODUCTS}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-20T11:25:16.849774" elapsed="0.035565"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-20T11:25:16.886316" level="INFO">Clicking element 'xpath=//a[contains(@class,'flex') and normalize-space()='Products']'.</msg>
+<arg>${MENU_PRODUCTS}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-20T11:25:16.885771" elapsed="0.130411"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${PRODUCTS_TABLE}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-20T11:25:17.016549" elapsed="0.673792"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>🏷️ เปิดหน้า Products สำเร็จ</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-11-20T11:25:17.690878" elapsed="0.000692"/>
+</kw>
+<status status="PASS" start="2025-11-20T11:25:16.849287" elapsed="0.842509"/>
+</kw>
+<kw name="Open First Product">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${FIRST_PRODUCT_ROW}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-20T11:25:17.693523" elapsed="0.041748"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-20T11:25:17.736514" level="INFO">Clicking element 'xpath=(//tbody[contains(@class,'border-ui-border-base')]//tr)[1]'.</msg>
+<arg>${FIRST_PRODUCT_ROW}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-20T11:25:17.735814" elapsed="0.169641"/>
+</kw>
+<doc>เปิดสินค้าแถวแรกใน Product list</doc>
+<status status="PASS" start="2025-11-20T11:25:17.692542" elapsed="0.213042"/>
+</kw>
+<kw name="Scroll To Variants Section">
+<msg time="2025-11-20T11:25:17.910078" level="FAIL">No keyword with name 'Scroll To Variants Section' found. Did you mean:
+    AdminProduct.Scroll To Variant Section
+    Scroll To Variant Section</msg>
+<status status="FAIL" start="2025-11-20T11:25:17.909952" elapsed="0.000267">No keyword with name 'Scroll To Variants Section' found. Did you mean:
+    AdminProduct.Scroll To Variant Section
+    Scroll To Variant Section</status>
+</kw>
+<kw name="Open Variants Menu" owner="AdminProduct">
+<status status="NOT RUN" start="2025-11-20T11:25:17.910892" elapsed="0.000033"/>
+</kw>
+<kw name="Click Edit Prices" owner="AdminProduct">
+<status status="NOT RUN" start="2025-11-20T11:25:17.912168" elapsed="0.000103"/>
+</kw>
+<kw name="Update Variant Price" owner="AdminProduct">
+<arg>99.00</arg>
+<status status="NOT RUN" start="2025-11-20T11:25:17.913106" elapsed="0.000081"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>🍊 ราคาใหม่อัปเดตแล้ว</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-11-20T11:25:17.913729" elapsed="0.000080"/>
+</kw>
+<status status="FAIL" start="2025-11-20T11:25:14.215060" elapsed="3.699399">No keyword with name 'Scroll To Variants Section' found. Did you mean:
+    AdminProduct.Scroll To Variant Section
+    Scroll To Variant Section</status>
+</test>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2025-11-20T11:25:17.916424" elapsed="2.170842"/>
+</kw>
+<doc>FLOW 7: Product Update Synchronization</doc>
+<status status="FAIL" start="2025-11-20T11:25:11.064823" elapsed="9.022620"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="TC7 1 Happy Updateprice" id="s1" pass="0" fail="1" skip="0">TC7 1 Happy Updateprice</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

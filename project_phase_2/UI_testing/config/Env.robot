@@ -3,7 +3,7 @@ Library    SeleniumLibrary
 *** Variables ***
 ${ADMIN_URL}        http://10.34.112.158:9000/app/
 ${CUSTOMER_URL}     http://10.34.112.158:8000/dk/
-        
+
 ${ADMIN_USER}       group4@mu-store.local
 ${ADMIN_PASS}       Mp6!dzT3
 

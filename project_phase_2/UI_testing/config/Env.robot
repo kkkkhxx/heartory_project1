@@ -7,6 +7,9 @@ ${CUSTOMER_URL}     http://10.34.112.158:8000/dk/
 ${ADMIN_USER}       group4@mu-store.local
 ${ADMIN_PASS}       Mp6!dzT3
 
+${CUS_USER_HAM}       eatburger@gmail.com
+${CUS_PASS_HAM}       123
+
 # ค่าส่ง (ปรับให้ตรงระบบจริง)
 ${FEE_IN_AREA}      20
 ${FEE_OUT_AREA}     80

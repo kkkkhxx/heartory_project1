@@ -6,7 +6,7 @@ Suite Setup       Open Admin Browser
 Suite Teardown    Close All Browsers
 
 *** Variables ***
-# ===== TODO: ปรับให้ตรง DOM ของคุณ =====
+# ===== Admin Login =====
 ${ADMIN_LOGIN_USER}        css=input[name="email"]
 ${ADMIN_LOGIN_PASS}        css=input[name="password"]
 ${ADMIN_LOGIN_BTN}         xpath=//button[normalize-space(.)="Continue with Email"]

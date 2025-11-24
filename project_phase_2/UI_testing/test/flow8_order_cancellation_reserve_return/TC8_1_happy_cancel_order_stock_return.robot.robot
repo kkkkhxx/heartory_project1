@@ -114,7 +114,7 @@ Cancel Order #84
     Click Element    ${LOC_CONTINUE_BTN}
     Sleep    2s
 
-    # Refresh หน้าเพื่ออัพเดทค่า reserved
+    # Refresh หน้าเพื่ออัพเดทค่า Reserved
     Reload Page
     Sleep    3s
     

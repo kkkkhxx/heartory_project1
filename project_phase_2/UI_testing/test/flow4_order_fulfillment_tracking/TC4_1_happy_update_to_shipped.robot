@@ -2,28 +2,20 @@
 Library           SeleniumLibrary    timeout=10s    implicit_wait=0.3
 Resource          ../../config/Env.robot
 Resource          ../../pages/admin/AdminLogin.robot
+Resource          ../../pages/customer/CustomerLogin.robot
 Suite Setup       Open Admin Browser
 Suite Teardown    Close All Browsers
 
 *** Variables ***
-# ===== Admin Login =====
-${ADMIN_LOGIN_USER}        css=input[name="email"]
-${ADMIN_LOGIN_PASS}        css=input[name="password"]
-${ADMIN_LOGIN_BTN}         xpath=//button[normalize-space(.)="Continue with Email"]
-${ADMIN_DASH_TAG}          xpath=//aside//*[contains(normalize-space(.),"Orders")]
-
-# เมนู Orders
-${ADMIN_MENU_ORDERS}       xpath=//a[contains(normalize-space(.),"Orders")]
-
 # ตาราง Orders
 ${ORDERS_TABLE}            xpath=//table[contains(@class,"text-ui-fg-subtle txt-compact-small relative w-full")]
 
-# แถวแรกที่ Not fulfilled และ Order Total > 0 (เลิกผูกชื่อ Ham Burger)
+# แถวแรกที่ Not fulfilled และ Order Total > 0
 ${ROW_FIRST_NOT_FULFILLED}    xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total']]//tbody/tr
 ...    [normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Not fulfilled'
 ...    and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='-'
 ...    and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='0'
-...    and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='0.00'])[1]
+...    and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='0.00'])[2]
 
 # แถวแรกที่ Fulfilled
 ${ROW_FIRST_FULFILLED}    xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total']]//tbody/tr
@@ -70,7 +62,7 @@ ${SECTION_FROM_MARK_BTN}    xpath=(//button[normalize-space(.)='Mark as shipped'
 # ---------- helpers ----------
 Admin Open Orders Page
     Switch Browser    ADMIN
-    Click Element     ${ADMIN_MENU_ORDERS}
+    Click Element     ${LOC_DASHBOARD_TAG}
     Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
 
 Admin Open First Not Fulfilled Order
@@ -82,13 +74,8 @@ Admin Open First Fulfilled Order
     Click Element     ${ROW_FIRST_FULFILLED}
 
 Back To Orders List
-    # เลือกวิธีใดวิธีหนึ่งที่หน้า UI คุณรองรับ
-    # 1) กดเมนู Orders
-    Click Element     ${ADMIN_MENU_ORDERS}
+    Click Element     ${LOC_DASHBOARD_TAG}
     Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
-    # หรือ 2) Go Back:
-    # Go Back
-    # Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
 
 Scroll Section Unfulfilled Into View
     Wait Until Page Contains Element    ${SECTION_UNFULFILLED}    15s
@@ -276,5 +263,8 @@ TC4_1_Happy_Update_To_Shipped
     Fill Mark Shipped Modal And Save    TH1234567890    ${False}
     Wait Until Keyword Succeeds    12x    500ms    Check Shipped Indicator
     Back To Orders List
+    Open Customer Browser
+    Customer Login    ${CUS_USER_HAM}    ${CUS_PASS_HAM}
+    Select Account Menu    Profile
 
 

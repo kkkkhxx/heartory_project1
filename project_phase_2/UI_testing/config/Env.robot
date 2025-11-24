@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+
 *** Variables ***
 ${ADMIN_URL}        http://10.34.112.158:9000/app/
 ${CUSTOMER_URL}     http://10.34.112.158:8000/dk/
@@ -7,8 +8,8 @@ ${CUSTOMER_URL}     http://10.34.112.158:8000/dk/
 ${ADMIN_USER}       group4@mu-store.local
 ${ADMIN_PASS}       Mp6!dzT3
 
-${CUS_USER_HAM}       eatburger@gmail.com
-${CUS_PASS_HAM}       123
+${CUS_USER_HAM}       eatburger@example.com
+${CUS_PASS_HAM}       1234
 
 # ค่าส่ง (ปรับให้ตรงระบบจริง)
 ${FEE_IN_AREA}      20
@@ -19,10 +20,9 @@ ${BROWSER}          chrome
 ${SEL_TIMEOUT}      10s
 ${IMPLICIT_WAIT}    0.3
 
-# ชื่อสถานะ (แก้ให้ตรงกับระบบ)
-${STATUS_PROCESSING}      Processing
-${STATUS_SHIPPED}         Shipped
-${STATUS_DELIVERED}       Delivered
+# ออปชันเสริม
+${VIEWPORT_W}              1900
+${VIEWPORT_H}              1000
 
 *** Keywords ***
 Open Admin And Customer Sessions

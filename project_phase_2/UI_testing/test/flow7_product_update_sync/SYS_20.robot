@@ -103,7 +103,7 @@ Login Customer
 Find Product Until Found
     [Arguments]    ${PRODUCT_NAME}
 
-    Log To Console    🕒 Waiting store page to fully load...
+    Log To Console     Waiting store page to fully load...
     Wait Until Page Does Not Contain Element    xpath=//div[contains(@class,'skeleton')]    40s
     Sleep    1.5s    # ให้ UI render การ์ดสินค้าจริง
 

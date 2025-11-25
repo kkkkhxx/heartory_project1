@@ -18,6 +18,6 @@ TC7.1 Admin Can Update Product Price
     Scroll To Variant Section
     Open Variants Menu
     Click Edit Prices
-    Update Variant Price    99.00
-    Log To Console    🍊 ราคาใหม่อัปเดตแล้ว
+    Update Variant Price  99.00
+    Log To Console     ราคาใหม่อัปเดตแล้ว
 

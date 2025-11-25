@@ -1,32 +1,31 @@
 *** Settings ***
 Library    SeleniumLibrary
+Resource   ..\..\pages\customer\CuctomerLogin.robot
 
 *** Variables ***
 # -------- Sidebar --------
 ${MENU_PRODUCTS}          xpath=//a[contains(@class,'flex') and normalize-space()='Products']
-
-
 
 # -------- Product List --------
 ${PRODUCTS_TABLE}         xpath=//table[contains(@class,'text-ui-fg-subtle')]
 ${FIRST_PRODUCT_ROW}      xpath=(//tbody[contains(@class,'border-ui-border-base')]//tr)[1]
 
 # -------- Product Detail: Variants Section --------
-# ใช้ตัวนี้แทน เพราะ DOM ของคุณไม่มี <h2>Variants</h2>
 ${VARIANTS_HEADER}        xpath=//*[normalize-space(.)='Variants']
 
 # ปุ่ม ⋮ ใน section Variants
 ${VARIANT_OPTIONS_BTN}    xpath=//input[@placeholder='Search']/following::button[@aria-haspopup='menu'][1]
 
-
 # -------- Dropdown Menu --------
 ${EDIT_PRICE_IN_MENU}     xpath=//span[normalize-space(.)='Edit prices']
 
-# -------- Bulk Edit Price Editor --------
-${PRICE_FIRST_CELL}    xpath=(//div[contains(@class,'group/cell')])[1]
-${PRICE_FIRST_INPUT}    xpath=//input[@type='text' and @data-field]
+# -------- Bulk Edit Price Editor (price EUR) --------
+${PRICE_EUR_CELL}         xpath=//div[@data-container-id='0:2']
+${PRICE_EUR_INPUT}        xpath=//input[@data-cell-id='0:2']
+
 ${SAVE_BTN}               xpath=//button[normalize-space()='Save']
 ${SUCCESS_TOAST}          xpath=//*[contains(.,'success') or contains(.,'updated')]
+
 
 
 *** Keywords ***
@@ -35,18 +34,18 @@ Go To Products Page
     Wait Until Element Is Visible    ${MENU_PRODUCTS}    10s
     Click Element                    ${MENU_PRODUCTS}
     Wait Until Element Is Visible    ${PRODUCTS_TABLE}   10s
-    Log To Console    🏷️ เปิดหน้า Products สำเร็จ
+    Log To Console    เปิดหน้า Products สำเร็จ
 
 
 Open First Product
     Wait Until Element Is Visible    ${FIRST_PRODUCT_ROW}    10s
     Click Element                    ${FIRST_PRODUCT_ROW}
     Sleep    1s
-    Log To Console    🧩 เปิดสินค้าตัวแรกสำเร็จ
+    Log To Console    เปิดสินค้าตัวแรกสำเร็จ
 
 
 Scroll To Variant Section
-    Log To Console    🔽 เริ่มเลื่อนหา Variants...
+    Log To Console    เริ่มเลื่อนหา Variants...
 
     ${SCROLL_JS}=    Catenate    SEPARATOR=\n
     ...    const sc = document.querySelector('main.overflow-y-auto');
@@ -60,8 +59,7 @@ Scroll To Variant Section
     END
 
     Wait Until Element Is Visible    ${VARIANTS_HEADER}    10s
-    Log To Console    👇 เจอ Variants แล้ว!
-
+    Log To Console    เจอ Variants แล้ว!
 
 
 Open Variants Menu
@@ -69,70 +67,73 @@ Open Variants Menu
     Scroll Element Into View         ${VARIANT_OPTIONS_BTN}
     Click Element                    ${VARIANT_OPTIONS_BTN}
     Wait Until Element Is Visible    ${EDIT_PRICE_IN_MENU}    10s
-    Log To Console    ⚙️ เปิดเมนู Variants แล้ว
-
+    Log To Console    เปิดเมนู Variants แล้ว
 
 
 Click Edit Prices
     Wait Until Element Is Visible    ${EDIT_PRICE_IN_MENU}    10s
     Click Element                    ${EDIT_PRICE_IN_MENU}
     Sleep    1s
-    Log To Console    ✏️ เข้าโหมด Bulk Edit Prices แล้ว
+    Log To Console    เข้าโหมด Bulk Edit Prices แล้ว
 
 
 Update Variant Price
     [Arguments]    ${NEW_PRICE}
 
-    Log To Console    🎯 เริ่มแก้ราคา...
+    Log To Console    🔵 เริ่มแก้ราคา Price EUR...
 
-    Wait Until Element Is Visible    ${PRICE_FIRST_CELL}    10s
-    Scroll Element Into View         ${PRICE_FIRST_CELL}
+    # 1) รอ cell โผล่ + scroll ให้เห็น
+    Wait Until Element Is Visible    ${PRICE_EUR_CELL}    10s
+    Scroll Element Into View         ${PRICE_EUR_CELL}
     Sleep    300ms
 
-    # 1) คลิก + ดับเบิ้ลคลิกเพื่อ active cell
-    Click Element         ${PRICE_FIRST_CELL}
-    Double Click Element  ${PRICE_FIRST_CELL}
-    Sleep    300ms
+    # 2) Double Click cell เพื่อเปิด input (สำคัญที่สุด!)
+    Double Click Element             ${PRICE_EUR_CELL}
+    Sleep    500ms
 
-    # 2) ยิง JS เคลียร์ค่าใน cell
+    # 3) รอ input active (overlay จะหาย)
+    Wait Until Element Is Visible    ${PRICE_EUR_INPUT}    10s
+    Click Element                    ${PRICE_EUR_INPUT}
+    Sleep    200ms
+
+    # 4) เคลียร์ค่า
     Execute JavaScript    document.activeElement.value = "";
     Execute JavaScript    document.activeElement.dispatchEvent(new Event('input', { bubbles: true }));
+    Sleep    200ms
+
+    # 5) ใส่ราคาใหม่
+    Press Keys    None    ${NEW_PRICE}
     Sleep    300ms
 
-    # 3) ใส่ค่าราคาใหม่
-    Press Keys            None    ${NEW_PRICE}
-    Sleep                 300ms
+    # 6) Save
+    Click Button    ${SAVE_BTN}
+    Log To Console    💾 Save แล้ว...
 
-    # 4) Save
-    Click Button          ${SAVE_BTN}
-    Log To Console        💾 กด Save แล้ว...
-
+    # 7) รอสำเร็จ
     Wait Until Page Contains Element    ${SUCCESS_TOAST}    15s
-    Log To Console        ✅ อัปเดตราคาเป็น ${NEW_PRICE} สำเร็จ!
+    Log To Console    ✅ อัปเดตราคา Price EUR เป็น ${NEW_PRICE} สำเร็จ!
+
+
 
 Verify Product Price On Store Page
     [Arguments]    ${STORE_URL}    ${PRODUCT_NAME}    ${EXPECTED_PRICE}
 
-    Log To Console    🌐 เปิดหน้า Store และเข้าสู่ระบบลูกค้า...
+    Log To Console     เปิดหน้า Store และเข้าสู่ระบบลูกค้า...
     Open Browser    ${STORE_URL}    chrome    alias=store
     Maximize Browser Window
 
-    # ----------- Customer Login -------------
     Wait Until Page Contains Element    xpath=//input[@name='email']    15s
-    Input Text    xpath=//input[@name='email']       ${CUSTOMER_EMAIL}
-    Input Text    xpath=//input[@name='password']    ${CUSTOMER_PASSWORD}
+    Input Text    xpath=//input[@name='email']       ${CUS_USER_HAM}
+    Input Text    xpath=//input[@name='password']    ${CUS_PASS_HAM}
 
     Click Button    xpath=//button[normalize-space()='Sign in']
-    Log To Console   🔐 Login Customer สำเร็จ
+    Log To Console    Login Customer สำเร็จ
 
-    # ----------- Wait For Product Page ------------
     Wait Until Page Contains Element    xpath=//h1[normalize-space()='All products']    20s
 
-    # รอ skeleton หาย
     Sleep    1s
     Wait Until Page Does Not Contain Element    xpath=//div[contains(@class,'skeleton')]    10s
 
-    # ----------- Find product card ------------
     Wait Until Page Contains Element    xpath=//*[contains(text(),'${PRODUCT_NAME}')]    20s
 
     ${price_xpath}=    Set Variable    //*[contains(text(),'${PRODUCT_NAME}')]/ancestor::*[3]//span[contains(.,'€')]
@@ -140,8 +141,6 @@ Verify Product Price On Store Page
     Wait Until Page Contains Element    ${price_xpath}    10s
 
     ${actual_price}=    Get Text    ${price_xpath}
-    Log To Console    🏷️ ราคาใน Store ปัจจุบันหลังเข้าระบบ: ${actual_price}
 
     Should Contain    ${actual_price}    ${EXPECTED_PRICE}
-    Log To Console    🎉 ราคาแสดงถูกต้องบนหน้า Store หลัง Login!
-
+    Log To Console     ราคาแสดงถูกต้องบนหน้า Store หลัง Login!

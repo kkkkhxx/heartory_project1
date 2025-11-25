@@ -1,758 +1,658 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.13.5 on win32)" generated="2025-11-24T16:22:10.123228" rpa="false" schemaversion="5">
-<suite id="s1" name="TC7 2 Happy Updateprice" source="C:\Users\Asus\OneDrive\Documents\heartory_project1\project_phase_2\UI_testing\test\flow7_product_update_sync\TC7_2_Happy_Updateprice.robot">
+<robot generator="Robot 7.3.2 (Python 3.13.5 on win32)" generated="2025-11-25T15:40:39.526741" rpa="false" schemaversion="5">
+<suite id="s1" name="SYS 19.1" source="C:\Users\Asus\OneDrive\Documents\heartory_project1\project_phase_2\UI_testing\test\flow7_product_update_sync\SYS_19.1.robot">
 <kw name="Open Store Browser" type="SETUP">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:10.298423" level="INFO">Opening browser 'chrome' to base url 'http://10.34.112.158:8000/dk/account'.</msg>
+<msg time="2025-11-25T15:40:39.691091" level="INFO">Opening browser 'chrome' to base url 'http://10.34.112.158:8000/dk/account'.</msg>
 <arg>${STORE_URL}</arg>
 <arg>chrome</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2025-11-24T16:22:10.298270" elapsed="1.867094"/>
+<status status="PASS" start="2025-11-25T15:40:39.690939" elapsed="1.978540"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2025-11-24T16:22:12.165566" elapsed="0.045417"/>
+<status status="PASS" start="2025-11-25T15:40:41.669750" elapsed="0.043499"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:14.211775" level="INFO">Slept 2 seconds.</msg>
+<msg time="2025-11-25T15:40:43.714402" level="INFO">Slept 2 seconds.</msg>
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:12.211189" elapsed="2.000690"/>
+<status status="PASS" start="2025-11-25T15:40:41.713464" elapsed="2.001080"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:10.297900" elapsed="3.914065"/>
+<status status="PASS" start="2025-11-25T15:40:39.690507" elapsed="4.024226"/>
 </kw>
-<test id="s1-t1" name="TC7.2 Customer sees price update after admin changes price" line="38">
+<test id="s1-t1" name="TC_Check_Product_Updated_Price" line="29">
 <kw name="Go To Store Home">
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>xpath=//button[@data-testid='nav-menu-button']</arg>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BTN_MENU}</arg>
 <arg>20s</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:14.213011" elapsed="0.011341"/>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-25T15:40:43.717255" elapsed="0.036095"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:14.224947" level="INFO">Clicking element 'xpath=//button[@data-testid='nav-menu-button']'.</msg>
-<arg>xpath=//button[@data-testid='nav-menu-button']</arg>
+<msg time="2025-11-25T15:40:43.753778" level="INFO">Clicking element 'xpath=//button[@data-testid='nav-menu-button']'.</msg>
+<arg>${BTN_MENU}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:14.224544" elapsed="0.115721"/>
+<status status="PASS" start="2025-11-25T15:40:43.753537" elapsed="0.100557"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:15.341144" level="INFO">Slept 1 second.</msg>
+<msg time="2025-11-25T15:40:44.856705" level="INFO">Slept 1 second.</msg>
 <arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:14.340400" elapsed="1.000954"/>
+<status status="PASS" start="2025-11-25T15:40:43.854298" elapsed="1.002610"/>
 </kw>
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:15.357513" level="INFO">Current page contains element 'xpath=//a[@data-testid='store-link']'.</msg>
-<arg>xpath=//a[@data-testid='store-link']</arg>
+<msg time="2025-11-25T15:40:44.870249" level="INFO">Current page contains element 'xpath=//a[@data-testid='store-link']'.</msg>
+<arg>${BTN_STORE_LINK}</arg>
 <doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:15.341766" elapsed="0.015858"/>
+<status status="PASS" start="2025-11-25T15:40:44.857526" elapsed="0.012817"/>
 </kw>
-<msg time="2025-11-24T16:22:15.357786" level="INFO">${has_store} = True</msg>
+<msg time="2025-11-25T15:40:44.870648" level="INFO">${has_store} = True</msg>
 <var>${has_store}</var>
 <arg>Page Should Contain Element</arg>
-<arg>xpath=//a[@data-testid='store-link']</arg>
+<arg>${BTN_STORE_LINK}</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-11-24T16:22:15.341568" elapsed="0.016247"/>
+<status status="PASS" start="2025-11-25T15:40:44.857227" elapsed="0.013475"/>
 </kw>
 <if>
 <branch type="IF" condition="${has_store}">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:15.358328" level="INFO">Clicking element 'xpath=//a[@data-testid='store-link']'.</msg>
-<arg>xpath=//a[@data-testid='store-link']</arg>
+<msg time="2025-11-25T15:40:44.871316" level="INFO">Clicking element 'xpath=//a[@data-testid='store-link']'.</msg>
+<arg>${BTN_STORE_LINK}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:15.358133" elapsed="0.064983"/>
+<status status="PASS" start="2025-11-25T15:40:44.871057" elapsed="0.074568"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:15.357944" elapsed="0.065266"/>
+<status status="PASS" start="2025-11-25T15:40:44.870860" elapsed="0.074828"/>
 </branch>
 <branch type="ELSE">
 <kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=//a[contains(@href,'/dk/store')]</arg>
+<arg>${BTN_STORE_FALLBACK}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:15.423432" elapsed="0.000033"/>
+<status status="NOT RUN" start="2025-11-25T15:40:44.945831" elapsed="0.000018"/>
 </kw>
-<status status="NOT RUN" start="2025-11-24T16:22:15.423278" elapsed="0.000232"/>
+<status status="NOT RUN" start="2025-11-25T15:40:44.945730" elapsed="0.000143"/>
 </branch>
-<status status="PASS" start="2025-11-24T16:22:15.357905" elapsed="0.065643"/>
+<status status="PASS" start="2025-11-25T15:40:44.870818" elapsed="0.075075"/>
 </if>
 <kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
 <arg>xpath=//div[contains(@class,'skeleton')]</arg>
 <arg>30s</arg>
 <doc>Waits until the element ``locator`` disappears from the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:15.423646" elapsed="0.007608"/>
+<status status="PASS" start="2025-11-25T15:40:44.945944" elapsed="0.007194"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:16.432223" level="INFO">Slept 1 second.</msg>
+<msg time="2025-11-25T15:40:45.953872" level="INFO">Slept 1 second.</msg>
 <arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:15.431368" elapsed="1.001280"/>
+<status status="PASS" start="2025-11-25T15:40:44.953261" elapsed="1.000730"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:14.212796" elapsed="2.219977"/>
+<status status="PASS" start="2025-11-25T15:40:43.716787" elapsed="2.237329"/>
 </kw>
 <kw name="Login Customer">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>Logging in customer...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:16.433757" elapsed="0.001031"/>
-</kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:16.435298" level="INFO">Clicking element 'xpath=//a[contains(@href,'account')]'.</msg>
+<msg time="2025-11-25T15:40:45.955284" level="INFO">Clicking element 'xpath=//a[contains(@href,'account')]'.</msg>
 <arg>xpath=//a[contains(@href,'account')]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:16.434979" elapsed="0.085319"/>
+<status status="PASS" start="2025-11-25T15:40:45.955083" elapsed="0.078705"/>
 </kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>xpath=//input[@name='email']</arg>
+<arg>${LOGIN_EMAIL}</arg>
 <arg>30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-11-24T16:22:16.520565" elapsed="0.464291"/>
+<status status="PASS" start="2025-11-25T15:40:46.034017" elapsed="0.230122"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:16.985290" level="INFO">Typing text 'eatburger@example.com' into text field 'xpath=//input[@name='email']'.</msg>
-<arg>xpath=//input[@name='email']</arg>
+<msg time="2025-11-25T15:40:46.264707" level="INFO">Typing text 'eatburger@example.com' into text field 'xpath=//input[@name='email']'.</msg>
+<arg>${LOGIN_EMAIL}</arg>
 <arg>eatburger@example.com</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:16.985044" elapsed="0.105114"/>
+<status status="PASS" start="2025-11-25T15:40:46.264398" elapsed="0.154065"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:17.090849" level="INFO">Typing text '1234' into text field 'xpath=//input[@name='password']'.</msg>
-<arg>xpath=//input[@name='password']</arg>
+<msg time="2025-11-25T15:40:46.418794" level="INFO">Typing text '1234' into text field 'xpath=//input[@name='password']'.</msg>
+<arg>${LOGIN_PASSWORD}</arg>
 <arg>1234</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:17.090481" elapsed="0.122220"/>
+<status status="PASS" start="2025-11-25T15:40:46.418593" elapsed="0.075804"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:17.213079" level="INFO">Clicking element 'xpath=//button[normalize-space()='Sign in']'.</msg>
-<arg>xpath=//button[normalize-space()='Sign in']</arg>
+<msg time="2025-11-25T15:40:46.494932" level="INFO">Clicking element 'xpath=//button[normalize-space()='Sign in']'.</msg>
+<arg>${BTN_SIGNIN}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:17.212881" elapsed="0.076258"/>
+<status status="PASS" start="2025-11-25T15:40:46.494659" elapsed="0.062089"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>xpath=//div[contains(.,'Hello')]</arg>
 <arg>30s</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:17.289274" elapsed="0.427271"/>
-</kw>
-<kw name="Log To Console" owner="BuiltIn">
-<arg>Login OK</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:17.716718" elapsed="0.001382"/>
+<status status="PASS" start="2025-11-25T15:40:46.556890" elapsed="0.439758"/>
 </kw>
 <kw name="Go To Store Home">
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>xpath=//button[@data-testid='nav-menu-button']</arg>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BTN_MENU}</arg>
 <arg>20s</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:17.718524" elapsed="0.006295"/>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-25T15:40:46.997222" elapsed="0.016507"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:17.725101" level="INFO">Clicking element 'xpath=//button[@data-testid='nav-menu-button']'.</msg>
-<arg>xpath=//button[@data-testid='nav-menu-button']</arg>
+<msg time="2025-11-25T15:40:47.014164" level="INFO">Clicking element 'xpath=//button[@data-testid='nav-menu-button']'.</msg>
+<arg>${BTN_MENU}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:17.724949" elapsed="0.074618"/>
+<status status="PASS" start="2025-11-25T15:40:47.013922" elapsed="0.078728"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:18.800241" level="INFO">Slept 1 second.</msg>
+<msg time="2025-11-25T15:40:48.093404" level="INFO">Slept 1 second.</msg>
 <arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:17.799685" elapsed="1.000706"/>
+<status status="PASS" start="2025-11-25T15:40:47.092775" elapsed="1.000751"/>
 </kw>
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:18.825011" level="INFO">Current page contains element 'xpath=//a[@data-testid='store-link']'.</msg>
-<arg>xpath=//a[@data-testid='store-link']</arg>
+<msg time="2025-11-25T15:40:48.100243" level="INFO">Current page contains element 'xpath=//a[@data-testid='store-link']'.</msg>
+<arg>${BTN_STORE_LINK}</arg>
 <doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:18.800820" elapsed="0.024296"/>
+<status status="PASS" start="2025-11-25T15:40:48.093905" elapsed="0.006424"/>
 </kw>
-<msg time="2025-11-24T16:22:18.825288" level="INFO">${has_store} = True</msg>
+<msg time="2025-11-25T15:40:48.100538" level="INFO">${has_store} = True</msg>
 <var>${has_store}</var>
 <arg>Page Should Contain Element</arg>
-<arg>xpath=//a[@data-testid='store-link']</arg>
+<arg>${BTN_STORE_LINK}</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-11-24T16:22:18.800618" elapsed="0.024699"/>
+<status status="PASS" start="2025-11-25T15:40:48.093716" elapsed="0.006898"/>
 </kw>
 <if>
 <branch type="IF" condition="${has_store}">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:18.825871" level="INFO">Clicking element 'xpath=//a[@data-testid='store-link']'.</msg>
-<arg>xpath=//a[@data-testid='store-link']</arg>
+<msg time="2025-11-25T15:40:48.101442" level="INFO">Clicking element 'xpath=//a[@data-testid='store-link']'.</msg>
+<arg>${BTN_STORE_LINK}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:18.825636" elapsed="0.078966"/>
+<status status="PASS" start="2025-11-25T15:40:48.101188" elapsed="0.092062"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:18.825444" elapsed="0.079219"/>
+<status status="PASS" start="2025-11-25T15:40:48.100978" elapsed="0.092338"/>
 </branch>
 <branch type="ELSE">
 <kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=//a[contains(@href,'/dk/store')]</arg>
+<arg>${BTN_STORE_FALLBACK}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:18.904792" elapsed="0.000018"/>
+<status status="NOT RUN" start="2025-11-25T15:40:48.193442" elapsed="0.000018"/>
 </kw>
-<status status="NOT RUN" start="2025-11-24T16:22:18.904698" elapsed="0.000136"/>
+<status status="NOT RUN" start="2025-11-25T15:40:48.193349" elapsed="0.000133"/>
 </branch>
-<status status="PASS" start="2025-11-24T16:22:18.825406" elapsed="0.079445"/>
+<status status="PASS" start="2025-11-25T15:40:48.100940" elapsed="0.092573"/>
 </if>
 <kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
 <arg>xpath=//div[contains(@class,'skeleton')]</arg>
 <arg>30s</arg>
 <doc>Waits until the element ``locator`` disappears from the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:18.904931" elapsed="0.007054"/>
+<status status="PASS" start="2025-11-25T15:40:48.193570" elapsed="0.006818"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:19.912607" level="INFO">Slept 1 second.</msg>
+<msg time="2025-11-25T15:40:49.201155" level="INFO">Slept 1 second.</msg>
 <arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:18.912210" elapsed="1.000521"/>
+<status status="PASS" start="2025-11-25T15:40:48.200497" elapsed="1.000811"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:17.718325" elapsed="2.194511"/>
+<status status="PASS" start="2025-11-25T15:40:46.996952" elapsed="2.204467"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:16.433435" elapsed="3.479460"/>
+<status status="PASS" start="2025-11-25T15:40:45.954744" elapsed="3.246729"/>
 </kw>
 <kw name="Find Product Until Found">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>🕒 Waiting store page to fully load...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:19.914121" elapsed="0.000624"/>
-</kw>
 <kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
 <arg>xpath=//div[contains(@class,'skeleton')]</arg>
 <arg>40s</arg>
 <doc>Waits until the element ``locator`` disappears from the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:19.914926" elapsed="0.009540"/>
+<status status="PASS" start="2025-11-25T15:40:49.202836" elapsed="0.015676"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:21.425623" level="INFO">Slept 1 second 500 milliseconds.</msg>
-<arg>1.5s</arg>
+<msg time="2025-11-25T15:40:50.219817" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:19.924707" elapsed="1.501050"/>
+<status status="PASS" start="2025-11-25T15:40:49.218995" elapsed="1.000948"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-11-24T16:22:21.426410" level="INFO">${page} = 1</msg>
+<msg time="2025-11-25T15:40:50.220317" level="INFO">${page} = 1</msg>
 <var>${page}</var>
 <arg>1</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.426152" elapsed="0.000297"/>
+<status status="PASS" start="2025-11-25T15:40:50.220128" elapsed="0.000219"/>
 </kw>
 <while condition="True">
 <iter>
-<kw name="Log To Console" owner="BuiltIn">
-<arg>🔎 Searching product on Page ${page}...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.427031" elapsed="0.000574"/>
-</kw>
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:21.638599" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2025-11-24T16:22:21.638947" level="FAIL">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</msg>
-<arg>xpath=//*[contains(.,'${PRODUCT_NAME}')]</arg>
+<msg time="2025-11-25T15:40:50.456140" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-25T15:40:50.456342" level="FAIL">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</msg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
 <doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="FAIL" start="2025-11-24T16:22:21.427938" elapsed="0.215209">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</status>
+<status status="FAIL" start="2025-11-25T15:40:50.220979" elapsed="0.239528">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</status>
 </kw>
-<msg time="2025-11-24T16:22:21.643399" level="INFO">${found} = False</msg>
+<msg time="2025-11-25T15:40:50.460838" level="INFO">${found} = False</msg>
 <var>${found}</var>
 <arg>Page Should Contain Element</arg>
-<arg>xpath=//*[contains(.,'${PRODUCT_NAME}')]</arg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.427778" elapsed="0.215671"/>
+<status status="PASS" start="2025-11-25T15:40:50.220824" elapsed="0.240073"/>
 </kw>
 <if>
 <branch type="IF" condition="${found}">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>✅ Product found on Page ${page}</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:21.643916" elapsed="0.000061"/>
-</kw>
 <return>
-<status status="NOT RUN" start="2025-11-24T16:22:21.644085" elapsed="0.000084"/>
+<status status="NOT RUN" start="2025-11-25T15:40:50.461282" elapsed="0.000063"/>
 </return>
-<status status="NOT RUN" start="2025-11-24T16:22:21.643642" elapsed="0.000607"/>
+<status status="NOT RUN" start="2025-11-25T15:40:50.461101" elapsed="0.000334"/>
 </branch>
-<status status="PASS" start="2025-11-24T16:22:21.643590" elapsed="0.000729"/>
+<status status="PASS" start="2025-11-25T15:40:50.461049" elapsed="0.000461"/>
 </if>
-<kw name="Log To Console" owner="BuiltIn">
-<arg>❌ Not found on Page ${page}</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.644455" elapsed="0.000707"/>
-</kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-11-24T16:22:21.645966" level="INFO">${next_page} = 2</msg>
-<var>${next_page}</var>
+<msg time="2025-11-25T15:40:50.462143" level="INFO">${next} = 2</msg>
+<var>${next}</var>
 <arg>${page} + 1</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.645533" elapsed="0.000488"/>
+<status status="PASS" start="2025-11-25T15:40:50.461712" elapsed="0.000485"/>
 </kw>
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:21.659177" level="INFO">Current page contains element 'xpath=//button[normalize-space()='2']'.</msg>
-<arg>xpath=//button[normalize-space()='${next_page}']</arg>
+<msg time="2025-11-25T15:40:50.475242" level="INFO">Current page contains element 'xpath=//button[normalize-space()='2']'.</msg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
 <doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.646439" elapsed="0.012953"/>
+<status status="PASS" start="2025-11-25T15:40:50.462664" elapsed="0.012672"/>
 </kw>
-<msg time="2025-11-24T16:22:21.659646" level="INFO">${next_btn_exists} = True</msg>
-<var>${next_btn_exists}</var>
+<msg time="2025-11-25T15:40:50.475485" level="INFO">${has_next} = True</msg>
+<var>${has_next}</var>
 <arg>Page Should Contain Element</arg>
-<arg>xpath=//button[normalize-space()='${next_page}']</arg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.646217" elapsed="0.013482"/>
+<status status="PASS" start="2025-11-25T15:40:50.462428" elapsed="0.013084"/>
 </kw>
 <if>
-<branch type="IF" condition="${next_btn_exists}">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>👉 Going to Page ${next_page}...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.660191" elapsed="0.001191"/>
-</kw>
+<branch type="IF" condition="${has_next}">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:21.662014" level="INFO">Clicking element 'xpath=//button[normalize-space()='2']'.</msg>
-<arg>xpath=//button[normalize-space()='${next_page}']</arg>
+<msg time="2025-11-25T15:40:50.476015" level="INFO">Clicking element 'xpath=//button[normalize-space()='2']'.</msg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.661633" elapsed="0.085223"/>
+<status status="PASS" start="2025-11-25T15:40:50.475792" elapsed="0.067966"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:22.947712" level="INFO">Slept 1 second 200 milliseconds.</msg>
-<arg>1.2s</arg>
+<msg time="2025-11-25T15:40:51.544546" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:21.746993" elapsed="1.201015"/>
-</kw>
-<kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
-<arg>xpath=//div[contains(@class,'skeleton')]</arg>
-<arg>40s</arg>
-<doc>Waits until the element ``locator`` disappears from the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:22.948196" elapsed="0.011247"/>
+<status status="PASS" start="2025-11-25T15:40:50.544089" elapsed="1.000608"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-11-24T16:22:22.960064" level="INFO">${page} = 2</msg>
+<msg time="2025-11-25T15:40:51.545118" level="INFO">${page} = 2</msg>
 <var>${page}</var>
-<arg>${next_page}</arg>
+<arg>${next}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-11-24T16:22:22.959621" elapsed="0.000477"/>
+<status status="PASS" start="2025-11-25T15:40:51.544885" elapsed="0.000264"/>
 </kw>
 <continue>
-<status status="PASS" start="2025-11-24T16:22:22.960172" elapsed="0.000111"/>
+<status status="PASS" start="2025-11-25T15:40:51.545219" elapsed="0.000066"/>
 </continue>
-<status status="PASS" start="2025-11-24T16:22:21.659910" elapsed="1.300536"/>
+<status status="PASS" start="2025-11-25T15:40:50.475621" elapsed="1.069716"/>
 </branch>
-<status status="PASS" start="2025-11-24T16:22:21.659861" elapsed="1.300680"/>
+<status status="PASS" start="2025-11-25T15:40:50.475592" elapsed="1.069790"/>
 </if>
 <kw name="Fail" owner="BuiltIn">
-<arg>❌ Product '${PRODUCT_NAME}' not found on ANY page!</arg>
+<arg>Product '${NAME}' not found</arg>
 <doc>Fails the test with the given message and optionally alters its tags.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:22.960719" elapsed="0.000057"/>
+<status status="NOT RUN" start="2025-11-25T15:40:51.545482" elapsed="0.000030"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:21.426543" elapsed="1.534319"/>
+<status status="PASS" start="2025-11-25T15:40:50.220428" elapsed="1.325125"/>
 </iter>
 <iter>
-<kw name="Log To Console" owner="BuiltIn">
-<arg>🔎 Searching product on Page ${page}...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:22.961464" elapsed="0.001502"/>
-</kw>
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:23.086803" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2025-11-24T16:22:23.086934" level="FAIL">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</msg>
-<arg>xpath=//*[contains(.,'${PRODUCT_NAME}')]</arg>
+<msg time="2025-11-25T15:40:51.668700" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-25T15:40:51.668835" level="FAIL">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</msg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
 <doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="FAIL" start="2025-11-24T16:22:22.963463" elapsed="0.124056">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</status>
+<status status="FAIL" start="2025-11-25T15:40:51.546059" elapsed="0.123515">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</status>
 </kw>
-<msg time="2025-11-24T16:22:23.087644" level="INFO">${found} = False</msg>
+<msg time="2025-11-25T15:40:51.669683" level="INFO">${found} = False</msg>
 <var>${found}</var>
 <arg>Page Should Contain Element</arg>
-<arg>xpath=//*[contains(.,'${PRODUCT_NAME}')]</arg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-11-24T16:22:22.963223" elapsed="0.124443"/>
+<status status="PASS" start="2025-11-25T15:40:51.545906" elapsed="0.123795"/>
 </kw>
 <if>
 <branch type="IF" condition="${found}">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>✅ Product found on Page ${page}</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:23.087846" elapsed="0.000018"/>
-</kw>
 <return>
-<status status="NOT RUN" start="2025-11-24T16:22:23.087896" elapsed="0.000017"/>
+<status status="NOT RUN" start="2025-11-25T15:40:51.669907" elapsed="0.000018"/>
 </return>
-<status status="NOT RUN" start="2025-11-24T16:22:23.087743" elapsed="0.000192"/>
+<status status="NOT RUN" start="2025-11-25T15:40:51.669847" elapsed="0.000104"/>
 </branch>
-<status status="PASS" start="2025-11-24T16:22:23.087724" elapsed="0.000230"/>
+<status status="PASS" start="2025-11-25T15:40:51.669825" elapsed="0.000146"/>
 </if>
-<kw name="Log To Console" owner="BuiltIn">
-<arg>❌ Not found on Page ${page}</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:23.087994" elapsed="0.000396"/>
-</kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-11-24T16:22:23.088654" level="INFO">${next_page} = 3</msg>
-<var>${next_page}</var>
+<msg time="2025-11-25T15:40:51.670189" level="INFO">${next} = 3</msg>
+<var>${next}</var>
 <arg>${page} + 1</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-11-24T16:22:23.088502" elapsed="0.000170"/>
+<status status="PASS" start="2025-11-25T15:40:51.670043" elapsed="0.000162"/>
 </kw>
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:23.097370" level="INFO">Current page contains element 'xpath=//button[normalize-space()='3']'.</msg>
-<arg>xpath=//button[normalize-space()='${next_page}']</arg>
+<msg time="2025-11-25T15:40:51.682081" level="INFO">Current page contains element 'xpath=//button[normalize-space()='3']'.</msg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
 <doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:23.088813" elapsed="0.008604"/>
+<status status="PASS" start="2025-11-25T15:40:51.670346" elapsed="0.011812"/>
 </kw>
-<msg time="2025-11-24T16:22:23.097496" level="INFO">${next_btn_exists} = True</msg>
-<var>${next_btn_exists}</var>
+<msg time="2025-11-25T15:40:51.682260" level="INFO">${has_next} = True</msg>
+<var>${has_next}</var>
 <arg>Page Should Contain Element</arg>
-<arg>xpath=//button[normalize-space()='${next_page}']</arg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-11-24T16:22:23.088738" elapsed="0.008773"/>
+<status status="PASS" start="2025-11-25T15:40:51.670272" elapsed="0.012004"/>
 </kw>
 <if>
-<branch type="IF" condition="${next_btn_exists}">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>👉 Going to Page ${next_page}...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:23.097662" elapsed="0.000277"/>
-</kw>
+<branch type="IF" condition="${has_next}">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:23.098338" level="INFO">Clicking element 'xpath=//button[normalize-space()='3']'.</msg>
-<arg>xpath=//button[normalize-space()='${next_page}']</arg>
+<msg time="2025-11-25T15:40:51.682641" level="INFO">Clicking element 'xpath=//button[normalize-space()='3']'.</msg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:23.098190" elapsed="0.084901"/>
+<status status="PASS" start="2025-11-25T15:40:51.682465" elapsed="0.034815"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:24.386136" level="INFO">Slept 1 second 200 milliseconds.</msg>
-<arg>1.2s</arg>
+<msg time="2025-11-25T15:40:52.717883" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:23.183552" elapsed="1.202711"/>
-</kw>
-<kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
-<arg>xpath=//div[contains(@class,'skeleton')]</arg>
-<arg>40s</arg>
-<doc>Waits until the element ``locator`` disappears from the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:24.386456" elapsed="0.009553"/>
+<status status="PASS" start="2025-11-25T15:40:51.717415" elapsed="1.000598"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-11-24T16:22:24.396417" level="INFO">${page} = 3</msg>
+<msg time="2025-11-25T15:40:52.718436" level="INFO">${page} = 3</msg>
 <var>${page}</var>
-<arg>${next_page}</arg>
+<arg>${next}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-11-24T16:22:24.396201" elapsed="0.000248"/>
+<status status="PASS" start="2025-11-25T15:40:52.718216" elapsed="0.000249"/>
 </kw>
 <continue>
-<status status="PASS" start="2025-11-24T16:22:24.396517" elapsed="0.000056"/>
+<status status="PASS" start="2025-11-25T15:40:52.718534" elapsed="0.000058"/>
 </continue>
-<status status="PASS" start="2025-11-24T16:22:23.097571" elapsed="1.299047"/>
+<status status="PASS" start="2025-11-25T15:40:51.682350" elapsed="1.038049"/>
 </branch>
-<status status="PASS" start="2025-11-24T16:22:23.097554" elapsed="1.299109"/>
+<status status="PASS" start="2025-11-25T15:40:51.682331" elapsed="1.038178"/>
 </if>
 <kw name="Fail" owner="BuiltIn">
-<arg>❌ Product '${PRODUCT_NAME}' not found on ANY page!</arg>
+<arg>Product '${NAME}' not found</arg>
 <doc>Fails the test with the given message and optionally alters its tags.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.396718" elapsed="0.000015"/>
+<status status="NOT RUN" start="2025-11-25T15:40:52.720714" elapsed="0.000061"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:22.960943" elapsed="1.435813"/>
+<status status="PASS" start="2025-11-25T15:40:51.545599" elapsed="1.175265"/>
 </iter>
 <iter>
-<kw name="Log To Console" owner="BuiltIn">
-<arg>🔎 Searching product on Page ${page}...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:24.396949" elapsed="0.000372"/>
-</kw>
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:24.405825" level="INFO">Current page contains element 'xpath=//*[contains(.,'MU Testing store')]'.</msg>
-<arg>xpath=//*[contains(.,'${PRODUCT_NAME}')]</arg>
+<msg time="2025-11-25T15:40:52.912924" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-25T15:40:52.913165" level="FAIL">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</msg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
 <doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:24.397670" elapsed="0.008266"/>
+<status status="FAIL" start="2025-11-25T15:40:52.721433" elapsed="0.193933">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</status>
 </kw>
-<msg time="2025-11-24T16:22:24.406198" level="INFO">${found} = True</msg>
+<msg time="2025-11-25T15:40:52.915691" level="INFO">${found} = False</msg>
 <var>${found}</var>
 <arg>Page Should Contain Element</arg>
-<arg>xpath=//*[contains(.,'${PRODUCT_NAME}')]</arg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-11-24T16:22:24.397504" elapsed="0.008729"/>
+<status status="PASS" start="2025-11-25T15:40:52.721276" elapsed="0.194479"/>
 </kw>
 <if>
 <branch type="IF" condition="${found}">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>✅ Product found on Page ${page}</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:24.406501" elapsed="0.000417"/>
-</kw>
 <return>
-<status status="PASS" start="2025-11-24T16:22:24.407020" elapsed="0.000061"/>
+<status status="NOT RUN" start="2025-11-25T15:40:52.916136" elapsed="0.000049"/>
 </return>
-<status status="PASS" start="2025-11-24T16:22:24.406325" elapsed="0.000885"/>
+<status status="NOT RUN" start="2025-11-25T15:40:52.915963" elapsed="0.000296"/>
 </branch>
-<status status="PASS" start="2025-11-24T16:22:24.406303" elapsed="0.000958"/>
+<status status="PASS" start="2025-11-25T15:40:52.915914" elapsed="0.000416"/>
 </if>
-<kw name="Log To Console" owner="BuiltIn">
-<arg>❌ Not found on Page ${page}</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.407377" elapsed="0.000035"/>
-</kw>
 <kw name="Evaluate" owner="BuiltIn">
-<var>${next_page}</var>
+<msg time="2025-11-25T15:40:52.916870" level="INFO">${next} = 4</msg>
+<var>${next}</var>
 <arg>${page} + 1</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.407509" elapsed="0.000026"/>
+<status status="PASS" start="2025-11-25T15:40:52.916526" elapsed="0.000373"/>
 </kw>
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
-<var>${next_btn_exists}</var>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-25T15:40:52.928172" level="INFO">Current page contains element 'xpath=//button[normalize-space()='4']'.</msg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2025-11-25T15:40:52.917160" elapsed="0.011165"/>
+</kw>
+<msg time="2025-11-25T15:40:52.928553" level="INFO">${has_next} = True</msg>
+<var>${has_next}</var>
 <arg>Page Should Contain Element</arg>
-<arg>xpath=//button[normalize-space()='${next_page}']</arg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.407628" elapsed="0.000025"/>
+<status status="PASS" start="2025-11-25T15:40:52.917014" elapsed="0.011577"/>
 </kw>
 <if>
-<branch type="IF" condition="${next_btn_exists}">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>👉 Going to Page ${next_page}...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.407816" elapsed="0.000026"/>
-</kw>
+<branch type="IF" condition="${has_next}">
 <kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=//button[normalize-space()='${next_page}']</arg>
+<msg time="2025-11-25T15:40:52.929277" level="INFO">Clicking element 'xpath=//button[normalize-space()='4']'.</msg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.407931" elapsed="0.000025"/>
+<status status="PASS" start="2025-11-25T15:40:52.928971" elapsed="0.046502"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<arg>1.2s</arg>
+<msg time="2025-11-25T15:40:53.976955" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.408030" elapsed="0.000024"/>
+<status status="PASS" start="2025-11-25T15:40:52.975680" elapsed="1.001417"/>
 </kw>
-<kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
-<arg>xpath=//div[contains(@class,'skeleton')]</arg>
-<arg>40s</arg>
-<doc>Waits until the element ``locator`` disappears from the current page.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.408132" elapsed="0.000025"/>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-25T15:40:53.977587" level="INFO">${page} = 4</msg>
+<var>${page}</var>
+<arg>${next}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-25T15:40:53.977322" elapsed="0.000301"/>
+</kw>
+<continue>
+<status status="PASS" start="2025-11-25T15:40:53.977702" elapsed="0.000063"/>
+</continue>
+<status status="PASS" start="2025-11-25T15:40:52.928736" elapsed="1.049087"/>
+</branch>
+<status status="PASS" start="2025-11-25T15:40:52.928699" elapsed="1.049183"/>
+</if>
+<kw name="Fail" owner="BuiltIn">
+<arg>Product '${NAME}' not found</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-11-25T15:40:53.978001" elapsed="0.000038"/>
+</kw>
+<status status="PASS" start="2025-11-25T15:40:52.720952" elapsed="1.257143"/>
+</iter>
+<iter>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-25T15:40:54.082082" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-8.png"&gt;&lt;img src="selenium-screenshot-8.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-11-25T15:40:54.082194" level="FAIL">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</msg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2025-11-25T15:40:53.978649" elapsed="0.104069">Page should have contained element 'xpath=//*[contains(.,'MU Testing store')]' but did not.</status>
+</kw>
+<msg time="2025-11-25T15:40:54.082866" level="INFO">${found} = False</msg>
+<var>${found}</var>
+<arg>Page Should Contain Element</arg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-25T15:40:53.978486" elapsed="0.104401"/>
+</kw>
+<if>
+<branch type="IF" condition="${found}">
+<return>
+<status status="NOT RUN" start="2025-11-25T15:40:54.083034" elapsed="0.000018"/>
+</return>
+<status status="NOT RUN" start="2025-11-25T15:40:54.082970" elapsed="0.000109"/>
+</branch>
+<status status="PASS" start="2025-11-25T15:40:54.082950" elapsed="0.000154"/>
+</if>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-11-25T15:40:54.083422" level="INFO">${next} = 5</msg>
+<var>${next}</var>
+<arg>${page} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-11-25T15:40:54.083186" elapsed="0.000262"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-25T15:40:54.096332" level="INFO">Current page contains element 'xpath=//button[normalize-space()='5']'.</msg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2025-11-25T15:40:54.084177" elapsed="0.012234"/>
+</kw>
+<msg time="2025-11-25T15:40:54.096509" level="INFO">${has_next} = True</msg>
+<var>${has_next}</var>
+<arg>Page Should Contain Element</arg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-25T15:40:54.083572" elapsed="0.012953"/>
+</kw>
+<if>
+<branch type="IF" condition="${has_next}">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-25T15:40:54.096958" level="INFO">Clicking element 'xpath=//button[normalize-space()='5']'.</msg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-25T15:40:54.096797" elapsed="0.062145"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-11-25T15:40:55.160020" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-11-25T15:40:54.159139" elapsed="1.001043"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-25T15:40:55.160676" level="INFO">${page} = 5</msg>
+<var>${page}</var>
+<arg>${next}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-25T15:40:55.160410" elapsed="0.000303"/>
+</kw>
+<continue>
+<status status="PASS" start="2025-11-25T15:40:55.160799" elapsed="0.000065"/>
+</continue>
+<status status="PASS" start="2025-11-25T15:40:54.096660" elapsed="1.064262"/>
+</branch>
+<status status="PASS" start="2025-11-25T15:40:54.096628" elapsed="1.064349"/>
+</if>
+<kw name="Fail" owner="BuiltIn">
+<arg>Product '${NAME}' not found</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-11-25T15:40:55.161087" elapsed="0.000038"/>
+</kw>
+<status status="PASS" start="2025-11-25T15:40:53.978148" elapsed="1.183029"/>
+</iter>
+<iter>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2025-11-25T15:40:55.173841" level="INFO">Current page contains element 'xpath=//*[contains(.,'MU Testing store')]'.</msg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2025-11-25T15:40:55.162025" elapsed="0.011923"/>
+</kw>
+<msg time="2025-11-25T15:40:55.174105" level="INFO">${found} = True</msg>
+<var>${found}</var>
+<arg>Page Should Contain Element</arg>
+<arg>xpath=//*[contains(.,'${NAME}')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-25T15:40:55.161589" elapsed="0.012549"/>
+</kw>
+<if>
+<branch type="IF" condition="${found}">
+<return>
+<status status="PASS" start="2025-11-25T15:40:55.174353" elapsed="0.000049"/>
+</return>
+<status status="PASS" start="2025-11-25T15:40:55.174250" elapsed="0.000197"/>
+</branch>
+<status status="PASS" start="2025-11-25T15:40:55.174221" elapsed="0.000265"/>
+</if>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${next}</var>
+<arg>${page} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-11-25T15:40:55.174599" elapsed="0.000034"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${has_next}</var>
+<arg>Page Should Contain Element</arg>
+<arg>xpath=//button[normalize-space()='${next}']</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2025-11-25T15:40:55.174732" elapsed="0.000026"/>
+</kw>
+<if>
+<branch type="IF" condition="${has_next}">
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>xpath=//button[normalize-space()='${next}']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2025-11-25T15:40:55.174923" elapsed="0.000025"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2025-11-25T15:40:55.175026" elapsed="0.000025"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${page}</var>
-<arg>${next_page}</arg>
+<arg>${next}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.408234" elapsed="0.000024"/>
+<status status="NOT RUN" start="2025-11-25T15:40:55.175126" elapsed="0.000024"/>
 </kw>
 <continue>
-<status status="NOT RUN" start="2025-11-24T16:22:24.408304" elapsed="0.000025"/>
+<status status="NOT RUN" start="2025-11-25T15:40:55.175194" elapsed="0.000030"/>
 </continue>
-<status status="NOT RUN" start="2025-11-24T16:22:24.407734" elapsed="0.000629"/>
+<status status="NOT RUN" start="2025-11-25T15:40:55.174831" elapsed="0.000469"/>
 </branch>
-<status status="NOT RUN" start="2025-11-24T16:22:24.407717" elapsed="0.000680"/>
+<status status="NOT RUN" start="2025-11-25T15:40:55.174815" elapsed="0.000519"/>
 </if>
 <kw name="Fail" owner="BuiltIn">
-<arg>❌ Product '${PRODUCT_NAME}' not found on ANY page!</arg>
+<arg>Product '${NAME}' not found</arg>
 <doc>Fails the test with the given message and optionally alters its tags.</doc>
-<status status="NOT RUN" start="2025-11-24T16:22:24.409326" elapsed="0.000078"/>
+<status status="NOT RUN" start="2025-11-25T15:40:55.175402" elapsed="0.000026"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:24.396781" elapsed="0.012710"/>
+<status status="PASS" start="2025-11-25T15:40:55.161226" elapsed="0.014245"/>
 </iter>
-<status status="PASS" start="2025-11-24T16:22:21.426541" elapsed="2.983021"/>
+<status status="PASS" start="2025-11-25T15:40:50.220426" elapsed="4.955084"/>
 </while>
 <arg>${PRODUCT_NAME}</arg>
-<status status="PASS" start="2025-11-24T16:22:19.913671" elapsed="4.496256"/>
+<status status="PASS" start="2025-11-25T15:40:49.202480" elapsed="5.973113"/>
 </kw>
 <kw name="Go To Product Page">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:24.411309" level="INFO">Clicking element 'xpath=//*[contains(text(),'MU Testing store')]'.</msg>
-<arg>xpath=//*[contains(text(),'${PRODUCT_NAME}')]</arg>
+<msg time="2025-11-25T15:40:55.177069" level="INFO">Clicking element 'xpath=//p[@data-testid='product-title' and contains(.,'MU Testing store')]'.</msg>
+<arg>${PRODUCT_TITLE}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:24.410965" elapsed="0.103734"/>
+<status status="PASS" start="2025-11-25T15:40:55.176784" elapsed="0.092759"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:25.516822" level="INFO">Slept 1 second.</msg>
+<msg time="2025-11-25T15:40:56.272049" level="INFO">Slept 1 second.</msg>
 <arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:24.514988" elapsed="1.001967"/>
+<status status="PASS" start="2025-11-25T15:40:55.269747" elapsed="1.002503"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:24.410499" elapsed="1.106575"/>
+<status status="PASS" start="2025-11-25T15:40:55.176369" elapsed="1.096070"/>
 </kw>
-<kw name="Select Variant">
+<kw name="Verify Product Price Updated">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${BTN_SIZE_S}</arg>
-<arg>30s</arg>
+<arg>${PRODUCT_PRICE_SELECTOR}</arg>
+<arg>20s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-11-24T16:22:25.518014" elapsed="0.028622"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:25.547196" level="INFO">Clicking element 'xpath=//button[@data-testid='option-button' and normalize-space()='S']'.</msg>
-<arg>${BTN_SIZE_S}</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:25.546834" elapsed="0.087592"/>
-</kw>
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${BTN_COLOR_BLACK}</arg>
-<arg>30s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-11-24T16:22:25.634694" elapsed="0.023419"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:25.658655" level="INFO">Clicking element 'xpath=//button[@data-testid='option-button' and normalize-space()='Black']'.</msg>
-<arg>${BTN_COLOR_BLACK}</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:25.658356" elapsed="0.052784"/>
-</kw>
-<status status="PASS" start="2025-11-24T16:22:25.517716" elapsed="0.193618"/>
-</kw>
-<kw name="Add To Cart">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${BTN_ADD_TO_CART}</arg>
-<arg>30s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-11-24T16:22:25.713964" elapsed="0.019562"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:25.733975" level="INFO">Clicking element 'xpath=//button[@data-testid='add-product-button']'.</msg>
-<arg>${BTN_ADD_TO_CART}</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:25.733722" elapsed="0.100953"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:26.835780" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:25.835173" elapsed="1.000737"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:26.836333" level="INFO">Clicking element 'xpath=//a[contains(.,'Cart')]'.</msg>
-<arg>xpath=//a[contains(.,'Cart')]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:26.836109" elapsed="0.069254"/>
-</kw>
-<status status="PASS" start="2025-11-24T16:22:25.713528" elapsed="1.192041"/>
-</kw>
-<kw name="Go To Checkout Page">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${BTN_GO_CHECKOUT}</arg>
-<arg>30s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-11-24T16:22:26.906254" elapsed="0.432207"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:27.338900" level="INFO">Clicking element 'xpath=//button[contains(.,'Go to checkout')]'.</msg>
-<arg>${BTN_GO_CHECKOUT}</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:27.338652" elapsed="0.066543"/>
-</kw>
-<status status="PASS" start="2025-11-24T16:22:26.906017" elapsed="0.499302"/>
-</kw>
-<kw name="Fill Checkout Form">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${EMAIL}</arg>
-<arg>30s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-11-24T16:22:27.406619" elapsed="0.461618"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:27.869442" level="INFO">Typing text 'test123@gmail.com' into text field 'xpath=//input[@name='email']'.</msg>
-<arg>${EMAIL}</arg>
-<arg>test123@gmail.com</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:27.868637" elapsed="0.138199"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:28.007285" level="INFO">Typing text 'John' into text field 'xpath=//input[@name='shipping_address.first_name']'.</msg>
-<arg>${FN}</arg>
-<arg>John</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.007030" elapsed="0.102504"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:28.110004" level="INFO">Typing text 'Wick' into text field 'xpath=//input[@name='shipping_address.last_name']'.</msg>
-<arg>${LN}</arg>
-<arg>Wick</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.109742" elapsed="0.096608"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:28.206803" level="INFO">Typing text 'Bangkok' into text field 'xpath=//input[@name='shipping_address.address_1']'.</msg>
-<arg>${ADDR1}</arg>
-<arg>Bangkok</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.206561" elapsed="0.111237"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:28.318244" level="INFO">Typing text '10110' into text field 'xpath=//input[@name='shipping_address.postal_code']'.</msg>
-<arg>${POSTCODE}</arg>
-<arg>10110</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.317997" elapsed="0.104998"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:28.423306" level="INFO">Typing text 'Bangkok' into text field 'xpath=//input[@name='shipping_address.city']'.</msg>
-<arg>${CITY}</arg>
-<arg>Bangkok</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.423134" elapsed="0.070694"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:28.494115" level="INFO">Typing text '0666666666' into text field 'xpath=//input[@name='shipping_address.phone']'.</msg>
-<arg>${PHONE}</arg>
-<arg>0666666666</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.493953" elapsed="0.062096"/>
-</kw>
-<kw name="Select From List By Value" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:28.556355" level="INFO">Selecting options from selection list 'xpath=//select[@name='shipping_address.country_code']' by value dk.</msg>
-<arg>${COUNTRY}</arg>
-<arg>dk</arg>
-<doc>Selects options from selection list ``locator`` by ``values``.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.556184" elapsed="0.045131"/>
-</kw>
-<kw name="Scroll Element Into View" owner="SeleniumLibrary">
-<arg>${BTN_CONTINUE}</arg>
-<doc>Scrolls the element identified by ``locator`` into view.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.601448" elapsed="0.272143"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-11-24T16:22:28.874476" level="INFO">Clicking element 'xpath=//button[contains(.,'Continue')]'.</msg>
-<arg>${BTN_CONTINUE}</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.873949" elapsed="0.056013"/>
-</kw>
-<status status="PASS" start="2025-11-24T16:22:27.406116" elapsed="1.523939"/>
-</kw>
-<kw name="Simulate Admin Changed Price">
-<kw name="Log To Console" owner="BuiltIn">
-<arg>Reloading to simulate admin price update...</arg>
-<doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.931501" elapsed="0.000409"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:30.934294" level="INFO">Slept 2 seconds.</msg>
-<arg>2s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:28.932024" elapsed="2.002433"/>
-</kw>
-<kw name="Reload Page" owner="SeleniumLibrary">
-<doc>Simulates user reloading page.</doc>
-<status status="PASS" start="2025-11-24T16:22:30.934689" elapsed="0.565339"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2025-11-24T16:22:33.500808" level="INFO">Slept 2 seconds.</msg>
-<arg>2s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-11-24T16:22:31.500223" elapsed="2.000711"/>
-</kw>
-<status status="PASS" start="2025-11-24T16:22:28.931209" elapsed="4.569837"/>
-</kw>
-<kw name="Detect Price Updated Toast">
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>${PRICE_UPDATED_TOAST}</arg>
-<arg>30s</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2025-11-24T16:22:33.502180" elapsed="0.041874"/>
+<status status="PASS" start="2025-11-25T15:40:56.281938" elapsed="0.047484"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
-<arg>Price updated toast FOUND!</arg>
+<arg>💰 Price updated correctly → ${UPDATED_PRICE}.00</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-11-24T16:22:33.544288" elapsed="0.000421"/>
+<status status="PASS" start="2025-11-25T15:40:56.329696" elapsed="0.000694"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:33.501889" elapsed="0.042938"/>
+<status status="PASS" start="2025-11-25T15:40:56.281424" elapsed="0.049307"/>
 </kw>
-<status status="PASS" start="2025-11-24T16:22:14.212027" elapsed="19.333057"/>
+<status status="PASS" start="2025-11-25T15:40:43.714959" elapsed="12.616091"/>
 </test>
 <kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes all open browsers and resets the browser cache.</doc>
-<status status="PASS" start="2025-11-24T16:22:33.550974" elapsed="2.153650"/>
+<status status="PASS" start="2025-11-25T15:40:56.332458" elapsed="2.173888"/>
 </kw>
-<doc>TC7.2 Customer sees price update warning during checkout (FINAL NEW UI VERSION)</doc>
-<status status="PASS" start="2025-11-24T16:22:10.124358" elapsed="25.580383"/>
+<doc>Check updated price of MU Testing store after admin changed price</doc>
+<status status="PASS" start="2025-11-25T15:40:39.527764" elapsed="18.978683"/>
 </suite>
 <statistics>
 <total>
@@ -761,7 +661,7 @@
 <tag>
 </tag>
 <suite>
-<stat name="TC7 2 Happy Updateprice" id="s1" pass="1" fail="0" skip="0">TC7 2 Happy Updateprice</stat>
+<stat name="SYS 19.1" id="s1" pass="1" fail="0" skip="0">SYS 19.1</stat>
 </suite>
 </statistics>
 <errors>

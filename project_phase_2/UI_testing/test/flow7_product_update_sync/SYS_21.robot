@@ -90,14 +90,14 @@ Go To Store Page
 Find Product Until Found
     [Arguments]    ${PRODUCT_NAME}
 
-    Log To Console    🕒 Waiting store page to fully load...
+    Log To Console     Waiting store page to fully load...
     Wait Until Page Does Not Contain Element    xpath=//div[contains(@class,'skeleton')]    40s
     Sleep    1.5s    # ให้ UI render การ์ดสินค้าจริง
 
     ${page}=    Set Variable    1
 
     WHILE    True
-        Log To Console    🔎 Searching product on Page ${page}...
+        Log To Console     Searching product on Page ${page}...
 
         # หา product บนหน้านี้
         ${found}=    Run Keyword And Return Status
@@ -119,7 +119,7 @@ Find Product Until Found
         ...    xpath=//button[normalize-space()='${next_page}'] 
 
         IF    ${next_btn_exists}
-            Log To Console    👉 Going to Page ${next_page}...
+            Log To Console     Going to Page ${next_page}...
             Click Element    xpath=//button[normalize-space()='${next_page}']
             Sleep    1.2s
             Wait Until Page Does Not Contain Element    xpath=//div[contains(@class,'skeleton')]    40s

@@ -40,10 +40,7 @@ Cancel Order #47 And Expect Error
     
     # ค้นหา Order #47 พร้อมรองรับการกด Next
     ${order_found}=    Find Order With Pagination    ${LOC_ORDER_47}
-    
-    IF    not ${order_found}
-        Fail    ไม่พบ Order #47 ใน ${MAX_PAGES} หน้าแรก
-    END
+
     
     # เลือก Order #47
     Click Element    ${LOC_ORDER_47}

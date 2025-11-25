@@ -16,8 +16,6 @@ ${LOC_ERROR_POPUP}              xpath=//*[contains(text(),'All fulfillments must
 ${LOC_NEXT_BUTTON}              xpath=//button[contains(.,'Next')]
 ${LOC_CLOSE_ERROR}              xpath=//button[contains(@class, 'close') or contains(.,'OK') or contains(.,'Close')]
 
-${MAX_PAGES}                    5
-
 *** Test Cases ***
 
 TC8.2 ลูกค้ายกเลิก Order ที่ส่งแล้ว ไม่สามารถยกเลิกได้
@@ -91,39 +89,34 @@ Cancel Order #47 And Expect Error
 
 Find Order With Pagination
     [Arguments]    ${order_locator}
-    [Documentation]    ค้นหา order ในหลายหน้าโดยกดปุ่ม Next ถ้าจำเป็น
+    [Documentation]    ค้นหา Order โดยวนลูปไปเรื่อยๆ จนกว่าจะเจอ หรือจนกว่าปุ่ม Next จะกดไม่ได้ (เสมือนไม่จำกัดหน้า)
     
-    ${current_page}=    Set Variable    1
-    
-    WHILE    ${current_page} <= ${MAX_PAGES}
-        # ตรวจสอบว่ามี order ในหน้าปัจจุบันหรือไม่
+    # ใช้ Range เยอะๆ เพื่อรองรับกรณีหน้าเพิ่มขึ้นเรื่อยๆ (เช่น 999 หน้า)
+    FOR    ${page_index}    IN RANGE    1    999
+        Log    กำลังตรวจสอบหน้าที่: ${page_index}
+        
+        # 1. ตรวจสอบว่าเจอ Order ในหน้านี้ไหม
         ${order_visible}=    Run Keyword And Return Status    
-        ...    Wait Until Element Is Visible    ${order_locator}    3s
+        ...    Wait Until Element Is Visible    ${order_locator}    2s
         
         IF    ${order_visible}
-            Log    พบ Order ในหน้า ${current_page}
+            Log    เจอ Order แล้วที่หน้า ${page_index}
             RETURN    ${TRUE}
         END
         
-        # ตรวจสอบว่ามีปุ่ม Next และสามารถกดได้หรือไม่
-        ${next_button_visible}=    Run Keyword And Return Status    
-        ...    Wait Until Element Is Visible    ${LOC_NEXT_BUTTON}    2s
+        # 2. ถ้าไม่เจอ ให้เช็คว่าปุ่ม Next มีไหมและกดได้ไหม (เพื่อเช็คว่าเป็นหน้าสุดท้ายหรือยัง)
+        ${next_exists}=     Run Keyword And Return Status    Element Should Be Visible    ${LOC_NEXT_BUTTON}
+        ${next_enabled}=    Run Keyword And Return Status    Element Should Be Enabled    ${LOC_NEXT_BUTTON}
         
-        ${next_button_enabled}=    Run Keyword And Return Status    
-        ...    Element Should Be Enabled    ${LOC_NEXT_BUTTON}
-        
-        IF    not ${next_button_visible} or not ${next_button_enabled}
-            Log    ไม่มีปุ่ม Next หรือปุ่ม Next ไม่สามารถกดได้ที่หน้า ${current_page}
+        # 3. ถ้าไม่มีปุ่ม Next หรือปุ่มกดไม่ได้ (Disabled) แปลว่าหมดหน้าแล้ว ให้จบการทำงาน
+        IF    not ${next_exists} or not ${next_enabled}
+            Log    ถึงหน้าสุดท้ายแล้วที่หน้า ${page_index} และยังไม่พบ Order
             RETURN    ${FALSE}
         END
         
-        # กดปุ่ม Next เพื่อไปหน้าถัดไป
-        Log    กดปุ่ม Next ไปหน้า ${{${current_page} + 1}}
+        # 4. ถ้ายังไม่เจอและมีปุ่ม Next ให้กดไปหน้าถัดไป
         Click Element    ${LOC_NEXT_BUTTON}
-        Sleep    2s    # รอให้หน้าโหลด
-        
-        ${current_page}=    Evaluate    ${current_page} + 1
+        Sleep    2s    # รอโหลดหน้าใหม่
     END
     
-    Log    ค้นหา Order ไม่พบใน ${MAX_PAGES} หน้าแรก
     RETURN    ${FALSE}

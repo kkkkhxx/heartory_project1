@@ -1,10 +1,13 @@
+#=====================================================================#
+#                     Happy_Edit_Customer_Profile                     #
+#=====================================================================#
+
 *** Settings ***
 Library           SeleniumLibrary    timeout=10s    implicit_wait=0.3
-Resource          ../../config/Env.robot
+Resource          ../../config/env.robot
 Resource          ../../pages/admin/AdminLogin.robot
 Resource          ../../pages/customer/CustomerLogin.robot
 Suite Setup       Open Admin Browser
-Suite Teardown    Close All Browsers
 
 
 *** Variables ***
@@ -73,19 +76,16 @@ Update Customer And Save
 Customer Should See Profile Info
     [Arguments]    ${exp_name}    ${exp_email}    ${exp_phone}
     Switch Browser    CUSTOMER
-
     # ===== NAME =====
     ${loc_name}=    Set Variable    xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[1]
     Wait Until Element Is Visible    ${loc_name}    15s
     ${act_name}=    Get Text    ${loc_name}
     Should Be Equal As Strings    ${act_name}    ${exp_name}
-
     # ===== EMAIL =====
     ${loc_email}=    Set Variable    xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[2]
     Wait Until Element Is Visible    ${loc_email}    15s
     ${act_email}=    Get Text    ${loc_email}
     Should Be Equal As Strings    ${act_email}    ${exp_email}
-
     # ===== PHONE =====
     ${loc_phone}=    Set Variable    xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[3]
     Wait Until Element Is Visible    ${loc_phone}    15s

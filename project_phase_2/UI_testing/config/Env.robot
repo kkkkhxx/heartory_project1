@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+
 *** Variables ***
 ${ADMIN_URL}        http://10.34.112.158:9000/app/
 ${CUSTOMER_URL}     http://10.34.112.158:8000/dk/
@@ -19,18 +20,17 @@ ${BROWSER}          chrome
 ${SEL_TIMEOUT}      10s
 ${IMPLICIT_WAIT}    0.3
 
-# ชื่อสถานะ (แก้ให้ตรงกับระบบ)
-${STATUS_PROCESSING}      Processing
-${STATUS_SHIPPED}         Shipped
-${STATUS_DELIVERED}       Delivered
+# ออปชันเสริม
+${VIEWPORT_W}              1800
+${VIEWPORT_H}              900
 
 *** Keywords ***
 Open Admin And Customer Sessions
     [Documentation]    เปิด 2 session: ADMIN และ CUSTOMER
     Open Browser    ${ADMIN_URL}       chrome    alias=ADMIN
-    Set Window Size    1440    900
+    Set Window Size    ${VIEWPORT_W}     ${VIEWPORT_H}
     Open Browser    ${CUSTOMER_URL}    chrome    alias=CUSTOMER
-    Set Window Size    1440    900
+    Set Window Size    ${VIEWPORT_W}    ${VIEWPORT_H}
 
 Close All
     Close All Browsers

@@ -1,24 +1,18 @@
 *** Settings ***
-Library           SeleniumLibrary    timeout=10s    implicit_wait=0.3
-Resource          ../../config/Env.robot
+Library           SeleniumLibrary    timeout=10s    implicit_wait=0.3    run_on_failure=Capture Page Screenshot
+Resource          ../../config/env.robot
 Resource          ../../pages/admin/AdminLogin.robot
+Resource          ../../pages/customer/CustomerLogin.robot
+Resource          ../../pages/customer/CustomerBuyProduct.robot
 Suite Setup       Open Admin Browser
 Suite Teardown    Close All Browsers
 
 *** Variables ***
-# ===== Admin Login =====
-${ADMIN_LOGIN_USER}        css=input[name="email"]
-${ADMIN_LOGIN_PASS}        css=input[name="password"]
-${ADMIN_LOGIN_BTN}         xpath=//button[normalize-space(.)="Continue with Email"]
-${ADMIN_DASH_TAG}          xpath=//aside//*[contains(normalize-space(.),"Orders")]
-
-# เมนู Orders
-${ADMIN_MENU_ORDERS}       xpath=//a[contains(normalize-space(.),"Orders")]
-
-# ตาราง Orders
+# Orders
 ${ORDERS_TABLE}            xpath=//table[contains(@class,"text-ui-fg-subtle txt-compact-small relative w-full")]
+${ORDER_URL}    http://10.34.112.158:9000/app/orders
 
-# แถวแรกที่ Not fulfilled และ Order Total > 0 (เลิกผูกชื่อ Ham Burger)
+# แถวแรกที่ Not fulfilled และ Order Total > 0
 ${ROW_FIRST_NOT_FULFILLED}    xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total']]//tbody/tr
 ...    [normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Not fulfilled'
 ...    and normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Order Total']/preceding-sibling::th)])!='-'
@@ -27,14 +21,18 @@ ${ROW_FIRST_NOT_FULFILLED}    xpath=(//table[.//th[normalize-space()='Fulfillmen
 
 # แถวแรกที่ Fulfilled
 ${ROW_FIRST_FULFILLED}    xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total']]//tbody/tr
-...    [normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]//th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Fulfilled'])[1]
+...    [normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]
+...    //th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Fulfilled'])[1]
 
 # หน้า Order detail – โซน
 ${SECTION_UNFULFILLED}      xpath=//*[self::section or self::div][.//h2[normalize-space(.)="Unfulfilled Items"]]
-${SECTION_FULFILLED}        xpath=(//*[self::section or self::div][ .//*[self::h2 or self::h3][contains(normalize-space(.),'Fulfillment #1')] ][ not(ancestor::aside) ])[1]
+${SECTION_FULFILLED}        xpath=(//*[self::section or self::div][.//*[self::h2 or self::h3]
+...    [contains(normalize-space(.),'Fulfillment #1')] ][ not(ancestor::aside) ])[1]
 
 # ปุ่ม/พาเนล
-${BTN_UNFULFILLED_ICON}    xpath=(//*[self::section or self::div][ .//h2[normalize-space(.)='Unfulfilled Items'] ][ not(ancestor::aside) ])//*[normalize-space(.)='Awaiting fulfillment']/ancestor::*[self::div or self::section][1]//button[.//*[name()='svg']][not(ancestor::aside)][last()]
+${BTN_UNFULFILLED_ICON}    xpath=(//*[self::section or self::div][ .//h2[normalize-space(.)='Unfulfilled Items'] ][ not(ancestor::aside) ])
+...    //*[normalize-space(.)='Awaiting fulfillment']/ancestor::*[self::div or self::section][1]
+...    //button[.//*[name()='svg']][not(ancestor::aside)][last()]
 ${PANEL_ANY}                xpath=//*[@role='menu' or @role='listbox' or @data-radix-popper-content or contains(@data-state,'open')]
 
 # Fulfillment Modal
@@ -46,14 +44,17 @@ ${OPT_EXPRESS_SHIPPING}    xpath=//*[contains(@role,"option") and normalize-spac
 ${BTN_CREATE_FULFILLMENT}  xpath=//button[normalize-space(.)="Create Fulfillment"]
 
 # Indicators / Toast
-${ADMIN_TOAST_SUCCESS}     xpath=(//*[@role='status' or @role='alert' or @aria-live='polite' or @aria-live='assertive' or contains(@class,'toast')][contains(normalize-space(.),'Success') or contains(normalize-space(.),'Succeeded') or contains(normalize-space(.),'Fulfilled') or contains(normalize-space(.),'Shipped')])[1]
+${ADMIN_TOAST_SUCCESS}     xpath=(//*[@role='status' or @role='alert' or @aria-live='polite' or @aria-live='assertive' or contains
+...    (@class,'toast')][contains(normalize-space(.),'Success') or contains
+...    (normalize-space(.),'Succeeded') or contains(normalize-space(.),'Fulfilled') or contains(normalize-space(.),'Shipped')])[1]
 ${ADMIN_TOAST_ERROR}       css=.toast.toast-error, [data-testid="toast-error"]
 ${BADGE_AWAITING}          xpath=//*[self::section or self::div][.//h2[normalize-space(.)="Fulfilled"]]
 ${BADGE_FULFILLED}         xpath=//button[normalize-space(.)="Mark as shipped"]
 ${MODAL_ANY}               xpath=//*[@role='dialog']
 
 # เมนู
-${MENU_FULFILL_ITEMS}      xpath=(//*[@role='menu' or @role='listbox']//*[normalize-space(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'))='fulfill items'])[1]
+${MENU_FULFILL_ITEMS}      xpath=(//*[@role='menu' or @role='listbox']//*[normalize-space(translate
+...    (., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'))='fulfill items'])[1]
 
 # Modal: Mark fulfillment shipped
 ${MARK_SHIPPED_MODAL}    xpath=(//*[@role='dialog'][.//*[self::h1 or self::h2][normalize-space(.)='Mark fulfillment shipped']])[1]
@@ -66,11 +67,12 @@ ${SAVE_SHIPPED_BTN}      xpath=//button[normalize-space(.)='Save']
 ${SECTION_FROM_MARK_BTN}    xpath=(//button[normalize-space(.)='Mark as shipped']
 ...    /ancestor::*[self::section or self::div][1])[1]
 
+
 *** Keywords ***
 # ---------- helpers ----------
 Admin Open Orders Page
     Switch Browser    ADMIN
-    Click Element     ${ADMIN_MENU_ORDERS}
+    Click Element     ${LOC_DASHBOARD_TAG}
     Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
 
 Admin Open First Not Fulfilled Order
@@ -82,13 +84,8 @@ Admin Open First Fulfilled Order
     Click Element     ${ROW_FIRST_FULFILLED}
 
 Back To Orders List
-    # เลือกวิธีใดวิธีหนึ่งที่หน้า UI คุณรองรับ
-    # 1) กดเมนู Orders
-    Click Element     ${ADMIN_MENU_ORDERS}
-    Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
-    # หรือ 2) Go Back:
-    # Go Back
-    # Wait Until Element Is Visible    ${ORDERS_TABLE}    10s
+    Go To    ${ORDER_URL}
+    Wait Until Element Is Visible    ${LOC_DASHBOARD_TAG}    10s
 
 Scroll Section Unfulfilled Into View
     Wait Until Page Contains Element    ${SECTION_UNFULFILLED}    15s
@@ -255,18 +252,11 @@ Scroll To Fulfillment Section (Robust)
         ...    AND    Execute Javascript    window.scrollBy(0, -80);
         ...    AND    Exit For Loop
     END
-
     ${seen}=      Run Keyword And Return Status    Page Should Contain Element    ${SECTION_FULFILLED}
     ${seen_btn}=  Run Keyword And Return Status    Page Should Contain Element    ${BADGE_FULFILLED}
     Run Keyword If    not ${seen} and not ${seen_btn}    Fail    Could not locate Fulfillment section or Mark as shipped button. Check DOM/iframe/text.
-
-
-*** Test Cases ***
-TC4_1_Happy_Update_To_Shipped
-    [Documentation]    Update shipping status
-    Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
-    Admin Open Orders Page
-    Admin Open First Not Fulfilled Order
+    
+Full Update shipped
     Open Unfulfilled Action Trigger
     Open Fulfill Modal If Needed
     Admin Fill Fulfillment Form And Submit
@@ -276,5 +266,4 @@ TC4_1_Happy_Update_To_Shipped
     Fill Mark Shipped Modal And Save    TH1234567890    ${False}
     Wait Until Keyword Succeeds    12x    500ms    Check Shipped Indicator
     Back To Orders List
-
 

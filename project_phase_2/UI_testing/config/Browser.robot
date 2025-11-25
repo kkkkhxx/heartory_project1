@@ -1,6 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary    timeout=${SEL_TIMEOUT}    implicit_wait=${IMPLICIT_WAIT}
-Resource   Env.robot
+Resource   env.robot
 
 *** Keywords ***
 Open Admin Browser

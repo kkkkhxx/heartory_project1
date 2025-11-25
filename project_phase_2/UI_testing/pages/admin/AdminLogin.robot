@@ -8,10 +8,6 @@ ${LOC_PASSWORD}       css=input[name="password"]
 ${LOC_SUBMIT}         css=button[type="submit"]
 ${LOC_DASHBOARD_TAG}  xpath=//*[contains(.,'Orders')]
 
-# ออปชันเสริม
-${VIEWPORT_W}              1366
-${VIEWPORT_H}              768
-
 *** Keywords ***
 Admin Page Should Be Visible
     Wait Until Element Is Visible    ${LOC_USERNAME}

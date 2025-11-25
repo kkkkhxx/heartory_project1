@@ -249,7 +249,7 @@ Select Product MU Test Store
     ${product_found}=    Search Product In Current Page
     IF    ${product_found}    RETURN
 
-    FOR    ${page_number}    IN RANGE    2    6
+    FOR    ${page_number}    IN RANGE    2    999
         Log    Searching page ${page_number}
         ${page_button}=    Set Variable    xpath=//div[@data-testid='product-pagination']/button[normalize-space()='${page_number}' and not(@disabled)]
         

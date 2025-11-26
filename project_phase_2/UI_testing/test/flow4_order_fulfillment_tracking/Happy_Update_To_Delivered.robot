@@ -10,9 +10,8 @@ Suite Teardown    Close All Browsers
 
 *** Variables ***
 # แถวแรกที่ Fulfillment = Shipped
-${ROW_FIRST_SHIPPED}    xpath=(//table[.//th[normalize-space()='Fulfillment'] and .//th[normalize-space()='Order Total']]//tbody/tr
-...    [normalize-space(.//td[count(preceding-sibling::td)=count(ancestor::table[1]
-...    //th[normalize-space()='Fulfillment']/preceding-sibling::th)])='Shipped'])[1]
+${ROW_FIRST_SHIPPED}    xpath=(//table[.//th[normalize-space()='Fulfillment']]//tbody
+...    //tr[.//span[normalize-space()='Shipped']])[1]
 
 # ปุ่ม Mark as delivered ใน Fulfillment #1
 ${BTN_MARK_DELIVERED}      xpath=//button[normalize-space(.)='Mark as delivered']
@@ -26,6 +25,8 @@ ${BTN_CONFIRM_DELIVERED}   xpath=(//*[@role='dialog' or @role='alertdialog'][.//
 *** Keywords ***
 Admin Open First Shipped Order
     [Documentation]    เปิด order แถวแรกที่ Fulfillment = Shipped จากหน้า Orders list
+    Wait Until Page Contains    Shipped    10s
+    Sleep    1s
     Wait Until Element Is Visible    ${ROW_FIRST_SHIPPED}    10s
     Click Element                    ${ROW_FIRST_SHIPPED}
 

@@ -368,36 +368,32 @@ Configure Shipping Profile For Product
 Find Product On Any Page
     [Arguments]    ${PRODUCT_NAME}
 
-    Log To Console    🔎 Searching product on Page 1...
-    # รอให้ skeleton/loading หายก่อน
-    Wait Until Page Does Not Contain Element    xpath=//div[contains(@class,'skeleton')]    20s
+    # ลูปเช็กได้สูงสุด 3 หน้า กันเผื่ออนาคต (ตอนนี้มี Prev / Next)
+    FOR    ${idx}    IN RANGE    1    10
+        Log To Console    [SYS_01] Check Admin Products page ${idx}...
 
-    ${found_page1}=    Run Keyword And Return Status
-    ...    Page Should Contain Element
-    ...    xpath=//*[contains(text(),'${PRODUCT_NAME}')]
+        ${found}=    Run Keyword And Return Status
+        ...    Page Should Contain Element
+        ...    xpath=//tr[.//a[contains(normalize-space(.),'${PRODUCT_NAME}')]]
 
-    IF    ${found_page1}
-        Log To Console    ✅ Product found on Page 1
-        RETURN
+        IF    ${found}
+            Log To Console    [SYS_01] Found product on Admin Products page ${idx}.
+            RETURN
+        END
+
+        ${has_next}=    Run Keyword And Return Status
+        ...    Page Should Contain Element
+        ...    xpath=//button[normalize-space()='Next']
+
+        IF    ${has_next}
+            Log To Console    [SYS_01] Not found on page ${idx} → click Next...
+            Click Element    xpath=//button[normalize-space()='Next']
+            Sleep    1s
+        ELSE
+            Log To Console    [SYS_01] No Next button on page ${idx} → stop searching.
+            BREAK
+        END
     END
 
-    Log To Console    ❌ Not on Page 1 → click Next
-
-    # ถ้าไม่เจอ ให้กดปุ่ม Next (หรือปุ่มเลข 2 ถ้าเค้าใช้เลข)
-    Wait Until Element Is Visible
-    ...    xpath=//button[normalize-space()='Next' or normalize-space()='2']
-    ...    20s
-    Click Element
-    ...    xpath=//button[normalize-space()='Next' or normalize-space()='2']
-    Sleep    1s
-
-    # รอให้หน้า 2 โหลดเสร็จ
-    Wait Until Page Does Not Contain Element    xpath=//div[contains(@class,'skeleton')]    20s
-
-    ${found_page2}=    Run Keyword And Return Status
-    ...    Page Should Contain Element
-    ...    xpath=//*[contains(text(),'${PRODUCT_NAME}')]
-
-    Should Be True    ${found_page2}    msg=❌ Product not found on Page 2!
-    Log To Console    ✅ Found product on Page 2
+    Fail    [SYS_03] Product '${PRODUCT_NAME}' not found in first 3 pages of Products list.
 

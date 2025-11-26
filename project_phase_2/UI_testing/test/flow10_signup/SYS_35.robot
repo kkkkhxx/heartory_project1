@@ -21,9 +21,9 @@ Test Customer Signup
     Open Customer Browser
     Navigate To Account Page
     Click Join Us Button
-    Customer Signup    Cole    Palmer    cp@example.com    1234
+    Customer Signup    Cole    Palmer    cp23@example.com    1234
     Verify Account Page    
-    Verify Email Message    cp@example.com
+    Verify Email Message    cp23@example.com
 
 *** Keywords ***
 Customer Page Should Be Visible

@@ -13,8 +13,8 @@ ${STORE_LINK}                xpath=//a[@data-testid='store-link' and contains(.,
 
 # Product selection
 ${PRODUCT_MU_TEST_STORE}     xpath=//p[@data-testid='product-title' and contains(.,'MU Testing store')]/ancestor::a[1]
-${SIZE_M_BUTTON}             xpath=//button[normalize-space()='M']
-${COLOR_WHITE_BUTTON}        xpath=//button[normalize-space()='White']
+${SIZE_M_BUTTON}             xpath=//button[@data-testid='option-button' and normalize-space()='M']
+${COLOR_WHITE_BUTTON}        xpath=//button[@data-testid='option-button' and normalize-space()='White']
 ${ADD_TO_CART_BUTTON}        xpath=//button[contains(.,'Add to cart')]
 
 # Cart & Checkout
@@ -106,24 +106,21 @@ Select Product MU Test Store
     Fail    Product MU Testing store not found within ${max_pages} pages!
 
 Select Size M And Color White
-    [Documentation]    เลือก Size = M และ Color = White ถ้ามีปุ่มให้กด
-    ${size_found}=    Run Keyword And Return Status
-    ...    Wait Until Element Is Visible    ${SIZE_M_BUTTON}    10s
-    IF    ${size_found}
-        Click Element    ${SIZE_M_BUTTON}
-        Sleep    0.5s
-    ELSE
-        Log    Size M not found, continuing without selecting size
-    END
+    [Documentation]    เลือก Size = M และ Color = White (ต้องเจอ ถ้าไม่เจอให้ fail เลย)
 
-    ${color_found}=    Run Keyword And Return Status
-    ...    Wait Until Element Is Visible    ${COLOR_WHITE_BUTTON}    10s
-    IF    ${color_found}
-        Click Element    ${COLOR_WHITE_BUTTON}
-        Sleep    0.5s
-    ELSE
-        Log    Color White not found, continuing without selecting color
-    END
+    # ----- เลือก Size M -----
+    Wait Until Element Is Visible    ${SIZE_M_BUTTON}    10s
+    Scroll Element Into View         ${SIZE_M_BUTTON}
+    Sleep    0.3s
+    Click Element                    ${SIZE_M_BUTTON}
+    Sleep    0.5s
+
+    # ----- เลือก Color White -----
+    Wait Until Element Is Visible    ${COLOR_WHITE_BUTTON}    10s
+    Scroll Element Into View         ${COLOR_WHITE_BUTTON}
+    Sleep    0.3s
+    Click Element                    ${COLOR_WHITE_BUTTON}
+    Sleep    0.5s
 
 Add To Cart Twice
     [Documentation]    กด Add to cart 2 ครั้ง (เพื่อล็อก Reserved = 2)
@@ -184,7 +181,7 @@ Select Payment And Review
     ${clicked}=    Run Keyword And Return Status
     ...    Click Element    ${MANUAL_PAYMENT_RADIO}
     IF    not ${clicked}
-        Log To Console    ⚠️ Normal click on payment radio failed, trying JS click...
+        Log To Console    Normal click on payment radio failed, trying JS click...
         ${radio_el}=    Get WebElement    ${MANUAL_PAYMENT_RADIO}
         Execute Javascript    arguments[0].click();    ARGUMENTS    ${radio_el}
         Sleep    0.5s

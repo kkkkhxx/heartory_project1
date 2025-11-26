@@ -59,7 +59,8 @@ Fill Field In Edit Panel
     ${ok}=    Run Keyword And Return Status
     ...    Element Attribute Value Should Be    ${field}    value    ${value}
     Run Keyword Unless    ${ok}    Execute JavaScript
-    ...    var el=arguments[0],v=arguments[1]; if(el){var last=el.value; el.value=v; var e=new Event('input',{bubbles:true}); if(el._valueTracker){el._valueTracker.setValue(last);} el.dispatchEvent(e);}
+    ...    var el=arguments[0],v=arguments[1]; if(el){var last=el.value; el.value=v; var e=new Event('input',{bubbles:true}); 
+    ...    if(el._valueTracker){el._valueTracker.setValue(last);} el.dispatchEvent(e);}
     ...    ${field}    ${value}
 
 Update Customer And Save

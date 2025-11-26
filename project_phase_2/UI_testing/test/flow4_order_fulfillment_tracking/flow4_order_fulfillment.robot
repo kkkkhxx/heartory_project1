@@ -27,7 +27,6 @@ SYS10_Happy_Update_To_Shipped
     Click First Customer Order
     Verify Shipped Order Details
 
-*** Test Cases ***
 SYS11_Happy_Update_To_Delivered
     Open Admin Browser
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}

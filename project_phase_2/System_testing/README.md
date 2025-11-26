@@ -33,4 +33,4 @@
 
 รายละเอียด Test Case และผลการทดสอบทั้งหมดอยู่ในไฟล์:
 
-- Test-case-System testing.pdf
+- System_Testing_Group04.pdf

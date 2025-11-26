@@ -16,13 +16,19 @@ ${DELETE_CUSTOMER_MODAL}          xpath=//div[@role='alertdialog' and contains(.
 ${DELETE_CUSTOMER_INPUT}    xpath=//input[@id='verificationText']
 ${DELETE_CUSTOMER_CONFIRM_BTN}    xpath=//div[@role='alertdialog']//button[contains(.,'Delete')]
 
-${CUSTOMER_ACTION_MENU_BTN}    xpath=(//*[self::section or self::div][.//h1[normalize-space(.)='eatpizzaw@example.com']][ not(ancestor::aside) ])
-...    //*[normalize-space(.)='Guest']/ancestor::*[self::div or self::section][1]
-...    //button[.//*[name()='svg']][not(ancestor::aside)][last()]
+${CUSTOMER_ACTION_MENU_BTN_TEMPLATE}    xpath=//h1[normalize-space(.)='__EMAIL__']
+...    /ancestor::*[self::section or self::div][1]
+...    //button[.//*[name()='svg']][1]
+
 ${MENUITEM_DELETE_CUSTOMER}    xpath=//div[@role='menu']//div[@role='menuitem'][contains(normalize-space(),'Delete')]
 
    
 *** Keywords ***
+Get Customer Action Menu Locator
+    [Arguments]    ${email}
+    ${locator}=    Replace String    ${CUSTOMER_ACTION_MENU_BTN_TEMPLATE}    __EMAIL__    ${email}
+    [Return]       ${locator}
+
 Search Customer By Email
     [Arguments]    ${email}
     Wait Until Element Is Visible    ${CUSTOMER_SEARCH_INPUT}    10s
@@ -42,9 +48,12 @@ Open Customer From Search By Email
     Click Element                    ${locator}
 
 Open Customer Action Menu
-    Wait Until Element Is Visible    ${CUSTOMER_ACTION_MENU_BTN}    10s
-    Click Element                    ${CUSTOMER_ACTION_MENU_BTN}
+    [Arguments]    ${email}
+    ${locator}=    Get Customer Action Menu Locator    ${email}
+    Wait Until Element Is Visible    ${locator}    10s
+    Click Element                    ${locator}
     Wait Until Element Is Visible    xpath=//div[@role='menu']    5s
+
 
 Choose Delete From Customer Menu
     # เมนูถูกเปิดแล้วจาก Open Customer Action Menu
@@ -63,7 +72,7 @@ Confirm Delete Customer By Email
 
 Delete Customer From Detail Page
     [Arguments]    ${email}
-    Open Customer Action Menu
+    Open Customer Action Menu           ${email}
     Choose Delete From Customer Menu
     Confirm Delete Customer By Email    ${email}
     Wait Until Location Contains    /app/customers    10s

@@ -1,6 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
-Resource   ..\..\pages\customer\CuctomerLogin.robot
+Resource   ../../pages/customer/CustomerLogin.robot
 
 *** Variables ***
 # -------- Sidebar --------

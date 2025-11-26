@@ -2,23 +2,23 @@
 Resource          Happy_Create_New_Customer.robot
 Resource          Happy_Edit_Customer_Profile.robot
 Resource          Happy_Add_Customer_Address.robot
-Resource          Error_Add_Customer_Address.robot
+Resource          Error_Flow5.robot
 Resource          Happy_Delete_Customer.robot
 Suite Setup       Open Admin Browser
 
 *** Test Cases ***
-SYS12_Happy_Create_New_Customer
+SYS12_Happy_Create_New_Customer_ByAdmin
     [Documentation]    Admin: เปิดหน้า customer --> Create --> กรอกข้อมูล --> สร้าง
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
     Admin Open Customers Page
     Open Create Customer Form
-    Fill Create Customer Form    Pizza    Hawa    eatpizzaw@example.com    1112 Corp    0888888888
+    Fill Create Customer Form    Pizza    Hawa    eatpizza@example.com    1112 Corp    0888888888
     Click Create Customer In Modal
-    Verify Customer Detail    eatpizzaw@example.com    Pizza Hawa    1112 Corp    0888888888
+    Verify Customer Detail    eatpizza@example.com    Pizza Hawa    1112 Corp    0888888888
 
 SYS13_Happy_Delete_Customer
     [Documentation]    Admin: ค้นหา --> ลบ
-    ${email}=    Set Variable    eatpizzaw@example.com
+    ${email}=    Set Variable    slot@example.com
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
     Admin Open Customers Page
     Search Customer By Email           ${email}
@@ -26,7 +26,36 @@ SYS13_Happy_Delete_Customer
     Delete Customer From Detail Page    ${email}
     Customer Should Not Exist In Table    ${email}
 
-SYS14_Happy_Edit_Customer_Profile
+SYS14_Error_Create_Email_Empty_Customer_ByAdmin
+    [Documentation]    Admin: ค้นหา --> ลบ
+    Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
+    Admin Open Customers Page
+    Open Create Customer Form
+    Fill Create Customer Form    Pizza    Hawa    ${EMPTY}    1112 Corp    0888888888
+    Click Create Customer In Modal
+    Admin Should See Email Required Error
+    Wait Until Element Is Visible    ${CREATE_CUSTOMER_CANVAS}    5s
+
+SYS15_Error_Create_Email_Duplicate_Customer_ByAdmin
+    [Documentation]    Admin: ค้นหา --> ลบ
+    Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
+    Admin Open Customers Page
+    Open Create Customer Form
+    Fill Create Customer Form    Pizza    Seafood    eatpizza@example.com    1112 Corp    0888888888
+    Click Create Customer In Modal
+    Wait Until Element Is Visible    ${CREATE_CUSTOMER_CANVAS}    5s
+
+SYS16_Error_Create_Email_Format_Customer_ByAdmin
+    [Documentation]    Admin: ค้นหา --> ลบ
+    Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
+    Admin Open Customers Page
+    Open Create Customer Form
+    Fill Create Customer Form    Pizza    Seafood    กกกกกก    1112 Corp    0888888888
+    Click Create Customer In Modal
+    Admin Should See Email Required Error
+    Wait Until Element Is Visible    ${CREATE_CUSTOMER_CANVAS}    5s
+
+SYS17_Happy_Edit_Customer_Profile
     [Documentation]    Admin: Edit Customer Profile --> Customer: Check Profile
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
     Admin Open Customers Page
@@ -45,7 +74,7 @@ SYS14_Happy_Edit_Customer_Profile
     ...    eatburger@example.com
     ...    +66999999999
 
-SYS15_Happy_Add_Customer_Address
+SYS18_Happy_Add_Customer_Address
     [Documentation]    Admin: Admin Add Address --> Customer: Check Profile
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
     Admin Open Customers Page
@@ -71,18 +100,16 @@ SYS15_Happy_Add_Customer_Address
     ...    10310, Bangkok
     ...    TH
  
-SYS16_Error_Add_Customer_Address
+SYS19_Error_Add_Customer_Address
     [Documentation]    Admin: Add Address without Address Name --> Admin should see validation error
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
     Admin Open Customers Page
     Admin Open Customer Name
-
     # เปิดหน้า Create Address แต่ส่ง address_name ว่าง
     Switch Browser    ADMIN
     Wait Until Element Is Visible    ${ADMIN_ADDR_ADD_BTN}    10s
     Click Element                    ${ADMIN_ADDR_ADD_BTN}
     Wait Until Element Is Visible    ${ADDR_DIALOG}    10s
-
     # กรอก field อื่น ยกเว้น address_name
     Fill Address Field By Name    address_name    ${EMPTY}
     Fill Address Field By Name    address_1       32/1 CJ Apartment
@@ -92,14 +119,9 @@ SYS16_Error_Add_Customer_Address
     Select Country                th
     Fill Address Field By Name    company         MU Co., Ltd.
     Fill Address Field By Name    phone           +66999999999
-
     # กด Save
     Click Element    ${ADDR_SAVE_BTN}
-
     # ต้องเห็น error
     Admin Should See Address Name Required Error
-
     # และ dialog ต้องยังคงเปิดอยู่ — เพื่อยืนยันว่าไม่ถูกสร้าง
     Wait Until Element Is Visible    ${ADDR_DIALOG}    5s
-
- 

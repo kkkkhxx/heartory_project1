@@ -15,17 +15,16 @@ Suite Setup       Open Admin Browser
 ${ADMIN_MENU_CUSTOMER}     xpath=//a[contains(normalize-space(.),"Customers")]
 ${CUSTOMERS_TABLE}         xpath=//table[contains(@class,"w-full")]
 
-# ===== ปุ่ม Create ในหน้า Customers (รูปที่ 1) =====
+# ===== ปุ่ม Create ในหน้า Customers =====
 ${BTN_CUSTOMERS_CREATE}    xpath=//a[contains(@href,"/customers/create")]
 
-# ===== Modal Create Customer (รูปที่ 2) =====
-# ใช้ predicate ซ้อน แทน "and" เพื่อลดปัญหา InvalidSelector
+# ===== Modal Create Customer =====
 ${CREATE_CUSTOMER_CANVAS}  //div[@role='dialog'][.//h1[normalize-space(.)='Create Customer']]
 
-# ปุ่ม Create ใน modal (รูปที่ 4)
+# ปุ่ม Create ใน modal
 ${BTN_CREATE_MODAL}        xpath=${CREATE_CUSTOMER_CANVAS}//button[@type='submit' and normalize-space(.)='Create']
 
-# ===== Input fields ใช้ name attribute (รูปที่ 3) =====
+# ===== Input fields ใช้ name attribute =====
 ${INPUT_FIRSTNAME}         name=first_name
 ${INPUT_LASTNAME}          name=last_name
 ${INPUT_EMAIL}             name=email

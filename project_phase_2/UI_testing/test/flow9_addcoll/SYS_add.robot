@@ -34,7 +34,8 @@ ${PRODUCT_TITLE_IN_MERCH}    xpath=//span[normalize-space()='sikkhim']
 # Checkbox in Merch list
 ${PRODUCT_CHECKBOX_IN_MERCH}   xpath=//span[normalize-space()='sikkhim']/ancestor::tr//button[@role='checkbox']
 ${STORE_URL}      http://10.34.112.158:8000/dk
-
+${BTN_STORE_CATEGORY_MERCH}    xpath=//a[@data-testid='category-link' and normalize-space()='Merch']
+${STORE_PRODUCT_TITLE}         xpath=//p[@data-testid='product-title' and normalize-space()='sikkhim']
 
 *** Keywords ***
 

@@ -41,7 +41,7 @@ SYS15_Error_Create_Email_Duplicate_Customer_ByAdmin
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
     Admin Open Customers Page
     Open Create Customer Form
-    Fill Create Customer Form    Pizza    Seafood    eatpizza@example.com    1112 Corp    0888888888
+    Fill Create Customer Form    Pizza    Seafood    eatburger@example.com    1112 Corp    0888888888
     Click Create Customer In Modal
     Wait Until Element Is Visible    ${CREATE_CUSTOMER_CANVAS}    5s
 
@@ -55,14 +55,14 @@ SYS16_Error_Create_Email_Format_Customer_ByAdmin
     Admin Should See Email Required Error
     Wait Until Element Is Visible    ${CREATE_CUSTOMER_CANVAS}    5s
 
-SYS17_Happy_Edit_Customer_Profile
+SYS17_Happy_Edit_Customer_Profile_ByAdmin
     [Documentation]    Admin: Edit Customer Profile --> Customer: Check Profile
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
     Admin Open Customers Page
     Admin Open Customer Name
     Open Menu Action Trigger
     Update Customer And Save
-    ...    first_name=Hammy
+    ...    first_name=Hamcheese
     ...    last_name=Burger
     ...    company_name=MU Co., Ltd.
     ...    phone=+66999999999
@@ -70,7 +70,7 @@ SYS17_Happy_Edit_Customer_Profile
     Customer Login    ${CUS_USER_HAM}    ${CUS_PASS_HAM}
     Select Account Menu    Profile
     Customer Should See Profile Info
-    ...    Hammy Burger
+    ...    Hamcheese Burger
     ...    eatburger@example.com
     ...    +66999999999
 

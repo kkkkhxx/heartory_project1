@@ -39,44 +39,44 @@ Open Admin Browser
 Go To Products Page First
     Wait Until Element Is Visible    ${BTN_PRODUCTS}    20s
     Click Element    ${BTN_PRODUCTS}
-    Log To Console    ▶️ เข้าเมนู Products แล้ว
+    Log To Console     เข้าเมนู Products แล้ว
     Sleep    1s
 
 
 Go To Categories Page
     Wait Until Element Is Visible    ${BTN_CATEGORIES}    20s
     Click Element    ${BTN_CATEGORIES}
-    Log To Console    ▶️ เข้า Categories page แล้ว
+    Log To Console     เข้า Categories page แล้ว
 
 
 Open Category Tab
     Wait Until Element Is Visible    ${BTN_CATEGORY_TAB}    20s
     Click Element    ${BTN_CATEGORY_TAB}
-    Log To Console    ▶️ เปิดแท็บ Categories แล้ว
+    Log To Console     เปิดแท็บ Categories แล้ว
 
 
 Select Category Merch
     Wait Until Element Is Visible    ${CATEGORY_ITEM_MERCH}    20s
     Click Element    ${CATEGORY_ITEM_MERCH}
-    Log To Console    ▶️ เข้า Merch category แล้ว
+    Log To Console     เข้า Merch category แล้ว
 
 
 Check Product Exists
     Wait Until Element Is Visible    ${PRODUCT_ROW_SIKKHIM}    20s
-    Log To Console    👀 พบสินค้า sikkhim แล้ว
+    Log To Console     พบสินค้า sikkhim แล้ว
 
 
 Select Product Checkbox
     Wait Until Element Is Visible    ${PRODUCT_CHECKBOX_SIKKHIM}    20s
     Click Element    ${PRODUCT_CHECKBOX_SIKKHIM}
     Sleep    500ms
-    Log To Console    ☑️ เลือกสินค้า sikkhim แล้ว
+    Log To Console     เลือกสินค้า sikkhim แล้ว
 
 
 Click Remove In Bar
     Wait Until Element Is Visible    ${BTN_REMOVE_BAR}    15s
     Click Element    ${BTN_REMOVE_BAR}
-    Log To Console    🗑️ กด Remove แล้ว
+    Log To Console     กด Remove แล้ว
 
 
 Confirm Remove

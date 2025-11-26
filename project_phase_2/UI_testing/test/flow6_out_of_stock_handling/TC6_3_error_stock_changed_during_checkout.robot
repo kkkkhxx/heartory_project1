@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     TC6_3 – Error: Stock changed between orders → ระบบต้องปฏิเสธการสั่งซื้อรอบสอง
-...               Flow (เวอร์ชันปรับ):
+...               Flow:
 ...               1) Admin login → ไปหน้า Products → เปิดสินค้า ${PRODUCT_NAME} → เข้า Inventory item → อ่าน Available ของ ${LOCATION_NAME}
 ...               2) Customer (eatburger) login → ซื้อสินค้ารอบแรกแบบ fix = 3 ชิ้น (สั่งซื้อสำเร็จ)
 ...               3) Admin อ่าน Available อีกครั้ง → ลด Available ของ ${LOCATION_NAME} ลง 2 หน่วย

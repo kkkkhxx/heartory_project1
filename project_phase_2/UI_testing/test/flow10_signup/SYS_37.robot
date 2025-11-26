@@ -18,11 +18,12 @@ ${VIEWPORT_W}          1366
 ${VIEWPORT_H}          768
 
 *** Test Cases ***
-Test Customer Signup with Invalid Email
+Test Customer Signup with Existing Email
     Open Customer Browser
     Navigate To Account Page
     Click Join Us Button
-    Customer Signup    Cole    Palmer    j    1234
+    Customer Signup    Cole    Palmer    cp@example.com    1234
+    Verify Email Error  
     Verify No Redirection To Account Page
 
 *** Keywords ***
@@ -49,7 +50,10 @@ Click Join Us Button
     Click Element    ${LOC_JOIN_US_BUTTON}
     Wait Until Element Is Visible    ${LOC_FIRST_NAME}    15s
 
-
+Verify Email Error
+    Wait Until Element Is Visible    ${LOC_EMAIL_ERROR}    15s  
+    Element Text Should Be    ${LOC_EMAIL_ERROR}    Error: Identity with email already exists  
 
 Verify No Redirection To Account Page
     ${current_url}=    Get Location
+    Log    Current URL: ${current_url}  

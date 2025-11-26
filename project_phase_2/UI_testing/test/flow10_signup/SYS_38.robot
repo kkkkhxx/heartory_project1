@@ -1,51 +1,55 @@
 *** Settings ***
-Library    SeleniumLibrary    timeout=10s    implicit_wait=0.3
+Library    SeleniumLibrary
 Resource   ../../pages/customer/CustomerLogin.robot
 Variables  ../../config/Env.robot
 
 *** Variables ***
-${CUS_LOC_USERNAME}        css=input[name="email"]
-${CUS_LOC_PASSWORD}        css=input[name="password"]
-${CUS_LOC_SUBMIT}          css=button[type="submit"]
-${CUS_LOC_NAV_ACCOUNT}     css=a[data-testid="nav-account-link"]
-${CUS_LOC_LOGOUT_BUTTON}   xpath=//div[@data-testid='account-nav']//button[@data-testid='logout-button']
-${CUS_LOC_SIGNIN_MESSAGE}  xpath=//p[normalize-space()='Sign in to access an enhanced shopping experience.']
+${LOC_FIRST_NAME}      css=input[data-testid="first-name-input"]
+${LOC_LAST_NAME}       css=input[data-testid="last-name-input"]
+${LOC_EMAIL}           css=input[data-testid="email-input"]
+${LOC_PASSWORD}        css=input[data-testid="password-input"]
+${LOC_JOIN_BUTTON}     css=button[data-testid="register-button"]
+${LOC_ACCOUNT_LINK}    css=a[data-testid="nav-account-link"]
+${LOC_JOIN_US_BUTTON}  css=button[data-testid="register-button"]
+${LOC_EMAIL_ERROR}     css=div[data-testid="register-error"] 
+${LOC_EMAIL_MESSAGE}   css=span[data-testid="customer-email"]  
 
-${VIEWPORT_W}              1366
-${VIEWPORT_H}              768
+${VIEWPORT_W}          1366
+${VIEWPORT_H}          768
 
 *** Test Cases ***
-Test Customer Logout
+Test Customer Signup with Invalid Email
     Open Customer Browser
-    Customer Login    ${CUS_USER_HAM}    ${CUS_PASS_HAM}
-    Logout
-    Verify Logout Success
+    Navigate To Account Page
+    Click Join Us Button
+    Customer Signup    Cole    Palmer    j    1234
+    Verify No Redirection To Account Page
 
 *** Keywords ***
-Open Customer Browser
-    Open Browser    about:blank    ${BROWSER}    alias=CUSTOMER
-    Set Window Size    ${VIEWPORT_W}    ${VIEWPORT_H}
+Customer Page Should Be Visible
+    Wait Until Element Is Visible    ${LOC_FIRST_NAME}
+
+Customer Signup
+    [Arguments]    ${first_name}    ${last_name}    ${email}    ${password}
+    Input Text    ${LOC_FIRST_NAME}    ${first_name}
+    Input Text    ${LOC_LAST_NAME}     ${last_name}
+    Input Text    ${LOC_EMAIL}         ${email}
+    Input Text    ${LOC_PASSWORD}      ${password}
+    Click Button   ${LOC_JOIN_BUTTON}
+    Wait Until Page Contains Element   ${LOC_JOIN_BUTTON}    15s
+
+Navigate To Account Page
     Go To    ${CUSTOMER_URL}
+    Wait Until Element Is Visible    ${LOC_ACCOUNT_LINK}    10s
+    Click Element    ${LOC_ACCOUNT_LINK}
+    Wait Until Page Contains Element    ${LOC_JOIN_US_BUTTON}    15s
 
-Customer Login
-    [Arguments]    ${email}    ${password}
-    Switch Browser    CUSTOMER
-    Go To    ${CUSTOMER_URL}
-    Wait Until Element Is Visible    ${CUS_LOC_NAV_ACCOUNT}    10s
-    Click Element    ${CUS_LOC_NAV_ACCOUNT}
-    Wait Until Element Is Visible    ${CUS_LOC_USERNAME}    10s
-    Input Text    ${CUS_LOC_USERNAME}    ${email}
-    Input Text    ${CUS_LOC_PASSWORD}    ${password}
-    Click Button    ${CUS_LOC_SUBMIT}
-    Wait Until Element Is Visible    ${CUS_LOC_NAV_ACCOUNT}    15s
+Click Join Us Button
+    Wait Until Element Is Visible    ${LOC_JOIN_US_BUTTON}    10s
+    Click Element    ${LOC_JOIN_US_BUTTON}
+    Wait Until Element Is Visible    ${LOC_FIRST_NAME}    15s
 
-Logout
-    Wait Until Element Is Visible    ${CUS_LOC_NAV_ACCOUNT}    10s
-    Click Element    ${CUS_LOC_NAV_ACCOUNT}    # Click to open the account menu
-    Wait Until Element Is Visible    ${CUS_LOC_LOGOUT_BUTTON}    10s
-    Click Element    ${CUS_LOC_LOGOUT_BUTTON}    # Click the "Log out" button
-    Wait Until Element Is Visible    ${CUS_LOC_SIGNIN_MESSAGE}    15s  # Verify the sign-in message appears
 
-Verify Logout Success
-    Wait Until Element Is Visible    ${CUS_LOC_SIGNIN_MESSAGE}    15s
-    Element Text Should Be    ${CUS_LOC_SIGNIN_MESSAGE}    Sign in to access an enhanced shopping experience.
+
+Verify No Redirection To Account Page
+    ${current_url}=    Get Location

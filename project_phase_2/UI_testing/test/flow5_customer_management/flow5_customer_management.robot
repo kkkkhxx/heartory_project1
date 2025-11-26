@@ -12,9 +12,9 @@ SYS12_Happy_Create_New_Customer_ByAdmin
     Admin Login    ${ADMIN_USER}    ${ADMIN_PASS}
     Admin Open Customers Page
     Open Create Customer Form
-    Fill Create Customer Form    Pizza    Hawa    eatpizza@example.com    1112 Corp    0888888888
+    Fill Create Customer Form    Slott    Hawa    slot@example.com    1112 Corp    0888888888
     Click Create Customer In Modal
-    Verify Customer Detail    eatpizza@example.com    Pizza Hawa    1112 Corp    0888888888
+    Verify Customer Detail    slot@example.com    Slott Hawa    1112 Corp    0888888888
 
 SYS13_Happy_Delete_Customer
     [Documentation]    Admin: ค้นหา --> ลบ

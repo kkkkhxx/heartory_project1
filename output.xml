@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.10.11 on win32)" generated="2025-11-26T12:22:37.906712" rpa="false" schemaversion="5">
+<suite id="s1" name="Flow5 Customer Management" source="c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow5_customer_management\flow5_customer_management.robot">
+<kw name="Open Admin Browser" owner="AdminLogin" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:38.217215" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<arg>alias=ADMIN</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-11-26T12:22:38.217215" elapsed="3.299194"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>${VIEWPORT_W}</arg>
+<arg>${VIEWPORT_H}</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2025-11-26T12:22:41.516409" elapsed="0.343681"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:41.860090" level="INFO">Opening url 'http://10.34.112.158:9000/app/'</msg>
+<arg>${ADMIN_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-26T12:22:41.860090" elapsed="1.125795"/>
+</kw>
+<doc>เปิดเบราว์เซอร์ด้วย alias=ADMIN และเข้า http://10.34.112.158:9000/app/</doc>
+<status status="PASS" start="2025-11-26T12:22:38.216249" elapsed="4.769636"/>
+</kw>
+<test id="s1-t1" name="SYS17_Happy_Edit_Customer_Profile" line="58">
+<kw name="Admin Login" owner="AdminLogin">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:42.985885" level="INFO">Opening url 'http://10.34.112.158:9000/app/'</msg>
+<arg>${ADMIN_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-26T12:22:42.985885" elapsed="0.214850"/>
+</kw>
+<kw name="Admin Page Should Be Visible" owner="AdminLogin">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOC_USERNAME}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:43.201735" elapsed="1.116492"/>
+</kw>
+<status status="PASS" start="2025-11-26T12:22:43.201735" elapsed="1.116492"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:44.318227" level="INFO">Typing text 'group4@mu-store.local' into text field 'css=input[name="email"]'.</msg>
+<arg>${LOC_USERNAME}</arg>
+<arg>${user}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:44.318227" elapsed="0.110464"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:44.432974" level="INFO">Typing text 'Mp6!dzT3' into text field 'css=input[name="password"]'.</msg>
+<arg>${LOC_PASSWORD}</arg>
+<arg>${pass}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:44.428691" elapsed="0.077999"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:44.506690" level="INFO">Clicking button 'css=button[type="submit"]'.</msg>
+<arg>${LOC_SUBMIT}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:44.506690" elapsed="0.077784"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${LOC_DASHBOARD_TAG}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2025-11-26T12:22:44.584929" elapsed="0.539682"/>
+</kw>
+<arg>${ADMIN_USER}</arg>
+<arg>${ADMIN_PASS}</arg>
+<status status="PASS" start="2025-11-26T12:22:42.985885" elapsed="2.138726"/>
+</kw>
+<kw name="Admin Open Customers Page" owner="Happy_Edit_Customer_Profile">
+<kw name="Switch Browser" owner="SeleniumLibrary">
+<arg>ADMIN</arg>
+<doc>Switches between active browsers using ``index_or_alias``.</doc>
+<status status="PASS" start="2025-11-26T12:22:45.124611" elapsed="0.000000"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:45.124611" level="INFO">Clicking element 'xpath=//a[contains(normalize-space(.),"Customers")]'.</msg>
+<arg>${ADMIN_MENU_CUSTOMER}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:45.124611" elapsed="0.140080"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CUSTOMERS_TABLE}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:45.265691" elapsed="0.375197"/>
+</kw>
+<status status="PASS" start="2025-11-26T12:22:45.124611" elapsed="0.516277"/>
+</kw>
+<kw name="Admin Open Customer Name" owner="Happy_Edit_Customer_Profile">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${ROW_CUSTOMER_HAMBURGER}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:45.644002" elapsed="0.020140"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:45.664142" level="INFO">Clicking element 'xpath=//table[.//th[normalize-space()='Email']]//tr[td[normalize-space()='eatburger@example.com'and count(preceding-sibling::td) = count(ancestor::table[1]//th[normalize-space()='Email']/preceding-sibling::th)]]'.</msg>
+<arg>${ROW_CUSTOMER_HAMBURGER}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:45.664142" elapsed="0.099811"/>
+</kw>
+<status status="PASS" start="2025-11-26T12:22:45.642934" elapsed="0.123226"/>
+</kw>
+<kw name="Open Menu Action Trigger" owner="Happy_Edit_Customer_Profile">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BTN_MENU_ICON}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:45.767964" elapsed="0.215622"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:45.983586" level="INFO">Clicking element 'xpath=//h1[normalize-space()='eatburger@example.com'] /ancestor::div[contains(@class,'shadow-elevation-card-rest')][1]//button[@aria-haspopup='menu']'.</msg>
+<arg>${BTN_MENU_ICON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:45.983586" elapsed="0.080974"/>
+</kw>
+<msg time="2025-11-26T12:22:46.064560" level="INFO">${ok} = True</msg>
+<var>${ok}</var>
+<arg>Click Element</arg>
+<arg>${BTN_MENU_ICON}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-26T12:22:45.983586" elapsed="0.080974"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:46.064560" level="INFO">Clicking element 'xpath=//a[@role='menuitem' and contains(@href,'/customers/') and contains(@href,'/edit')]'.</msg>
+<arg>${MENU_EDIT}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.064560" elapsed="0.095989"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${EDIT_CUSTOMER_CANVAS}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.160549" elapsed="0.177700"/>
+</kw>
+<status status="PASS" start="2025-11-26T12:22:45.766908" elapsed="0.571341"/>
+</kw>
+<kw name="Update Customer And Save" owner="Happy_Edit_Customer_Profile">
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Fill Field In Edit Panel" owner="Happy_Edit_Customer_Profile">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-26T12:22:46.345713" level="INFO">${field} = //div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='First Name']/following::input[1]</msg>
+<var>${field}</var>
+<arg>${EDIT_CUSTOMER_CANVAS}//label[normalize-space(.)='${label_text}']/following::input[1]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.345713" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${field}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.345713" elapsed="0.025951"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:46.372665" level="INFO">Clicking element '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='First Name']/following::input[1]'.</msg>
+<arg>${field}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.372665" elapsed="0.075876"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${field}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.448541" elapsed="0.031189"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:46.482341" level="INFO">Typing text 'Hamcheese' into text field '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='First Name']/following::input[1]'.</msg>
+<arg>${field}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.480907" elapsed="0.099730"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Element Attribute Value Should Be" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:46.606606" level="INFO">Element '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='First Name']/following::input[1]' attribute 'value' contains value 'Hamcheese'.</msg>
+<arg>${field}</arg>
+<arg>value</arg>
+<arg>${value}</arg>
+<doc>Verifies element identified by ``locator`` contains expected attribute value.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.581999" elapsed="0.025607"/>
+</kw>
+<msg time="2025-11-26T12:22:46.607606" level="INFO">${ok} = True</msg>
+<var>${ok}</var>
+<arg>Element Attribute Value Should Be</arg>
+<arg>${field}</arg>
+<arg>value</arg>
+<arg>${value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.581999" elapsed="0.026076"/>
+</kw>
+<kw name="Run Keyword Unless" owner="BuiltIn">
+<msg time="2025-11-26T12:22:46.608075" level="WARN">Keyword 'BuiltIn.Run Keyword Unless' is deprecated. </msg>
+<arg>${ok}</arg>
+<arg>Execute JavaScript</arg>
+<arg>var el=arguments[0],v=arguments[1]; if(el){var last=el.value; el.value=v; var e=new Event('input',{bubbles:true});</arg>
+<arg>if(el._valueTracker){el._valueTracker.setValue(last);} el.dispatchEvent(e);}</arg>
+<arg>${field}</arg>
+<arg>${value}</arg>
+<doc>*DEPRECATED since RF 5.0. Use Native IF/ELSE or `Run Keyword If` instead.*</doc>
+<status status="PASS" start="2025-11-26T12:22:46.608075" elapsed="0.001040"/>
+</kw>
+<arg>First Name</arg>
+<arg>${first_name}</arg>
+<status status="PASS" start="2025-11-26T12:22:46.345713" elapsed="0.263402"/>
+</kw>
+<arg>'${first_name}'!=''</arg>
+<arg>Fill Field In Edit Panel</arg>
+<arg>First Name</arg>
+<arg>${first_name}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.345713" elapsed="0.264408"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Fill Field In Edit Panel" owner="Happy_Edit_Customer_Profile">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-26T12:22:46.615424" level="INFO">${field} = //div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Last Name']/following::input[1]</msg>
+<var>${field}</var>
+<arg>${EDIT_CUSTOMER_CANVAS}//label[normalize-space(.)='${label_text}']/following::input[1]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.613647" elapsed="0.001777"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${field}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.616413" elapsed="0.036571"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:46.656529" level="INFO">Clicking element '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Last Name']/following::input[1]'.</msg>
+<arg>${field}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.654534" elapsed="0.079435"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${field}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.733969" elapsed="0.040106"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:46.779500" level="INFO">Typing text 'Burger' into text field '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Last Name']/following::input[1]'.</msg>
+<arg>${field}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.778269" elapsed="0.147796"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Element Attribute Value Should Be" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:46.944003" level="INFO">Element '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Last Name']/following::input[1]' attribute 'value' contains value 'Burger'.</msg>
+<arg>${field}</arg>
+<arg>value</arg>
+<arg>${value}</arg>
+<doc>Verifies element identified by ``locator`` contains expected attribute value.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.926427" elapsed="0.017576"/>
+</kw>
+<msg time="2025-11-26T12:22:46.944003" level="INFO">${ok} = True</msg>
+<var>${ok}</var>
+<arg>Element Attribute Value Should Be</arg>
+<arg>${field}</arg>
+<arg>value</arg>
+<arg>${value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.926427" elapsed="0.017576"/>
+</kw>
+<kw name="Run Keyword Unless" owner="BuiltIn">
+<msg time="2025-11-26T12:22:46.944003" level="WARN">Keyword 'BuiltIn.Run Keyword Unless' is deprecated. </msg>
+<arg>${ok}</arg>
+<arg>Execute JavaScript</arg>
+<arg>var el=arguments[0],v=arguments[1]; if(el){var last=el.value; el.value=v; var e=new Event('input',{bubbles:true});</arg>
+<arg>if(el._valueTracker){el._valueTracker.setValue(last);} el.dispatchEvent(e);}</arg>
+<arg>${field}</arg>
+<arg>${value}</arg>
+<doc>*DEPRECATED since RF 5.0. Use Native IF/ELSE or `Run Keyword If` instead.*</doc>
+<status status="PASS" start="2025-11-26T12:22:46.944003" elapsed="0.004331"/>
+</kw>
+<arg>Last Name</arg>
+<arg>${last_name}</arg>
+<status status="PASS" start="2025-11-26T12:22:46.612120" elapsed="0.336214"/>
+</kw>
+<arg>'${last_name}'!=''</arg>
+<arg>Fill Field In Edit Panel</arg>
+<arg>Last Name</arg>
+<arg>${last_name}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.610495" elapsed="0.337839"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Fill Field In Edit Panel" owner="Happy_Edit_Customer_Profile">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-26T12:22:46.948334" level="INFO">${field} = //div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Company']/following::input[1]</msg>
+<var>${field}</var>
+<arg>${EDIT_CUSTOMER_CANVAS}//label[normalize-space(.)='${label_text}']/following::input[1]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.948334" elapsed="0.005507"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${field}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.953841" elapsed="0.042634"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:46.999512" level="INFO">Clicking element '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Company']/following::input[1]'.</msg>
+<arg>${field}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.997594" elapsed="0.081938"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${field}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.079532" elapsed="0.054423"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:47.133955" level="INFO">Typing text 'MU Co., Ltd.' into text field '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Company']/following::input[1]'.</msg>
+<arg>${field}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.133955" elapsed="0.199913"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Element Attribute Value Should Be" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:47.353566" level="INFO">Element '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Company']/following::input[1]' attribute 'value' contains value 'MU Co., Ltd.'.</msg>
+<arg>${field}</arg>
+<arg>value</arg>
+<arg>${value}</arg>
+<doc>Verifies element identified by ``locator`` contains expected attribute value.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.336351" elapsed="0.019162"/>
+</kw>
+<msg time="2025-11-26T12:22:47.355832" level="INFO">${ok} = True</msg>
+<var>${ok}</var>
+<arg>Element Attribute Value Should Be</arg>
+<arg>${field}</arg>
+<arg>value</arg>
+<arg>${value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.335767" elapsed="0.020065"/>
+</kw>
+<kw name="Run Keyword Unless" owner="BuiltIn">
+<msg time="2025-11-26T12:22:47.355832" level="WARN">Keyword 'BuiltIn.Run Keyword Unless' is deprecated. </msg>
+<arg>${ok}</arg>
+<arg>Execute JavaScript</arg>
+<arg>var el=arguments[0],v=arguments[1]; if(el){var last=el.value; el.value=v; var e=new Event('input',{bubbles:true});</arg>
+<arg>if(el._valueTracker){el._valueTracker.setValue(last);} el.dispatchEvent(e);}</arg>
+<arg>${field}</arg>
+<arg>${value}</arg>
+<doc>*DEPRECATED since RF 5.0. Use Native IF/ELSE or `Run Keyword If` instead.*</doc>
+<status status="PASS" start="2025-11-26T12:22:47.355832" elapsed="0.000000"/>
+</kw>
+<arg>Company</arg>
+<arg>${company_name}</arg>
+<status status="PASS" start="2025-11-26T12:22:46.948334" elapsed="0.407498"/>
+</kw>
+<arg>'${company_name}'!=''</arg>
+<arg>Fill Field In Edit Panel</arg>
+<arg>Company</arg>
+<arg>${company_name}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-26T12:22:46.948334" elapsed="0.407498"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Fill Field In Edit Panel" owner="Happy_Edit_Customer_Profile">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-26T12:22:47.365698" level="INFO">${field} = //div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Phone']/following::input[1]</msg>
+<var>${field}</var>
+<arg>${EDIT_CUSTOMER_CANVAS}//label[normalize-space(.)='${label_text}']/following::input[1]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.363634" elapsed="0.002064"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${field}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.367775" elapsed="0.039813"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:47.410104" level="INFO">Clicking element '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Phone']/following::input[1]'.</msg>
+<arg>${field}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.407588" elapsed="0.083694"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${field}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.493833" elapsed="0.083368"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:47.579793" level="INFO">Typing text '+66999999999' into text field '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Phone']/following::input[1]'.</msg>
+<arg>${field}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.578743" elapsed="0.129272"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Element Attribute Value Should Be" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:47.723834" level="INFO">Element '//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//label[normalize-space(.)='Phone']/following::input[1]' attribute 'value' contains value '+66999999999'.</msg>
+<arg>${field}</arg>
+<arg>value</arg>
+<arg>${value}</arg>
+<doc>Verifies element identified by ``locator`` contains expected attribute value.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.708015" elapsed="0.015819"/>
+</kw>
+<msg time="2025-11-26T12:22:47.723834" level="INFO">${ok} = True</msg>
+<var>${ok}</var>
+<arg>Element Attribute Value Should Be</arg>
+<arg>${field}</arg>
+<arg>value</arg>
+<arg>${value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.708015" elapsed="0.015819"/>
+</kw>
+<kw name="Run Keyword Unless" owner="BuiltIn">
+<msg time="2025-11-26T12:22:47.723834" level="WARN">Keyword 'BuiltIn.Run Keyword Unless' is deprecated. </msg>
+<arg>${ok}</arg>
+<arg>Execute JavaScript</arg>
+<arg>var el=arguments[0],v=arguments[1]; if(el){var last=el.value; el.value=v; var e=new Event('input',{bubbles:true});</arg>
+<arg>if(el._valueTracker){el._valueTracker.setValue(last);} el.dispatchEvent(e);}</arg>
+<arg>${field}</arg>
+<arg>${value}</arg>
+<doc>*DEPRECATED since RF 5.0. Use Native IF/ELSE or `Run Keyword If` instead.*</doc>
+<status status="PASS" start="2025-11-26T12:22:47.723834" elapsed="0.000000"/>
+</kw>
+<arg>Phone</arg>
+<arg>${phone}</arg>
+<status status="PASS" start="2025-11-26T12:22:47.361676" elapsed="0.362158"/>
+</kw>
+<arg>'${phone}'!=''</arg>
+<arg>Fill Field In Edit Panel</arg>
+<arg>Phone</arg>
+<arg>${phone}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.355832" elapsed="0.368002"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BTN_SAVE}</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.723834" elapsed="0.042729"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:47.767742" level="INFO">Clicking element 'xpath=//div[@role='dialog' and .//h1[normalize-space(.)='Edit Customer']]//button[normalize-space(.)='Save']'.</msg>
+<arg>${BTN_SAVE}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.767742" elapsed="0.090233"/>
+</kw>
+<arg>first_name=Hamcheese</arg>
+<arg>last_name=Burger</arg>
+<arg>company_name=MU Co., Ltd.</arg>
+<arg>phone=+66999999999</arg>
+<status status="PASS" start="2025-11-26T12:22:46.343660" elapsed="1.514315"/>
+</kw>
+<kw name="Open Customer Browser" owner="CustomerLogin">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:47.859227" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<arg>alias=CUSTOMER</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-11-26T12:22:47.859227" elapsed="1.246600"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>${VIEWPORT_W}</arg>
+<arg>${VIEWPORT_H}</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2025-11-26T12:22:49.105827" elapsed="0.350858"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:49.456685" level="INFO">Opening url 'http://10.34.112.158:8000/dk/'</msg>
+<arg>${CUSTOMER_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-26T12:22:49.456685" elapsed="0.924096"/>
+</kw>
+<doc>เปิดเบราว์เซอร์ด้วย alias=CUSTOMER และเข้า http://10.34.112.158:8000/dk/</doc>
+<status status="PASS" start="2025-11-26T12:22:47.859227" elapsed="2.521554"/>
+</kw>
+<kw name="Customer Login" owner="CustomerLogin">
+<kw name="Switch Browser" owner="SeleniumLibrary">
+<arg>CUSTOMER</arg>
+<doc>Switches between active browsers using ``index_or_alias``.</doc>
+<status status="PASS" start="2025-11-26T12:22:50.385000" elapsed="0.001001"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:50.387008" level="INFO">Opening url 'http://10.34.112.158:8000/dk/'</msg>
+<arg>${CUSTOMER_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-11-26T12:22:50.386001" elapsed="0.614002"/>
+</kw>
+<kw name="Customer Page Should Be Visible" owner="CustomerLogin">
+<kw name="Switch Browser" owner="SeleniumLibrary">
+<arg>CUSTOMER</arg>
+<doc>Switches between active browsers using ``index_or_alias``.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.002119" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CUS_LOC_NAV_ACCOUNT}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.003629" elapsed="0.041383"/>
+</kw>
+<doc>เช็คว่าหน้า store โหลดแล้ว และมีปุ่ม Account ให้กด</doc>
+<status status="PASS" start="2025-11-26T12:22:51.000003" elapsed="0.045009"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:51.045012" level="INFO">Clicking element 'css=a[data-testid="nav-account-link"]'.</msg>
+<arg>${CUS_LOC_NAV_ACCOUNT}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.045012" elapsed="0.051482"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CUS_LOC_USERNAME}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.096494" elapsed="0.530225"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:51.626719" level="INFO">Typing text 'eatburger@example.com' into text field 'css=input[name="email"]'.</msg>
+<arg>${CUS_LOC_USERNAME}</arg>
+<arg>${CUS_USER_HAM}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.626719" elapsed="0.084328"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:51.712059" level="INFO">Typing text '1234' into text field 'css=input[name="password"]'.</msg>
+<arg>${CUS_LOC_PASSWORD}</arg>
+<arg>${CUS_PASS_HAM}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.711526" elapsed="0.062509"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:51.774035" level="INFO">Clicking button 'css=button[type="submit"]'.</msg>
+<arg>${CUS_LOC_SUBMIT}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.774035" elapsed="0.079761"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CUS_LOC_NAV_ACCOUNT}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.853796" elapsed="0.010024"/>
+</kw>
+<arg>${CUS_USER_HAM}</arg>
+<arg>${CUS_PASS_HAM}</arg>
+<status status="PASS" start="2025-11-26T12:22:50.382774" elapsed="1.481046"/>
+</kw>
+<kw name="Select Account Menu" owner="CustomerLogin">
+<kw name="Switch Browser" owner="SeleniumLibrary">
+<arg>CUSTOMER</arg>
+<doc>Switches between active browsers using ``index_or_alias``.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.869770" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-26T12:22:51.869770" level="INFO">${locator} = xpath=//*[@data-testid="account-nav"]//li[normalize-space(.)='Profile']</msg>
+<var>${locator}</var>
+<arg>xpath=//*[@data-testid="account-nav"]//li[normalize-space(.)='${menu_name}']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.869770" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${locator}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:51.869770" elapsed="0.667882"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:52.537652" level="INFO">Clicking element 'xpath=//*[@data-testid="account-nav"]//li[normalize-space(.)='Profile']'.</msg>
+<arg>${locator}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:52.537652" elapsed="0.044412"/>
+</kw>
+<arg>Profile</arg>
+<doc>menu_name: Profile, Addresses, Orders, Log out</doc>
+<status status="PASS" start="2025-11-26T12:22:51.869770" elapsed="0.712294"/>
+</kw>
+<kw name="Customer Should See Profile Info" owner="Happy_Edit_Customer_Profile">
+<kw name="Switch Browser" owner="SeleniumLibrary">
+<arg>CUSTOMER</arg>
+<doc>Switches between active browsers using ``index_or_alias``.</doc>
+<status status="PASS" start="2025-11-26T12:22:52.583590" elapsed="0.000631"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-26T12:22:52.584221" level="INFO">${loc_name} = xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[1]</msg>
+<var>${loc_name}</var>
+<arg>xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[1]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-26T12:22:52.584221" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${loc_name}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:52.584221" elapsed="1.778715"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:54.384061" level="INFO">${act_name} = Hamcheese Burger</msg>
+<var>${act_name}</var>
+<arg>${loc_name}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.362936" elapsed="0.021125"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${act_name}</arg>
+<arg>${exp_name}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.385065" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-26T12:22:54.386496" level="INFO">${loc_email} = xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[2]</msg>
+<var>${loc_email}</var>
+<arg>xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[2]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.386496" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${loc_email}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.386496" elapsed="0.030905"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:54.436952" level="INFO">${act_email} = eatburger@example.com</msg>
+<var>${act_email}</var>
+<arg>${loc_email}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.417401" elapsed="0.019551"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${act_email}</arg>
+<arg>${exp_email}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.438230" elapsed="0.000510"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-11-26T12:22:54.438740" level="INFO">${loc_phone} = xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[3]</msg>
+<var>${loc_phone}</var>
+<arg>xpath=(//*[@data-testid='profile-page-wrapper']//span[@data-testid='current-info'])[3]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.438740" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${loc_phone}</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.438740" elapsed="0.025235"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-11-26T12:22:54.483584" level="INFO">${act_phone} = +66999999999</msg>
+<var>${act_phone}</var>
+<arg>${loc_phone}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.463975" elapsed="0.020148"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${act_phone}</arg>
+<arg>${exp_phone}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-11-26T12:22:54.484123" elapsed="0.000000"/>
+</kw>
+<arg>Hamcheese Burger</arg>
+<arg>eatburger@example.com</arg>
+<arg>+66999999999</arg>
+<status status="PASS" start="2025-11-26T12:22:52.583085" elapsed="1.902053"/>
+</kw>
+<doc>Admin: Edit Customer Profile --&gt; Customer: Check Profile</doc>
+<status status="PASS" start="2025-11-26T12:22:42.985885" elapsed="11.499253"/>
+</test>
+<status status="PASS" start="2025-11-26T12:22:37.909727" elapsed="16.577026"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Flow5 Customer Management" id="s1" pass="1" fail="0" skip="0">Flow5 Customer Management</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-11-26T12:22:37.926130" level="ERROR">Error in file 'c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow5_customer_management\Happy_Create_New_Customer.robot' on line 11: Setting 'Suite Setup' is not allowed in resource file.</msg>
+<msg time="2025-11-26T12:22:38.192450" level="ERROR">Error in file 'c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow5_customer_management\Happy_Edit_Customer_Profile.robot' on line 10: Setting 'Suite Setup' is not allowed in resource file.</msg>
+<msg time="2025-11-26T12:22:38.197120" level="ERROR">Error in file 'c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow5_customer_management\Happy_Add_Customer_Address.robot' on line 11: Setting 'Suite Setup' is not allowed in resource file.</msg>
+<msg time="2025-11-26T12:22:38.200712" level="ERROR">Error in file 'c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow5_customer_management\Error_Flow5.robot' on line 10: Setting 'Suite Setup' is not allowed in resource file.</msg>
+<msg time="2025-11-26T12:22:38.204695" level="ERROR">Error in file 'c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow5_customer_management\Happy_Delete_Customer.robot' on line 8: Setting 'Suite Setup' is not allowed in resource file.</msg>
+<msg time="2025-11-26T12:22:38.204695" level="WARN">Error in file 'c:\Users\HeangKung\Desktop\heartory_project1\project_phase_2\UI_testing\test\flow5_customer_management\Happy_Delete_Customer.robot' on line 30: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-11-26T12:22:46.608075" level="WARN">Keyword 'BuiltIn.Run Keyword Unless' is deprecated. </msg>
+<msg time="2025-11-26T12:22:46.944003" level="WARN">Keyword 'BuiltIn.Run Keyword Unless' is deprecated. </msg>
+<msg time="2025-11-26T12:22:47.355832" level="WARN">Keyword 'BuiltIn.Run Keyword Unless' is deprecated. </msg>
+<msg time="2025-11-26T12:22:47.723834" level="WARN">Keyword 'BuiltIn.Run Keyword Unless' is deprecated. </msg>
+</errors>
+</robot>

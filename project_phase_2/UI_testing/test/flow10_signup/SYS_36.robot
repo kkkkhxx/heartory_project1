@@ -11,20 +11,19 @@ ${LOC_PASSWORD}        css=input[data-testid="password-input"]
 ${LOC_JOIN_BUTTON}     css=button[data-testid="register-button"]
 ${LOC_ACCOUNT_LINK}    css=a[data-testid="nav-account-link"]
 ${LOC_JOIN_US_BUTTON}  css=button[data-testid="register-button"]
-${LOC_EMAIL_ERROR}     css=div[data-testid="register-error"] 
+${EXPECTED_URL}        http://10.34.112.158:8000/dk/account
 ${LOC_EMAIL_MESSAGE}   css=span[data-testid="customer-email"]  
-
 ${VIEWPORT_W}          1366
 ${VIEWPORT_H}          768
 
 *** Test Cases ***
-Test Customer Signup with Existing Email
+Test Customer Signup
     Open Customer Browser
     Navigate To Account Page
     Click Join Us Button
-    Customer Signup    Cole    Palmer    cp@example.com    1234
-    Verify Email Error  
-    Verify No Redirection To Account Page
+    Customer Signup    Cole    Palmer    cp23@example.com    1234
+    Verify Account Page    
+    Verify Email Message    cp23@example.com
 
 *** Keywords ***
 Customer Page Should Be Visible
@@ -50,10 +49,12 @@ Click Join Us Button
     Click Element    ${LOC_JOIN_US_BUTTON}
     Wait Until Element Is Visible    ${LOC_FIRST_NAME}    15s
 
-Verify Email Error
-    Wait Until Element Is Visible    ${LOC_EMAIL_ERROR}    15s  
-    Element Text Should Be    ${LOC_EMAIL_ERROR}    Error: Identity with email already exists  
-
-Verify No Redirection To Account Page
+Verify Account Page
     ${current_url}=    Get Location
-    Log    Current URL: ${current_url}  
+    Should Be Equal As Strings    ${current_url}    ${EXPECTED_URL}
+
+Verify Email Message
+    [Arguments]    ${email}
+    Wait Until Element Is Visible    ${LOC_EMAIL_MESSAGE}    15s
+    ${data_value}=    Get Element Attribute    ${LOC_EMAIL_MESSAGE}    data-value
+    Should Be Equal As Strings    ${data_value}    ${email}
